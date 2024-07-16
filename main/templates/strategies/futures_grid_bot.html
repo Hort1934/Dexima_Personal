@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+  {% if start %}
+    <h1 style="text-align: center"> {% trans "Optimization options" %}</h1>
+    <br>
+  {% elif not start %}
+    <h1 style="text-align: center"> What is a Futures Grid Bot?</h1>
+    <p>
+      Futures Grid Bot is an algorithmic trading strategy, typically deployed in the cryptocurrency domain, that
+      operates
+      on the futures market instead of the spot market. It combines the grid trading strategy with the leverage and
+      mechanics offered by futures trading.
+    </p>
+    <p> By default result represented in USD$</p>
+    <p>
+      Here's a breakdown of its core components:
+      Grid Trading Strategy: The basic premise behind a grid trading strategy is to place buy and sell limit orders at
+      regular intervals (or grids) around a predefined starting price. The bot aims to profit from the asset's
+      volatility,
+      buying when the price drops to a certain grid and selling when it rises to another grid.
+      Futures Trading: Unlike spot trading where you actually buy or sell the asset, futures trading involves entering
+      contracts that commit you to buy or sell at a future date at a predetermined price. These contracts allow for
+      leverage, meaning you can control a larger position with a smaller amount of capital.
+      Combining these two components, the Futures Grid Bot will:
+      Use leverage to maximize potential returns.
+      Automatically adjust positions and perform grid trading on futures contracts.
+      Advantages:
+      Leverage: Can amplify profits due to the nature of futures trading.
+      Automation: Removes the need for constant monitoring, as the bot automatically places orders based on predefined
+      conditions.
+      Efficiency in Volatile Markets: Especially beneficial in markets with frequent price fluctuations, as the bot can
+      make many trades, capturing small profits with each price movement.
+      Disadvantages:
+      Leverage Risks: While leverage can amplify profits, it can also amplify losses. This makes the Futures Grid Bot
+      riskier compared to a regular Grid Bot.
+      Liquidation Risk: If the market moves against your position by a significant amount, you may face liquidation,
+      especially when using high leverage.
+      Fee Accumulation: Given that the bot might make many trades, transaction fees can accumulate, especially in a
+      tight
+      grid setup.
+      Usage Recommendations:
+      Always test with a demo or with small amounts first to understand the bot's behavior.
+      Be cautious with the leverage you use; high leverage increases risks substantially.
+      Regularly monitor and adjust the bot's parameters to adapt to changing market conditions.
+      Make sure to account for fees in your profit and loss calculations.
+      Many cryptocurrency exchanges that offer futures trading may also offer Futures Grid Bots as part of their trading
+      tools or platforms. Always ensure you fully understand the mechanics and risks before deploying any automated
+      trading strategy.
+    </p>
+    <br>
+    {% include "includes/lets_make_ml_strategy.html" %}
+  {% endif %}
+  {% include "includes/backtest_and_optimization.html" %}
+{% endblock %}

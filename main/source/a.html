@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Table</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+  </style>
+</head>
+<body>
+<div id="tableContainer"></div>
+
+<script>
+  const responseData = {
+    "grids_object": {"name": "num_of_grids", "name_display": "Grids", "num_of_grids": 10, "num_of_grids_start": 10, "num_of_grids_end": 100, "num_of_grids_step": 10},
+    "timeframe_object": {"name": "timeframe", "name_display": "Timeframe", "timeframe": "1m", "timeframe_list": ["1m", "5m", "15m", "30m", "1h", "2h", "4h", "1d"]},
+    "price_range_object": {"name": "price_range", "name_display": "Price Range", "price_range": 12, "price_range_start": 12, "price_range_end": 72, "price_range_step": 10},
+    "activation_trigger_in_percent_object": {"name": "activation_trigger_in_percent", "name_display": "Trigger +-%", "activation_trigger_in_percent": 1.0, "activation_trigger_in_percent_start": 1.0, "activation_trigger_in_percent_end": 5.0, "activation_trigger_in_percent_step": 0.5},
+    "distribution_of_grid_lines_object": {"name": "distribution_of_grid_lines", "name_display": "Grid Distribution", "distribution_of_grid_lines": "LINEAR", "distribution_of_grid_lines_list": ["LINEAR", "FIBONACCI"]},
+    "short_stop_loss_in_percent_object": {"name": "short_stop_loss_in_percent", "name_display": "Short SL%", "short_stop_loss_in_percent": 1.0, "short_stop_loss_in_percent_start": 1.0, "short_stop_loss_in_percent_end": 5.0, "short_stop_loss_in_percent_step": 0.5},
+    "long_stop_loss_in_percent_object": {"name": "long_stop_loss_in_percent", "name_display": "Long SL%", "long_stop_loss_in_percent": 1.0, "long_stop_loss_in_percent_start": 1.0, "long_stop_loss_in_percent_end": 5.0, "long_stop_loss_in_percent_step": 0.5},
+    "trend_period_object": {"name": "trend_period", "name_display": "Trend Period", "trend_period": 12, "trend_period_start": 12, "trend_period_end": 72, "trend_period_step": 10}
+  };
+
+  function generateTable(data) {
+    const tableContainer = document.getElementById('tableContainer');
+    const table = document.createElement('table');
+    table.classList.add('table', 'table-bordered', 'table-dark');
+
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+
+    // Headers
+    const headers = ['Options', 'STATIC', 'START', 'STOP', 'STEP'];
+
+    headers.forEach(headerText => {
+      const headerCell = document.createElement('th');
+      headerCell.textContent = headerText;
+      headerRow.appendChild(headerCell);
+    });
+
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    const tbody = document.createElement('tbody');
+
+    for (const key in data) {
+      const object = data[key];
+      const row = document.createElement('tr');
+      row.dataset.name = object.name;
+
+      // Options column (checkbox)
+      const optionsCell = document.createElement('td');
+      optionsCell.innerHTML = `<input type="checkbox">${object.name_display}`;
+      row.appendChild(optionsCell);
+
+      if (Object.keys(object).some(val => val.includes('list'))) {
+        const selectCell = document.createElement('td');
+        const selectElement = document.createElement('select');
+        object[object.name+'_list'].forEach(option => {
+          const optionElement = document.createElement('option');
+          optionElement.value = option;
+          optionElement.textContent = option;
+          selectElement.appendChild(optionElement);
+        });
+        selectCell.appendChild(selectElement);
+        row.appendChild(selectCell.cloneNode(true));
+        row.appendChild(selectCell.cloneNode(true));
+        row.appendChild(selectCell.cloneNode(true));
+      } else {
+        // STATIC, START, STOP, STEP columns
+        const inputNames = [object.name, `${object.name}_start`, `${object.name}_end`, `${object.name}_step`];
+
+        inputNames.forEach(inputName => {
+          const inputCell = document.createElement('td');
+          const inputElement = document.createElement('input');
+          inputElement.type = 'number';
+          inputElement.value = object[inputName];
+          inputCell.appendChild(inputElement);
+          row.appendChild(inputCell);
+        });
+      }
+
+      tbody.appendChild(row);
+    }
+
+    table.appendChild(tbody);
+    tableContainer.innerHTML = '';
+    tableContainer.appendChild(table);
+  }
+
+  // Call the function with your response data
+  generateTable(responseData);
+
+  function parseTable() {
+    const table = document.getElementById('tableContainer').querySelector('table');
+    const rows = table.querySelectorAll('tbody tr');
+    const parsedData = {};
+
+    rows.forEach(row => {
+      let checkBox = row.querySelector('input[type="checkbox"]');
+      if (checkBox.checked) {
+        const name = row.dataset.name;
+        const nameDisplay = row.querySelector('td:nth-child(1)').textContent;
+        const valueCell = row.querySelector('td:nth-child(2)');
+        const selectElements = row.querySelectorAll('select');
+
+        parsedData[name] = {
+          name: name,
+          nameDisplay: nameDisplay,
+          value: selectElements[0] ? selectElements[0].value : valueCell.textContent,
+        };
+
+        if (selectElements[0]) {
+          parsedData[name][`${name}_list`] = Array.from(selectElements[0].options).map(option => option.value);
+        }
+
+        // Assuming the second and third select elements are present
+        if (selectElements.length >= 3) {
+          parsedData[name][`${name}_start`] = selectElements[1].value;
+          parsedData[name][`${name}_end`] = selectElements[2].value;
+        } else {
+          const inputs = Array.from(row.querySelectorAll('input[type="number"]'));
+          const inputNames = ['value', `${name}_start`, `${name}_end`, `${name}_step`];
+
+          inputs.forEach((input, index) => {
+            parsedData[name][inputNames[index]] = input.value;
+          });
+        }
+      }
+    });
+
+    console.log(parsedData);
+    return parsedData;
+  }
+</script>
+
+</body>
+</html>

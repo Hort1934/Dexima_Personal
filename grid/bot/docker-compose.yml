@@ -1,0 +1,12 @@
+version: '3.11'
+
+services:
+  app:
+    build:
+      context: .
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:83"
+    volumes:
+      - ./source/:/app/source/
+      - ./:/app/
+    ports:
+      - "83:83"

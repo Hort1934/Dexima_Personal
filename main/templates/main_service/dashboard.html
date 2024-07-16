@@ -1,0 +1,915 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+<script src="{% static 'js/main_services/dashboard/redirect_to_appropriate_dashboard.js' %}"></script>
+<script src="{% static 'js/mobileDashboard/mobileStopButton.js' %}"></script>
+<script>window.scrollTo(0,0)</script>
+
+    <style>
+        .dark-theme .dialog,
+        .dark-theme .dialog-body,
+        .dark-theme .dialog-body p,
+        .dark-theme .dialog-body label {
+            color: black; /* Цвет текста для черной темы */
+        }
+
+        .dark-theme table {
+            color: black;
+        }
+
+        .mt-5{
+            margin-top: 4rem !important;
+        }
+        .displyNone{
+            display: none !important;
+        }
+
+        .canvasCont{
+            order: 2;
+        }
+
+        .flex{
+            display: flex;
+        }
+
+        .btnCont{
+            justify-content: space-between;
+            align-items: center;
+            order: 0;
+            flex: 1 1 100%;
+        }
+
+        .tableCont button, .tableContArchive button{
+            font-weight: 600;
+            width: 100%;
+            height: 100%;
+            font-size: 16px;
+            border-radius: 4px;
+            color: red;
+        }
+        table tr:last-child th:last-child {
+            border-bottom-left-radius: 10px;
+            border: 1px solid #CFD5CD;
+        }
+        table tr:first-child th:first-child {
+            border-top-left-radius: 10px;
+            border: 1px solid #CFD5CD;
+        }
+        table tr:first-child td:last-child {
+            border-top-right-radius: 10px;
+            border: 1px solid #CFD5CD;
+        }
+        table tr, table th{
+            border: 1px solid #CFD5CD;
+        }
+
+        /* .tableCont > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(3) {
+            border-bottom-right-radius: 10px;
+        } */
+        table tr:last-child td:nth-child(3){
+            border-bottom-right-radius: 10px;
+            border: 1px solid #CFD5CD;
+        }
+        .textAlignCenter h2{
+            flex: 1 1 100%;
+            order: 1;
+        }
+        .statsCont {
+            flex: 1 1 100%;
+            order: 2;
+        }
+        .statsCont h3 {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .info {
+            flex: 1 1 51%;
+            text-align: right;
+            margin-right: 10px;
+        }
+
+
+        .total_balance.stat {
+            text-align: right;
+            /* margin-left: auto; */
+        }
+
+        .stat {
+            flex: 0 1 33%;
+        }
+
+
+        /* .total_balance .stat{
+            position: absolute;
+            right: 0px;
+            margin: 0 30px;
+        } */
+        .archive{
+            background-color: green;
+            border-radius: 10px;
+        }
+        .panicBtn{
+            background-color: red;
+            border-radius: 10px;
+        }
+        table {
+          width: 100%;
+          border-collapse: unset;
+          border-spacing: unset;
+        }
+        .statsCont h3{
+            font-size: .9rem;
+            margin: 3px 15px;
+        }
+        .totalStatsCont{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap-reverse;
+        }
+        .totalStatsCont h2{
+            order: 3;
+            text-align: center;
+            flex: 1;
+        }
+        .totalStatsCont > div{
+            margin: 0 auto;
+        }
+        .graphicCont iframe{
+            border-radius: 14px;
+            border: 1px solid #e6e0e0;
+        }
+        th, td {
+          border: 1px solid #CFD5CD;
+
+          padding: 2px 5px;
+          text-align: left;
+          width: 33.3%;
+          text-transform: uppercase;
+          font-weight: 300;
+          font-size: 10px;
+          font-weight: 500;
+        }
+        .tableCont th, .tableContArchive th{
+          white-space: nowrap;
+
+        }
+
+        .tablesInvestment, .tablesPnl, .tablesProfit{
+            float: right;
+        }
+        .StatLevarage{
+            font-weight: initial;
+            border: 1.5px solid red;
+            padding: 1px 2px;
+            border-radius: 4px;
+            font-size: 9px;
+            font-weight: 700 !important;
+        }
+
+        td {
+            font-size: 8px !important;
+        }
+
+        .investment-cell {
+          white-space: nowrap;
+        }
+        .TdCont{
+            display: flex;
+            direction: inherit;
+            justify-content: space-between;
+        }
+        .textAlignCenter{
+            text-align: center;
+        }
+        canvas {
+            border: 1px solid #ddd;
+            border-radius: 50%;
+        }
+        .graphicCont, .tableCont{
+            width: 100%;
+        }
+        .tableContArchive{
+            width: 95%;
+        }
+        .graphicCont{
+            height: 240px;
+        }
+        [class^='tables']{
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .alighCenter{
+            text-align: center;
+        }
+        .tableCont table, .tableContArchive table{
+            border: 1px solid #CFD5CD;
+            border-radius: 12px;
+            margin: 10px 0;
+            background-color: #f2ebdc;
+        }
+        .tableContArchive table{
+            margin: 10px 2.5%;
+            border: 1px solid black;
+            border-radius: 12px;
+        }
+        .tableContArchive table:first-child{
+            margin: 14% 2.5% 0;
+        }
+
+        /* Стили для модального окна */
+        .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .modal-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: #1d4250;
+        }
+
+        /* Стили для стрелки "назад" */
+        .closeArchiveModal {
+            width: fit-content;
+            position: absolute;
+            top: 5px;
+            left: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            border-radius: 20px;
+            text-align: center;
+            height: fit-content;
+        }
+        #modalContent{
+            background-color: #1d4250;
+        }
+
+
+        /* Styles for the deletion confirmation modal window */
+        #deleteModal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        #deleteModal .delete-modal-dialog {
+            margin: auto;
+            margin-top: 20%;
+        }
+
+        #deleteModal .delete-modal-content2 {
+            color: black;
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        }
+
+        #deleteModal .delete-modal-header h5 {
+            margin: 0;
+        }
+
+        #deleteModal .delete-modal-header .close {
+            margin: 0;
+        }
+
+        #deleteModal .delete-modal-body, #deleteModal .delete-modal-footer {
+            padding: 10px 0;
+        }
+
+        #deleteModal .delete-modal-footer .btn {
+            margin-right: 10px;
+        }
+        .fade-out {
+            animation: fadeOut 0.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+                display: none;
+            }
+        }
+
+        .error-modal-content {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 0.3rem;
+        outline: 0;
+    }
+
+      </style>
+
+    <h2 class="textAlignCenter">DASHBOARD</h2>
+    <div class="graphicCont displyNone"></div>
+
+    <div class="tableCont"></div>
+    <br>
+
+    <div class="totalStatsCont displyNone">
+        <h2 class="textAlignCenter">TOTAL STATS</h2>
+
+        <!-- <hr> -->
+        <div class="canvasCont">
+            <canvas id="circleHistogram" width="300" height="300"></canvas>
+        </div>
+
+        <div class="statsCont">
+            <div class="total_balance"><h3><div class="info">Total balance :</div><div class="stat"> USDT</div></h3></div>
+            <div class="invested_amount"><h3><div class="info">Invested amount :</div><div class="stat"> USDT</div></h3></div>
+            <div class="available_balance"><h3><div class="info">Availiable balance :</div><div class="stat"> USDT</div></h3></div>
+            <div class="active_ats"><h3><div class="info">Active ATS :</div><div class="stat"></div></h3></div>
+            <div class="current_profit"><h3><div class="info">Current profit :</div> <div class="stat"> USDT</div></h3></div>
+        </div>
+
+
+        <div class="modal" id="archiveModal">
+            <div class="modal-content">
+              <span class="closeArchiveModal">&times;</span>
+
+              <div id="modalContent">
+
+                <div class="tableContArchive"></div>
+
+              </div>
+            </div>
+        </div>
+
+
+        <div class="flex btnCont">
+            <button id="openModalBtn" class="archive">ARCHIVE</button>
+            <button class="panicBtn">PANIC BUTTON</button>
+        </div>
+    </div>
+    {#  [stop buttons func]  #}
+    <div class="dialog-overlay" id="dialogOverlay"></div> <!-- Добавленный дополнительный элемент -->
+    <div class="dialog" id="simpleDialog">
+        <button type="button" class="closeButton">×</button>
+        <h5>Confirm Bot Shutdown</h5>
+        <div class="dialog-body">
+            <p>
+                <label>
+                    <input type="radio" id="leaveOpenCheckbox" name="shutdownOption" value="leaveOpen">
+                    <span>I'll manage orders and positions myself</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="radio" id="closeMarketCheckbox" name="shutdownOption" value="closeMarket">
+                    <span>Close orders and positions by market</span>
+                </label>
+            </p>
+            <p>Bot ID: <span id="botId">botId</span></p>
+        </div>
+        <div class="dialog-buttons">
+            <button type="button" id="confirmButton" class="dialog-button">Confirm</button>
+        </div>
+    </div>
+
+    <!-- Deletion confirmation modal window -->
+    <div class="delete-modal" id="deleteModal" tabindex="-1" role="dialog">
+        <div class="delete-modal-dialog" role="document">
+            <div class="delete-modal-content2">
+                <div class="delete-modal-header">
+                    <h5 class="delete-modal-title">Confirm Deletion</h5>
+                </div>
+                <div class="delete-modal-body">
+                    <h4>Are you sure you want to delete this bot?</h4>
+                </div>
+                <div class="delete-modal-footer">
+                    <button type="button" class="btn btn-danger" id="confirmDeleteButton">Delete</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="delete-modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{#     233-StartTradingButtonLogicToMobileDashboardArchive #}
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="error-modal-content">
+                <div class="modal-body">
+                    <h5 class="modal-title">Error</h5>
+                </div>
+                <div class="modal-body">
+                    <p id="errorMessage"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Ок</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // TODO past in seperate script
+        let globalData;
+        window.addEventListener('load', function () {
+            let isFirstIteration = true;
+        function fetchData() {
+        return fetching_data('/get_dashboard_info/')
+            .then(data => {
+                if (data) {
+                    // Обработка данных
+                    globalData = data;
+                    const tradingBots = JSON.parse(data.current_user_trading_bots);
+                    const availableBalance = data.available_balance;
+                    drawCanvas(tradingBots, availableBalance);
+
+                    const tableContainer = document.querySelector('.tableCont');
+                    const table = document.createElement('table');
+                    const tbody = document.createElement('tbody');
+
+                    tableContainer.innerHTML = '';
+                    // Преобразовать JSON-строку в массив объектов
+
+                    // Сортировать массив по полю id
+                    const sortedTradingBots = tradingBots.sort((a, b) => a.id - b.id);
+
+                    // Вставить отсортированные данные в HTML
+                    sortedTradingBots.forEach(item => {
+                        tableContainer.insertAdjacentHTML('beforeend', createTable(item));
+                        // [stop buttons func]
+                        const stopButton = document.querySelector(`#stopButton[data-item-id="${item.id}"]`);
+                        function stopButtonClickHandler(event) {
+                            event.preventDefault();
+                            const itemId = this.getAttribute('data-item-id');
+                            handleStopButtonClick(itemId);
+                        }
+                        stopButton.removeEventListener('click', stopButtonClickHandler);
+                        stopButton.addEventListener('click', stopButtonClickHandler);
+                    });
+
+
+                    pastDataInStats(data);
+
+                    let elem = document.querySelector('.tableCont table');
+
+                    if (elem != null && document.contains(elem) && isFirstIteration) {
+                        symbolAndExchange = getSymbolEchange(elem);
+                        graphicCont.innerHTML = "";
+                        graphicCont.appendChild(makeGraphicScript(symbolAndExchange));
+                        graphicCont.classList.remove('displyNone');
+                        isFirstIteration = false;
+                    }
+                }
+            })
+            .catch(error => console.error('Error in setInterval:', error));
+        }
+            let itemId = 0;
+            let botContainer = null;
+            let headerElement = document.querySelector('header');
+            document.getElementById("openModalBtn").addEventListener("click", function () {
+                document.getElementById("archiveModal").style.display = "block";
+                const archivedTradingBots = JSON.parse(globalData.current_user_archive_bots);
+                const sortedTradingBots = archivedTradingBots.sort((a, b) => a.id - b.id);
+                updateModalContent(sortedTradingBots)
+
+
+                headerElement.style.display = "none";
+                document.querySelector('.delete-modal-footer .btn-secondary').addEventListener('click', function() {
+                    itemId = 0;
+                    botContainer = null;
+                    $('#deleteModal').modal('hide');
+                });
+
+            });
+            function updateModalContent(sortedTradingBots) {
+                let tableContainer = document.querySelector('.tableContArchive');
+                tableContainer.innerHTML = ''; // Очищаем контейнер перед вставкой
+                sortedTradingBots.reverse().forEach(item => {
+                    tableContainer.insertAdjacentHTML('beforeend', createArchiveTable(item));
+
+                    const deleteButton = document.querySelector(`#deleteButton[data-item-id="${item.id}"]`);
+                    deleteButton.addEventListener('click', function () {
+
+                        itemId = this.getAttribute('data-item-id');
+                        botContainer = document.querySelector(`[data-item-id="${itemId}"]`);
+                        $('#deleteModal').modal('show');
+
+                        document.getElementById('confirmDeleteButton').addEventListener('click', function () {
+                            sortedTradingBots = deleteID(itemId, botContainer, sortedTradingBots);
+                            globalData.current_user_archive_bots = JSON.stringify(sortedTradingBots);
+                            $('#deleteModal').modal('hide');
+                        });
+                    });
+                });
+            }
+                function deleteID(itemId, botContainer, sortedTradingBots) {
+                    const indexToRemove = sortedTradingBots.findIndex(item => item.id === parseInt(itemId));
+                    if (indexToRemove !== -1) {
+                        sortedTradingBots.splice(indexToRemove, 1);
+                        deleteItem(itemId, botContainer)
+                    }
+                    return sortedTradingBots;
+                }
+
+                function deleteItem(itemId, botContainer) {
+                    const deleteButtonUrl = `/delete_bot/${itemId}/?mobile=mobile`;
+
+                    fetch(deleteButtonUrl, {
+                        method: 'GET'
+                    }).then(response => {
+                        if (response.ok) {
+                            console.log('Request sent successfully');
+                            if (botContainer) {
+                                botContainer.classList.add('fade-out');
+                                setTimeout(() => {
+                                    botContainer.remove();
+                                }, 500);
+                            }
+                        } else {
+                            console.error('Failed to delete item:', response.status);
+                        }
+                    }).catch(error => {
+                        console.error('Error while sending request:', error);
+                    });
+                }
+
+            document.querySelector('.closeArchiveModal').addEventListener("click", function () {
+                document.getElementById("archiveModal").style.display = "none";
+                headerElement.style.display = "block";
+            });
+            fetchData();
+    });
+        {# 233-StartTradingButtonLogicToMobileDashboardArchive #}
+        function restartButton(item_id, asset, exchange) {
+            var url = "/start_trading_from_archive/" + item_id + "/?chosen_asset=" + asset + "&chosen_exchange=" + exchange + "&restart_bot=restart_bot";
+            fetch(url)
+                .then(function(response) {
+                    if (!response.ok) {
+                        return response.json().then(function(data) {
+                            throw new Error(data.error || 'Network response was not ok');
+                        });
+                    }
+                    return response.json();
+                })
+                .then(function(data) {
+                    if (data.error) {
+                        $('#errorMessage').text(data.error);
+                        $('#errorModal').modal('show');
+                    } else {
+                        window.location.href = '/dashboard/';
+                    }
+                })
+                .catch(function(error) {
+                    $('#errorMessage').text(error.message);
+                    $('#errorModal').modal('show');
+                });
+        }
+        {# 233-StartTradingButtonLogicToMobileDashboardArchive #}
+        function createArchiveTable(obj) {
+            const { id, strategy_name, exchange, trading_pair, leverage, investment_amount, running_time, pnl_percent, profit } = obj;
+            const archiveTable = `
+            <table style="background-color: #1d4250; color:white; border: 4px solid white; font-size: 22px;" data-item-id="${id}">
+                <tbody>
+                <tr>
+                    <th style="text-align: center;">${strategy_name}</th>
+                    <th style="text-align: center;">Amount <span style="color:greenyellow; font-size: 12px;">${investment_amount}$</span></th>
+                    <th style="text-align: center;">Runtime ${running_time}</td>
+                </tr>
+                <tr>
+                    <th style="text-align: center;">${exchange}</th>
+                    <th style="text-align: center;" class="data-cell"><span class="StatLevarage">${leverage}x</span> ${trading_pair}</th>
+                    <th style="text-align: center;">Profit <span style="color: ${parseFloat(profit) < 0 ? '#A6171F' : 'greenyellow'};font-size: 12px;">${parseFloat(pnl_percent) > 0 ? `+${pnl_percent}` : pnl_percent}%</span></th>
+                </tr>
+                <tr>
+                    <td> <button style="color:black; border: 0; background-color: #2197a6;" id="restartButton" data-item-id="${id}"
+                            onclick="restartButton('${id}', '${trading_pair}', '${exchange}')">RESTART</button></td>
+                    <td> <button style="color:black; border: 0; background-color: lightgray;" data-item-id="${id}">DETAILS</button></td>
+                    <th> <button style="color:black; border: 0; background-color: #A6171F;" id="deleteButton" data-item-id="${id}">DELETE</button></th>
+                </tr>
+                </tbody>
+            </table>
+            `
+            return archiveTable;
+        }
+
+        function createTable(obj) {
+            console.log()
+            const { id, strategy_name, exchange, trading_pair, leverage, margin_type, investment_amount, running_time, pnl_percent, profit } = obj;
+            const table = `
+            <table data-item-id="${id}">
+                <tbody>
+                <tr>
+                    <th>${strategy_name}</th>
+                    <td class="data-cell" rowspan="2"><div class="alighCenter">Investment</div><span class="tablesInvestment">${investment_amount}$</span></td>
+                    <td class="data-cell" rowspan="2"><div class="alighCenter">Profit</div><span class="tablesProfit" style="color: ${parseFloat(profit) < 0 ? 'red' : 'green'}">${parseFloat(profit) > 0 ? `+${profit}` : profit}$</span></td>
+                </tr>
+                <tr>
+                    <th><span class="tableExchange">${exchange}</span></th>
+                </tr>
+                <tr>
+                    <th><span class="tableSymbol">${trading_pair}</span> <span class="StatLevarage">${leverage}x</span></th>
+                    <td rowspan="2" class="data-cell">
+                        <div class="TdCont">
+                            <div>Runtime <br> <span class="tablesInvestment">${running_time}</span></div><div style="text-align: right;"> PNL <br> <span style="color: ${parseFloat(profit) < 0 ? 'red' : 'green'}" class=tablesPnl>${parseFloat(pnl_percent) > 0 ? `+${pnl_percent}` : pnl_percent}%</span></div>
+                        </div>
+                    </td>
+                    <td style="border-bottom-right-radius: 10px;" rowspan="2"> <button id="stopButton" data-item-id="${id}">Stop</button></td>
+                </tr>
+                <tr>
+                    <th>${margin_type}</th>
+                </tr>
+                </tbody>
+            </table>
+            `
+            return table;
+        }
+
+        async function fetching_data(url){
+            return fetch(url)
+                .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+                })
+                .then(data => {
+                    return data;
+                })
+                .catch(error => {
+                console.error('Error:', error.message);
+                });
+        }
+        function pastDataInStats(obj){
+            for (const key in obj) {
+                const value = obj[key];
+                if(!['current_user_trading_bots', 'current_user_archive_bots'].some((val) => val == key)){
+                    const elem = document.querySelector(`.${key} .stat`);
+                    if(value < 0)
+                        elem.style.color = 'red';
+                    elem.innerHTML = (key == 'active_ats') ? value : `${value} USDT`;
+                }
+            }
+        }
+
+    </script>
+
+  <script>
+    // TODO past in seperate script
+    function prepareDataForCanvas(tradingBots, availableBalance) {
+      const totalInvestment = tradingBots.reduce((acc, bot) => acc + bot.investment_amount, 0);
+
+      const data = tradingBots.reduce((preparedData, bot) => {
+        const percentage = (bot.investment_amount / totalInvestment) * 100;
+        preparedData[bot.trading_pair] = parseFloat(percentage.toFixed(1));
+        return preparedData;
+      }, {});
+        // Сортировка объекта по ключам (парам)
+
+        // Ограничение по количеству ячеек
+        const maxCells = 8;
+        const visibleData = {};
+        let otherPercentage = 0;
+        const sortedData = Object.fromEntries(Object.entries(data).sort(([,a],[,b]) => a<b));
+
+        Object.entries(sortedData).forEach(([pair, percentage], index) => {
+            if (index < maxCells - 1) {
+                // Добавляем в ячейку
+                visibleData[pair] = percentage;
+            } else {
+                // Суммируем проценты для "Other"
+                otherPercentage += percentage;
+            }
+        });
+        // Добавляем "Other"
+        visibleData['Other'] = parseFloat(otherPercentage.toFixed(1));
+        return visibleData;
+    }
+
+
+    async function drawCanvas(tradingBots, availableBalance) {
+        // CANVAS JS
+        const canvas = document.getElementById('circleHistogram');
+        const ctx = canvas.getContext('2d');
+        const categories = prepareDataForCanvas(tradingBots, availableBalance);
+        const total = Object.values(categories).reduce((acc, value) => acc + value, 0);
+        let startAngle = 0;
+        Object.entries(categories).forEach(([name, percentage], index) => {
+            const endAngle = startAngle + (percentage / total) * (2 * Math.PI);
+        [...document.querySelectorAll('.totalStatsCont.displyNone')].forEach(el => el.classList.remove('displyNone'))
+
+        ctx.beginPath();
+        ctx.moveTo(canvas.width / 2, canvas.height / 2);
+
+        // Рисуем внутреннюю часть
+        ctx.arc(canvas.width / 2, canvas.height / 2, Math.min(canvas.width, canvas.height) / 2, startAngle, endAngle);
+
+        // Устанавливаем цвет заливки
+        ctx.fillStyle = getColorForSymbol(name); // Используйте ваш метод для получения случайного цвета
+        ctx.fill();
+
+        // Рисуем края (границу)
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = ctx.fillStyle; // Используем тот же цвет для границы
+        ctx.stroke();
+
+        // Добавляем текст в середину каждого сегмента
+        const textAngle = startAngle + (endAngle - startAngle) / 2;
+        const textX = canvas.width / 2 + Math.cos(textAngle) * (Math.min(canvas.width, canvas.height) / 2) * 0.7;
+        const textY = canvas.height / 2 + Math.sin(textAngle) * (Math.min(canvas.width, canvas.height) / 2) * 0.7;
+
+        ctx.fillStyle = '#000';
+        ctx.font = '10px Arial';
+
+        // Настроим позицию текста в зависимости от его длины
+        const textWidth = ctx.measureText(`${name} ${percentage}%`).width;
+        const offset = textWidth / 2;
+
+        ctx.fillText(`${name} ${percentage}%`, textX - offset, textY);
+
+        startAngle = endAngle;
+                });
+    }
+
+    // Получение цвета из локального хранилища
+    function getColorFromLocalStorage(symbol) {
+        const storedColor = localStorage.getItem(`color_${symbol}`);
+        return storedColor || null;
+    }
+
+    // Сохранение цвета в локальное хранилище
+    function saveColorToLocalStorage(symbol, color) {
+        localStorage.setItem(`color_${symbol}`, color);
+    }
+
+    // Генерация случайного цвета
+    function generateRandomColor() {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    // Получение цвета для символа
+    function getColorForSymbol(symbol) {
+        // Проверяем, есть ли цвет в локальном хранилище
+        let color = getColorFromLocalStorage(symbol);
+
+        // Если цвета нет, генерируем новый и сохраняем
+        if (!color) {
+            color = generateRandomColor();
+            saveColorToLocalStorage(symbol, color);
+        }
+        return color;
+    }
+
+
+
+    // TODO past in seperate script
+    let symbolAndExchenge;
+    function getSymbolEchange(elemnt){
+        let exchange = elemnt.querySelector('.tableExchange').innerText.toUpperCase();
+        let symbol = elemnt.querySelector('.tableSymbol').innerText.toUpperCase();
+        return `${exchange}:${symbol}`;
+    }
+    function makeGraphicScript(symbolExchange){
+        console.log(symbolExchange)
+        let symbolReplace1000 = symbolExchange === "BINANCE:1000SATSUSDT" ? symbolExchange : symbolExchange.replace('1000', '');
+        const newScript = document.createElement('script');
+        newScript.type = 'text/javascript';
+        newScript.src = 'https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';
+        newScript.async = true;
+        newScript.text = `
+        {
+            "autosize": true,
+            "symbol": "${symbolReplace1000}",
+            "interval": "D",
+            "timezone": "Etc/UTC",
+            "theme": "light",
+            "style": "1",
+            "locale": "en",
+            "enable_publishing": false,
+            "allow_symbol_change": true,
+            "support_host": "https://www.tradingview.com"
+        }
+        `;
+        return newScript;
+    }
+    const graphicCont = document.querySelector('.graphicCont');
+    document.addEventListener('click', function(e){
+        elem = e.target.closest('.tableCont table');
+
+        if (elem != null && document.contains(elem)){
+            let tempSymbolAndExchenge = getSymbolEchange(elem);
+            if (tempSymbolAndExchenge === symbolAndExchenge)
+                return
+            symbolAndExchenge = tempSymbolAndExchenge;
+            graphicCont.innerHTML = "";
+            graphicCont.appendChild(makeGraphicScript(symbolAndExchenge));
+            graphicCont.classList.remove('displyNone');
+        }
+    });
+
+</script>
+{% endblock %}
+
+
+
+
+
+
+/* Inline #7 | http://127.0.0.1:8004/ */
+
+.iframeCont {
+  /* margin: 10px auto 26px 0; */
+  margin: 10px auto 26px auto;
+}
+
+/* styles.css | http://127.0.0.1:8004/static/css/styles.css */
+
+@media screen and (min-height: 200px) {
+  .header-style {
+    margin-bottom: 30px;
+  }
+}
+
+.nav-link-container {
+  /* position: relative; */
+}
+
+/* Inline #5 | http://127.0.0.1:8004/ */
+
+.nav-link-container {
+  /* width: fit-content; */
+  /* float: right; */
+}
+
+.navbar-brand {
+  /* margin-right: 0; */
+  /* background: darkgray; */
+}
+
+/* Element | http://127.0.0.1:8004/ */
+
+.nav-link-container {
+  position: absolute;
+  right: 80px;
+  top: -3px;
+}
+
+/* Element | http://127.0.0.1:8004/ */
+
+.ml-3 {
+  position: absolute;
+  right: 42px;
+  top: 3px;
+}
+
+/* Element | http://127.0.0.1:8004/ */
+
+#theme-toggle {
+  position: relative;
+  right: -14px;
+}
+
+/* Element | http://127.0.0.1:8004/ */
+
+.nav-link-container > a:nth-child(1) > img:nth-child(1) {
+  position: relative;
+  right: -12px;
+}
+
+/* Element | http://127.0.0.1:8004/ */
+
+.navbar > div:nth-child(2) > img:nth-child(1) {
+  /* height: 87px; */
+  /* bottom: 24px; */
+  height: auto;
+  bottom: 41px;
+  width: 220px;
+}

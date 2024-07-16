@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% load i18n %}
+
+{% block content %}
+{% if email_verified %}
+  <div class="text_align_last">
+    <button type="button" class="btn btn-success"
+            name="personal_data">
+      {% blocktrans %}
+        <p>Your email successfully verified!</p>
+      {% endblocktrans %}
+    </button>
+  </div>
+{% elif not email_verified %}
+{% endif %}
+
+<!-- MY PART -->
+<!-- FIRST SECTION -->
+
+<div class="center-content">
+  <div class="index">
+    <h6><br> {% trans "CHOOSE MARKET" %} <br><br></h6>
+  </div>
+
+  <div class="market-selection">
+    <button type="submit" class="btn btn-main btn-main-white" name="crypto">{% trans "Crypto" %} </button>
+    <button type="submit" class="btn btn-main btn-main-white" name="stock">{% trans "Stock" %}</button>
+    <button href="#" class="btn btn-main-white btn-main inactive-link">{% trans "Forex" %}
+      <img src="../../static/images/Coming_soon.png" alt="Soon" class="market-selection-soon-img">
+    </button>
+    <button href="№" class="btn btn-main-white btn-main inactive-link">{% trans "Commodity" %};
+      <img src="../../static/images/Coming_soon.png" alt="Soon" class="market-selection-soon-img">
+    </button>
+  </div>
+
+  <!-- SECOND SECTION-->
+  <div class="index">
+    <h6><br>{% trans "CHOOSE EXCHANGE" %} <br><br></h6>
+  </div>
+
+  <div class="market-selection">
+    <button type="submit" class="btn btn-main btn-main-white" name="binance">{% trans "Binance" %} </button>
+    <a href="{% url 'main_service:trading_description' %}">CONNECT</a>&nbsp;
+    <button type="submit" class="btn btn-main btn-main-white" name="bybit">{% trans "Bybit" %}</button>
+    <button type="submit" class="btn btn-main btn-main-white" name="ku_coin">{% trans "KuCoin" %}</button>
+  </div>
+
+  <!-- MY PART END -->
+  <!-- THIRD SECTION-->
+  <div class="asset-selection">
+    <div class="index">
+      <input type="hidden" name="chosen_strategy" value="{{ chosen_strategy }}">
+      <h6>
+        <br>
+        {% trans "CHOOSE ASSET" %} <br>
+        <br>
+      </h6>
+    </div>
+    {
+    <!-- Search Asset section -->
+    <div class="search-team">
+      <form id="filter-form">
+        {% csrf_token %}
+        <label for="trading_pair"></label>
+        <input type="text" id="search-input" placeholder="{% trans "Search trading pairs" %}" required>
+      </form>
+      <br>
+    </div>
+
+    <br>
+    <!-- Table of assets section -->
+    <div class="d-flex justify-content-between mb-1">
+      <br>
+      <div class="table-container">
+        <table id="crypto-table">
+          <thead>
+          <tr>
+            <th>{% trans "Pair" %}</th>
+            <th>{% trans "Price" %}</th>
+            <th>{% trans "Change 24h" %}</th>
+            <th>{% trans "Volume 24h" %}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <!-- In data placed all info about pairs -->
+          {% for trading_pair in data %}
+            <tr>
+              <!-- after user clicked this link crypto_service/views/crypto_detail.py view open and calculating of minimal available investment for symbol which was chosen-->
+              <td><a href="{% url 'main_service:crypto' trading_pair.trading_pair %}">
+                {{ trading_pair.trading_pair }}</a>&nbsp;
+              </td>
+              <td>{{ trading_pair.price }}$&nbsp;</td>
+              <td style="color: {% if trading_pair.price_change_in_24h > 0 %}green{% else %}red{% endif %};">
+                {{ trading_pair.price_change_in_24h }}%
+              </td>
+              <td>{{ trading_pair.volume_change_in_24h }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+        <button id="resetBtn">Reset</button>
+      </div>
+    </div>
+    <!-- after symbol was chosen need to show symbol name without table just symbol -->
+    <div class="show_chosen_symbol">
+      <div class="index">
+        <h6 style="color: #43D510">
+          {{ selected_pair }}
+        </h6>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+
+
+  <!-- {% if exchange_binance_chosen %} -->
+    {% include 'includes/strategies_base.html' %}
+  <!-- {% endif %} -->
+
+  {% if strategy_selected %}
+    <div class="second_dashboard-start-content">
+      <form id="startBotForm" method="post">
+        <p></p>
+        {% csrf_token %}
+        <div class="form-group">
+          {{ start_bot_form.total_investment|as_crispy_field }}
+          <div id="days_of_backtest-error" class="error-message"></div>
+        </div>
+        <div class="form-group">
+          {{ start_bot_form.leverage|as_crispy_field }}
+          <div id="days_of_backtest-error" class="error-message"></div>
+        </div>
+        <div class="form-group">
+          {{ start_bot_form.margin_type|as_crispy_field }}
+          <div id="days_of_backtest-error" class="error-message"></div>
+        </div>
+        <button type="submit" class="btn btn-main btn-main-white center-content start-button"
+                id="start-bot-button">
+          ADD TO DASHBOARD
+          {#                                <a id="send-form-button" href="#" onclick="confirmSending({{ item.id }})">Start Bot#}
+          {#                                </a>#}
+
+        </button>
+        {#                              <a class="btn btn-main btn-main-white center-content start-button" id="start-bot-button">#}
+        {#                                {% trans "Start Bot" %}#}
+        {#                              </a>#}
+
+
+      </form>
+    </div>
+  {% endif %}
+  {#    <h4>{% trans "To view our content, please register or log in." %}</h4>#}
+  {#    <a class="btn btn-dark btn-main"#}
+  {#       href="{% url 'main_service:login' %}?next={% url 'main_service:index' %}">{% trans "Login" %}</a>#}
+  {##}
+  {#    <a class="btn btn-dark btn-main"#}
+  {#       href="{% url 'register' %}?next={{ request.path }}">{% trans "Register" %}</a>#}
+
+
+</div>
+{% endblock %}

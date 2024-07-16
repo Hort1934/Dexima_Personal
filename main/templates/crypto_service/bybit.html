@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+  <div class="center-content">
+    <p>
+       {% trans "Bybit cryptocurrency exchange"%}
+    </p>
+    <p>
+      {% blocktrans %}
+        Bybit: This is a cryptocurrency derivatives exchange that offers the ability to trade
+        Contracts for Difference (CFD) for various cryptocurrencies. Bybit is often associated with high leverage
+        trading.
+      {% endblocktrans %}
+    </p>
+    {% include "includes/strategies_base.html" %}
+  </div>
+{% endblock %}

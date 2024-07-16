@@ -1,0 +1,17 @@
+{% load i18n %}
+
+{% block content %}
+  <div class="center-content">
+    <p>
+      {% trans "Binance cryptocurrency exchange" %}
+    </p>
+    <p>
+      {% blocktrans %}
+        Binance: Founded in 2017, Binance quickly became one of the largest and most popular cryptocurrency exchanges in
+        the world. It offers a wide range of cryptocurrency pairs for trading, as well as additional services such as
+        staking, savings accounts, and more.
+      {% endblocktrans %}
+    </p>
+    {% include "includes/strategies_base.html" %}
+  </div>
+{% endblock %}

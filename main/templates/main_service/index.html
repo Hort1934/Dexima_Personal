@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<script>window.scrollTo(0,0)</script>
+
+  {% if email_verified %}
+    <div class="text_align_last">
+      <p style="color: green">{% trans "Your email successfully verified!" %}</p>
+    </div>
+  {% elif not email_verified %}
+  {% endif %}
+    <style>
+      iframe{
+        border-radius: 10px;
+      }
+      .iframeCont{
+        width: 100%;
+        max-width: 560px;
+        margin: 10px auto 26px;
+      }
+      .mt-5{
+            margin-top: 4rem !important;
+        }
+
+      .index h2{
+        white-space: nowrap;
+      }
+      .index{
+        text-align: left;
+
+      }
+      h2.center-content {
+        font-size: 30px;
+      }
+      .tabbed-text {
+        margin-left: 11%;
+      }
+      .infoText{
+        /* margin: 0 0 10px 0; */
+      }
+      .backtester-description {
+        margin: 20px 0px 0px 0;
+        line-height: 1.3;
+        font-size: 17px;
+      }
+      .index > div{
+        line-height: 1.3;
+        font-size: 17px;
+      }
+
+      </style>
+
+  <div class="center-content">
+    <div class="index">
+      <input type="hidden" name="chosen_strategy" value="{{ chosen_strategy }}">
+      <h2 class="center-content">{% trans "Dexima ATS Web Service" %}</h2>
+      <!-- <h6> -->
+        {% blocktrans %}
+        <div class="infoText">
+          <span class="tabbed-text"></span>
+          The Dexima ATS web service is services and tools based on artificial intelligence and machine learning for automatic trading of a wide range of assets in the Forex, Crypto and Stock markets on different platforms and exchanges.
+        </div>
+          <div>
+            <span class="tabbed-text">
+              Enjoy the benefits of automatic trading and discover new opportunities in the financial markets.
+            </span>
+            <br>
+        <div style="text-align: center;"><a href="/ai_optimizer/" class="btn btn-main btn-main-white">Quick start</a></div>
+
+            <span class="tabbed-text"></span>Modules responsible for the trading process:
+          </div>
+          <div class="backtester-description">Performs testing of the selected strategy on
+            historical data according to the specified settings (asset, balance, data depth, number of transactions,
+            number of candles, timeframes, data source).
+          </div>
+
+          <div>
+            <span class="tabbed-text"></span>
+            Backtesting Based on Historical Data: Harness the power of historical data analysis to test your trading
+            strategies rigorously. Gain insights into the potential performance of your strategies before you commit
+            real
+            capital.
+          </div>
+
+          <div class="iframeCont">
+            <iframe width="100%" height="315" src="https://www.youtube.com/embed/g6kwVhWu0cs?si=ErKHkARIVVCHIV6s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+
+          <div class="optimizer-description">
+            Optimizes the selected strategy by selecting the
+            best settings using machine learning.
+          </div>
+
+
+          <div>
+            <span class="tabbed-text"></span>
+            Machine Learning Optimization of Strategy Settings: Elevate your trading prowess by leveraging advanced
+            machine
+            learning algorithms. Optimize your strategy settings to maximize profitability and minimize risk, guided by
+            data-driven intelligence.
+          </div>
+
+          <div class="iframeCont">
+            <iframe width="100%" height="315" src="https://www.youtube.com/embed/MFigXS39PMg?si=6suuChK0PdR7rjA4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+
+          <div class="trading-bot-description">
+            Uses the selected optimized trading strategy
+            and trades on the developer's or client's account. Applies Money Management and Risk Management settings.
+          </div>
+
+
+          <div>
+            <span class="tabbed-text"></span>
+            Automated Trading with a Trading Bot: Take advantage of our state-of-the-art trading bot, capable of
+            executing
+            your strategies automatically. Seamlessly integrate your optimized strategies into real-time, and don`t
+            forget
+            reoptimize them
+            to always have the best, latest settings.
+          </div>
+
+          <div class="iframeCont">
+            <iframe width="100%" height="315" src="https://www.youtube.com/embed/JPRIcRoA09s?si=6BAtes9udWhjd3os" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+
+
+          <div style="margin-bottom: 12px;" class="reoptimizer-description">
+            Performs re-optimization of the trading
+            strategy taking into account modern data according to the rules selected by the user or selected by the
+            program. Writes new settings into the strategy, which the Trading Bot perceives and starts executing.
+          </div>
+
+        {% endblocktrans %}
+      <!-- </h6> -->
+    </div>
+
+    <a href="/ai_optimizer/" class="btn btn-main btn-main-white">{% trans "Quick start" %}</a>
+
+  </div>
+{% endblock %}

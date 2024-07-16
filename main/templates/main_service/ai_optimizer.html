@@ -1,0 +1,696 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+<script>window.scrollTo(0,0)</script>
+
+  {% if email_verified %}
+    <div class="text_align_last">
+      <button type="button" class="btn btn-success"
+              name="personal_data">
+        {% blocktrans %}
+          <p>Your email successfully verified!</p>
+        {% endblocktrans %}
+      </button>
+    </div>
+  {% elif not email_verified %}
+  {% endif %}
+
+  <!-- MY PART -->
+  <!-- TODO Add styles to apropriate file css -->
+  <style>
+    .modalFlex{
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+    .modalFlex > button{
+      border-radius: 20px;
+    }
+
+
+    .custom-confirm {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      border: 1px solid #ccc;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 70%;
+      box-shadow: 0px 0px 15px 10px rgba(0, 0, 0, 0.2);
+      background-color: #d6edee;
+      color: black;
+    }
+
+    .confirm-btn, .cancel-btn {
+      margin-top: 10px;
+      padding: 8px 16px;
+      cursor: pointer;
+      background-color: #f2ebdc;
+    }
+
+
+     .errMsgTxt{
+      color: red;
+      font-size: 10px;
+      height: 0;
+    }
+    .errorMsg{
+      border-color:red !important;
+    }
+    .width100Perc{
+      width: 100%;
+    }
+    #total_investment, #leverage{
+      outline:none;
+    }
+    .notConnected{
+      color: blue;
+    }
+    .marginTop35{
+      margin-top: 35px !important;
+    }
+    .customBtn{
+      height: 100px;
+      width: 100px !important;
+      border-radius: 20px;
+    }
+    .imageBtn img{
+      width: 150px;
+      height: 100px;
+      border-radius: 67px;
+    }
+
+    .imageBtn {
+      transition: transform 0.3s ease-in-out;
+      background-color: white;
+      border-radius: 30px;
+      margin: 30px !important;
+      padding: 0 !important;
+      border: 0 !important;
+    }
+
+    .imageBtn:hover {
+      transform: scale(1.03);
+    }
+
+    #tableSymbolInfo tbody tr{
+      cursor: pointer;
+    }
+    .hidden1 {
+        opacity: 0;
+        overflow: hidden;
+        transition: opacity .5s ease;
+        pointer-events: none !important;
+    }
+
+    .btn {
+        transition: opacity .5s ease, max-height .5s ease !important;
+        position: relative;
+    }
+
+    .visible1 {
+        opacity: 1;
+        max-height: 1000px;
+        transition: opacity .5s ease;
+    }
+
+
+    .displayNone {
+        display: none;
+    }
+
+    div[class$="section"] {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    div[class$="section"] > div[class$="selection"] {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      width: 100%;
+    }
+
+    .tableMaxHeight {
+      max-height: 350px;
+      overflow-y: scroll; /* Enable vertical scrolling */
+      overflow-x: hidden; /* Disable horizontal scrolling */
+      width: 100%;
+    }
+    .market-selection button{
+      margin: 0;
+    }
+    .strategy-selection button{
+      position: relative;
+      margin: 0px;
+    }
+    .connectDiv{
+      position: relative;
+      bottom: -55px;
+      font-size: 0.6rem;
+    }
+    .connectDiv a{
+      color: blue;
+    }
+
+    #tableSymbolInfo th.default-sort:nth-child(1) {
+      width: 25%;
+    }
+    #tableSymbolInfo th.default-sort:nth-child(2) {
+      width: 19%;
+    }
+    #tableSymbolInfo th.default-sort:nth-child(3) {
+      width: 27%;
+    }
+    #tableSymbolInfo th.default-sort:nth-child(4) {
+      width: 24%;
+    }
+    table {
+      width: auto;
+      border-collapse: collapse;
+      background-color: rgb(197 234 247) !important;
+      color: black !important;
+      margin: 0;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+      max-width: 50px; /* Set the maximum width */
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis; /* Optional: Add ellipsis for text overflow */
+    }
+    /* th{
+      text-align: center !important;
+    } */
+
+
+    .mt-5{
+      margin: 4rem auto !important;
+    }
+
+    @media only screen and (min-width: 300px) and (max-width: 700px) {
+        /* Styles for screens with a maximum width of 600px (adjust as needed) */
+
+
+        /* #tableSymbolInfo{
+          width: 100%;
+        } */
+        #tableSymbolInfo td, #tableSymbolInfo th{
+          line-height: 2.8;
+          font-size: 0.7rem;
+          padding: .05rem 0;
+          letter-spacing: -.3px;
+        }
+        .tableMaxHeight {
+          max-height: 350px;
+          overflow-y: scroll;
+          /* width: auto; */
+        }
+
+        .secondSection .market-selection{
+          gap: 13px 0px;
+        }
+        .secondSection button{
+          padding: 17px 0 0 0;
+        }
+
+
+    }
+    input:focus::-moz-placeholder { /* Firefox 19+ */
+      color: pink;
+    }
+
+
+
+    .asset-selection{
+      width: 100% !important;
+      flex-direction: row;
+      max-width: 700px;
+      /* min-width: 524px; */
+    }
+    .thirdSection{
+      width: 100% !important;
+    }
+    .market-selection-soon-img {
+        max-width: 75px;
+        max-height: 75px;
+    }
+
+    .placeholderDiv {
+      display: inline-block;
+      padding: 0.2em;
+    }
+
+    .placeholder {
+      color: #A9A9A9;
+    }
+
+    .answer {
+      padding: 0;
+      background-color: transparent;
+      border: none;
+      outline: none;
+    }
+    .helpText {
+      font-size: 0.7rem;
+      margin: 0.2rem;
+      color: gray;
+    }
+    #tableSymbolInfo thead{
+      overflow: visible;
+      position: sticky;
+      width: 100%;
+      top: 0;
+      background-color: #8c9495;
+    }
+
+    #tableBodySymbolInfo tr > td:last-child {
+      font-size: 10px;
+    }
+
+    #tableSymbolInfo th{
+      font-size: 10px;
+    }
+    #tableBodySymbolInfo tr > td {
+      font-size: 10px;
+      text-align: right;
+      padding-right: 5px;
+    }
+    #tableBodySymbolInfo tr > td:first-child {
+      font-size: 10px;
+      text-align: left;
+      padding-left: 5px;
+    }
+
+
+    .table-dark {
+      background-color: darkgray;
+    }
+    button, input {
+    background-color: #f2ebdc;
+    }
+
+
+
+    .strategyHelpText{
+      position: absolute;
+      top: 100px;
+      right: 0;
+      font-size: .6rem;
+      color: blue;
+
+    }
+    input[readonly] {
+        color: #6c757d;
+        background-color: #f8f9fa;
+        cursor: not-allowed;
+    }
+
+.strategy-help {
+    position: absolute;
+    max-width: 200px;
+    padding: 10px;
+    background-color: #17a2b8;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    opacity: 0; /* Начальное значение непрозрачности */
+    transition: opacity 0.7s ease, transform 0.5s ease;
+}
+
+.strategy-button {
+    padding: 3px;
+    width: 30px;
+    height: 30px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    opacity: 0; /* Начальное значение непрозрачности */
+}
+
+.strategy-help.left {
+    {#right: 100%; /* Position from the right edge of the button */#}
+    top: 50%;
+    transform: translateY(-50%);
+    transition-delay: 0.2s;
+}
+
+.strategy-help.right {
+    left: 100%; /* Position from the left edge of the button */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.strategy-help.bottom {
+    top: 100%; /* Position from the bottom edge of the button */
+    left: 50%;
+    transform: translateX(-50%);
+    transition-delay: 0.1s; /* Начальная задержка */
+}
+.s-help-text {
+    position: absolute;
+    background-color: #fff;
+    color: black;
+    padding: 10px;
+    border-radius: 10px;
+    border-color: black;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Тень */
+    font-size: 12px;
+    font-style: italic;
+}
+
+  </style>
+
+  <!-- FIRST SECTION -->
+
+  <div class="center-content">
+    <div class="firstSection section">
+      <div class="index">
+        <div><h6>{% trans "CHOOSE MARKET" %}</h6>
+      </div>
+
+      <div class="market-selection">
+        <button type="submit" class="btn btn-main btn-main-white customBtn" name="crypto">{% trans "Crypto" %} </button>
+
+        <button type="submit" class="btn btn-main btn-main-white inactive-link customBtn" name="stock">{% trans "Stock" %}
+          <img src="../../static/images/Coming_soon.png" alt="Soon" class="market-selection-soon-img">
+        </button>
+        <button href="#" class="btn btn-main-white btn-main inactive-link customBtn">{% trans "Forex" %}
+          <img src="../../static/images/Coming_soon.png" alt="Soon" class="market-selection-soon-img">
+        </button>
+        <!-- <button href="#" class="btn btn-main-white btn-main inactive-link customBtn">{% trans "Commodity" %}
+          <img src="../../static/images/Coming_soon.png" alt="Soon" class="market-selection-soon-img">
+        </button> -->
+      </div>
+    </div>
+
+    <div class="secondSection hidden1 section">
+      <!-- SECOND SECTION-->
+      <div class="index">
+        <h6>{% trans "CHOOSE EXCHANGE" %}</h6>
+      </div>
+
+      <div class="market-selection">
+        <button type="submit" class="btn btn-main-white btn-main customBtn" name="whitebit" data-exchange="WhiteBit">
+          WhiteBit
+        <div class="connectDiv"><a id="connectUrlWhiteBit" href="{% url 'main_service:trading_description' %}">CONNECT ACCOUNT</a></div>
+        </button>
+        <button type="submit" class="btn btn-main-white btn-main customBtn" name="binance" data-exchange="Binance">
+          Binance
+          <div class="connectDiv"><a id="connectUrlBinance" href="{% url 'main_service:trading_description' %}">CONNECT ACCOUNT</a></div>
+        </button>
+        <button type="submit" class="btn btn-main-white btn-main  customBtn" name="bybit" data-exchange="Bybit">
+          Bybit
+          <div class="connectDiv"><a id="connectUrlBybit" href="{% url 'main_service:trading_description_bybit' %}">CONNECT ACCOUNT</a></div>
+        </button>
+
+      </div>
+    </div>
+    <!-- MY PART END -->
+    <!-- THIRD SECTION-->
+    <!-- TODO ADD hidden1 to class -->
+    <div class="thirdSection hidden1 section">
+      <div class="asset-selection">
+        <div class="index">
+          <input type="hidden" name="chosen_strategy" value="{{ chosen_strategy }}">
+          <h6 class="marginTop35">{% trans "CHOOSE ASSET" %}<br></h6>
+        </div>
+        <!-- Search Asset section -->
+        <div class="search-team">
+          <label for="trading_pair"></label>
+          <input type="text" id="search-input" placeholder="{% trans "Search trading pairs" %}" required><br>
+        </div>
+        <!-- Table of assets section -->
+        <div class="justify-content-between tableMaxHeight outterTableContainer mb-1">
+
+          <table id="tableSymbolInfo" class="table table-bordered table-dark" style="color: white">
+            <thead>
+            <th scope="col" class="asc">Symbol</th>
+            <th scope="col">Price</th>
+            <th scope="col">Change 24H</th>
+            <th scope="col">Volume 24H</th>
+            </thead>
+            <tbody id="tableBodySymbolInfo"></tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- FOURTH SECTION -->
+    <div class="fourhSection hidden1 section">
+      <div class="index">
+        <h6>{% trans "CHOOSE STRATEGY" %}<br></h6>
+      </div>
+      <!-- <div class="strategyHelpText positionLeft50"><a href="#">DESCRIPTION</a></div>
+      <div class="strategyHelpText"><a href="#">DESCRIPTION</a></div>
+      <div class="strategyHelpText"><a href="#">DESCRIPTION</a></div> -->
+      <div class="strategy-selection">
+          <button disabled type="submit" class="btn btn-main btn-main-white customBtn" name="tango">{% trans "Tango" %}
+        </button>
+          <button disabled type="submit" class="btn btn-main btn-main-white customBtn" name="jumper">{% trans "Jumper" %}
+          </button>
+          <button disabled type="submit" class="btn btn-main btn-main-white customBtn" name="expo_grid">{% trans "Expo Grid" %}
+          </button>
+      </div>
+        <div class="strategy-help-text"></div>
+    </div>
+    <!--  -->
+    <script>
+        // 127-QuickStartPictographs
+    var helpTextTango = "{% trans 'The Tango trading strategy is a development of Dexima Software, based on the correlation of assets or groups of assets and uses divergences and convergences to open or close positions. The key component of the trading strategy is the choice of the indicator. Tango uses BTC movement as an indicator to detect divergence in the Crypto market. The strategy preliminarily creates a pool of assets that almost identically repeat the movement of the indicator. These assets are selected in a special way and are regularly updated based on the indicators tracked by our platform. To confirm a signal, it is important not to rely solely on one indicator, and also consider Bollinger lines or EMA. Tango is a high-frequency strategy designed for an Up/Down trend.' %}";
+    var helpTextJumper = "{% trans 'The Jumper trading strategy is designed for impulse trading during sharp market movements. No trader will be able to achieve such a speed of opening and closing trades as the automatic trading system from Dexima. Trading takes place thanks to predefined rules, as well as “Low Latency” servers and trading platforms with low latency. Jumper is a low-frequency strategy designed for an Up/Down trend.' %}";
+    var helpTextExpogrid = "{% trans 'The Expogrid strategy from Dexima Software is based on the unique principle of exponentially increasing or decreasing the intervals between trading orders and investments in orders, a trend detection algorithm, as well as a built-in mechanism for adapting to changes in price ranges. This means that the size of the steps between successive orders is not fixed, but increases or decreases according to one of the selected principles (geometric progression, arithmetic progression, Fibonacci or a coefficient selected in the process of machine learning). This approach allows you to automate the purchase and sale of assets in accordance with dynamic market conditions. Expogrid is a high-frequency strategy developed for the Up/Down trend.' %}";
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const strategySelection = document.querySelector('.strategy-selection');
+        const strategyHelpText = document.querySelector('.strategy-help-text');
+        let isMouseOverHelp = false;
+
+        strategySelection.addEventListener('mouseover', function(e) {
+            const targetButton = e.target;
+            if (targetButton.tagName === 'BUTTON') {
+                const strategyName = targetButton.getAttribute('name');
+                const strategyHelp = getStrategyHelpText(strategyName);
+                displayStrategyHelpText(strategyName, strategyHelp, targetButton);
+            }
+        });
+
+        strategyHelpText.addEventListener('mouseover', function() {
+            isMouseOverHelp = true;
+        });
+
+        strategyHelpText.addEventListener('mouseout', function(event) {
+            if (!strategyHelpText.contains(event.relatedTarget)) {
+                const helpTextElement = strategyHelpText.querySelector('.s-help-text');
+                if (helpTextElement) {
+                    helpTextElement.remove();
+                }
+            }
+        });
+
+
+        document.addEventListener('click', function(e) {
+            if (!strategySelection.contains(e.target) && !isMouseOverHelp) {
+                strategyHelpText.innerHTML = '';
+            }
+        });
+
+        strategySelection.addEventListener('click', function(e) {
+            strategyHelpText.innerHTML = '';
+        });
+
+        function getStrategyHelpText(strategyName) {
+            switch (strategyName) {
+                case 'tango':
+                    return "tango strategy help text";
+                case 'jumper':
+                    return "jumper strategy help text";
+                case 'expo_grid':
+                    return "expo_grid strategy help text";
+                default:
+                    return "No help text available";
+            }
+        }
+
+        function displayStrategyHelpText(strategyName, helpText, button) {
+
+            if (strategyHelpText.querySelector('.strategy-button') && strategyHelpText.strategyName === strategyName) {
+                return;
+            }
+            // Remove existing help buttons
+            const existingButtons = strategyHelpText.querySelectorAll('.strategy-button');
+            existingButtons.forEach(button => button.remove());
+
+            strategyHelpText.strategyName = strategyName;
+
+            // Create and position help buttons
+            const helpButtonLeft = document.createElement('button');
+            helpButtonLeft.classList.add('strategy-help', 'left', 'strategy-button');
+            helpButtonLeft.innerHTML = '?';
+            helpButtonLeft.style.top = (button.offsetTop + 50) + 'px';
+            helpButtonLeft.style.left = (button.offsetLeft - 40) + 'px'; // Adjust the position as needed
+            helpButtonLeft.setAttribute('disabled', 'disabled');
+            strategyHelpText.appendChild(helpButtonLeft);
+
+            const helpButtonRight = document.createElement('button');
+            helpButtonRight.classList.add('strategy-help', 'right', 'strategy-button');
+            helpButtonRight.innerHTML = '▶';
+            helpButtonRight.style.top = (button.offsetTop + 50) + 'px';
+            helpButtonRight.style.left = (button.offsetLeft + button.offsetWidth + 10) + 'px'; // Adjust the position as needed
+            strategyHelpText.appendChild(helpButtonRight);
+
+            const helpButtonBottom = document.createElement('button');
+            helpButtonBottom.classList.add('strategy-help', 'bottom', 'strategy-button');
+            helpButtonBottom.innerHTML = '📚';
+            helpButtonBottom.style.top = (button.offsetTop + button.offsetHeight + 10) + 'px'; // Adjust the position as needed
+            helpButtonBottom.style.left = (button.offsetLeft + (button.offsetWidth / 2)) + 'px'; // Adjust the position as needed
+            strategyHelpText.appendChild(helpButtonBottom);
+
+
+            // Fade in animation for help buttons
+            setTimeout(() => {
+                helpButtonLeft.style.opacity = 1;
+                helpButtonRight.style.opacity = 1;
+                helpButtonBottom.style.opacity = 1;
+            }, 10); // Adjust timing as needed
+
+            helpButtonLeft.addEventListener('mouseover', function() {
+                const helpTextElement = document.createElement('div');
+                if (helpText.includes('tango')) {
+                    helpTextElement.textContent = helpTextTango;
+                } else if (helpText.includes('jumper')) {
+                    helpTextElement.textContent = helpTextJumper;
+                } else {
+                    helpTextElement.textContent = helpTextExpogrid;
+                }
+
+                helpTextElement.classList.add('s-help-text');
+                if (helpText.includes('expo')) {
+                    helpTextElement.style.left = (button.offsetLeft - 300) + 'px';
+                    helpTextElement.style.top = (button.offsetTop - 140) + 'px';
+                } else {
+                    helpTextElement.style.left = (button.offsetLeft - 10) + 'px';
+                    helpTextElement.style.top = (button.offsetTop - 80) + 'px';
+                }
+
+                strategyHelpText.appendChild(helpTextElement);
+            });
+
+            helpButtonRight.addEventListener('mouseover', function() {
+                const helpTextElement = document.createElement('div');
+                helpTextElement.textContent = `Strategy explanation`;
+                helpTextElement.classList.add('s-help-text');
+                helpTextElement.style.top = (button.offsetTop - 30) + 'px';
+                helpTextElement.style.left = (button.offsetLeft + 50) + 'px';
+                strategyHelpText.appendChild(helpTextElement);
+            });
+
+            helpButtonBottom.addEventListener('mouseover', function() {
+                const helpTextElement = document.createElement('div');
+                helpTextElement.textContent = `ATS Documentation`;
+                helpTextElement.classList.add('s-help-text');
+                helpTextElement.style.top = (button.offsetTop + 10) + 'px';
+                helpTextElement.style.left = (button.offsetLeft + 50) + 'px';
+                strategyHelpText.appendChild(helpTextElement);
+            });
+
+      }
+
+    });
+    // 127-QuickStartPictographs
+      let trys;
+      const strategySelection = document.querySelector('.strategy-selection');
+      strategySelection.addEventListener('click', function(e){
+        e.preventDefault()
+        console.log(e.traget)
+        trys =
+        console.log(e.traget.closest('.strategyHelpText a'))
+
+      })
+
+    </script>
+    <!-- FIFTH SECTION-->
+    <div id="fourthSectionWaitForAction"></div>
+    <div class="fourthSection hidden1 section"><br>
+      <div class="parameters-for-bot-selection">
+
+
+        <div class="form-group">
+          <label for="id_leverage">Leverage:</label><br>
+          <div class="placeholderDiv">
+
+
+            <input type="text" name="leverage" id="leverage" min="1" max="125" value="{{ start_bot_form.leverage.value }}" readonly>
+          </div>
+          <div id="leverage-error" class="error-message">{{ start_bot_form.leverage.errors }}</div>
+        </div>
+
+        <div class="form-group">
+
+        <label for="id_total_investment">USDT Amount:</label><br>
+          <div class="placeholderDiv">
+
+            <input type="text" step="1" name="total_investment" id="total_investment" min="1"
+                  value="{{ start_bot_form.total_investment.value }}">
+          </div>
+            <div id="total_investment-error" class="error-message">{{ start_bot_form.total_investment.errors }}</div>
+        </div>
+
+        <div class="form-group width100Perc">
+          <label for="id_margin_type">Margin Type:</label><br>
+          <select style="background: #f2ebdc;" name="margin_type" id="margin_type">
+            <option value="ISOLATED">ISOLATED</option>
+            <option value="CROSS">CROSS</option>
+          </select>
+
+          <div id="margin_type-error" class="error-message">{{ start_bot_form.margin_type.errors }}</div>
+        </div>
+        <br>
+        <!-- process parameters: chosen market, chosen exchange, chosen asset, total_investment, leverage, margin_type-->
+      </div>
+
+      <!-- FINAL BUTTON-->
+      <div class="results-sending">
+        <button class="btn btn-main btn-main-white" id="dashbordBtn">START TRADING</button>
+      </div>
+
+
+    </div>
+
+    <div class="infoVerify ">
+    </div>
+
+
+
+
+    <script src="{% static 'js/backtest_and_ai_optimization/set_minimal_amount_leverage.js' %}"></script>
+
+
+
+    <script src="{% static 'js/ai_optimizer/choosed_market.js' %}"></script>
+    <script src="{% static 'js/ai_optimizer/verify_account.js' %}"></script>
+    <script src="{% static 'js/js_scripts/symbols_table.js' %}"></script>
+    <script src="{% static 'js/js_scripts/search_sybmol_in_table.js' %}"></script>
+    <script src="{% static 'js/js_scripts/hide_buttons.js' %}"></script>
+    <script src="{% static 'js/js_scripts/strategy_selection_buttons.js' %}"></script>
+    <script src="{% static 'js/js_scripts/check_user_binance_keys.js' %}"></script>
+
+
+    <script></script>
+  </div>
+{% endblock %}

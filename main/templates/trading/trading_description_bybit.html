@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load crispy_forms_filters %}
+{% load static %}
+{% block content %}
+
+  <p style="text-align: center">{% trans "Connect an exchange" %}
+  <p style="text-align: center">{% blocktrans %}We will receive access to your trading history, balance, and have
+    permission to
+    place orders on your exchange account. <br>
+    Dexima will not have permission to withdraw or transfer your funds.{% endblocktrans %}</p>
+  <p>{% trans "Api Guide" %}</p>
+  <ul>
+    {% blocktrans %}
+       <li><a href="https://learn.bybit.com/uk/bybit-guide/how-to-create-a-bybit-api-key/">Bybit api connection guide</a></li>
+      <li>Select API Management from the user menu in the upper-right corner.</li>
+      <li>Enter a name for your API and press Create API.</li>
+      <li>Your API Key and Secret Key appears.</li>
+      <li>Copy both the API Key and Secret Key and store in a safe place.</li>
+
+    {% endblocktrans %}
+  </ul>
+  {#  <a href="{% url 'main_service:binance_guide' %}?next={{ request.path }}">{% trans "Photo Guide" %}</a>#}
+  <form id="apiForm" method="post" action="{% url 'main_service:trading_description_bybit' %}">
+    {% csrf_token %}
+    {{ form|crispy }}
+    {% if not bybit_keys_saved %}
+      <div class="error-message-trading-description">
+        {% if ex %}
+
+          <p class="message-ip-error-style center-content">
+            {{ ex }}
+          </p>
+
+        {% endif %}
+      </div>
+      <div class="text_align_last">
+
+        <label>
+          <input type="text" id="api_key" name="api_key" required placeholder="{% trans "Enter your API key" %}">
+
+          <input type="text" id="api_secret" name="api_secret" required
+                 placeholder="{% trans "Enter your Secret key" %}">
+          <br>
+          <input type="submit" class="btn btn-main btn-main-white" value={% trans "Save" %}>
+        </label>
+      </div>
+
+    {% else %}
+      {% if not bot_started %}
+        <div class="text_align_last">
+
+          <p>Your permissions:</p>
+          {% if bybit_permissions %}
+            <p style="color: green">{% trans "API and SECRET keys successfully saved." %}</p><br>
+            {% for permission in bybit_permissions %}
+              <label><span>{{ permission }}</span></label><br>
+            {% endfor %}
+            <a href="{% url 'main_service:ai_optimizer' %}"
+               class="btn btn-main btn-main-white">
+              {% trans "Quick start" %}
+            </a>
+            <a href="{% url 'main_service:dashboard' %}"
+               class="btn btn-main btn-main-white">
+              {% trans "Dashboard" %}
+            </a>
+          {% elif not bybit_permissions %}
+            <p>You have no permissions, check Photo Guide and try again</p>
+            <button type="submit" class="btn btn-main btn-main-white" name="check_permissions_again">Try again
+            </button>
+          {% endif %}
+
+        </div>
+      {% else %}
+        <div class="text_align_last">
+          <p style="color: green">{% trans "Bot Successfully created!" %}</p>
+          <p>{% trans "You can check detail information, and start bot in your Trading Bot Dashboard" %}</p>
+          <a href="{% url 'main_service:dashboard' %}?next={{ request.path }}">{% trans "Trading Bot Dashboard" %}</a><br>
+        </div>
+      {% endif %}
+    {% endif %}
+  </form>
+  <br>
+  <style>
+      input#api_key {
+          margin-bottom: 10px;
+      }
+  </style>
+  {#  <script>#}
+  {#      // Define the expected length of API key and Secret key#}
+  {#      const expectedApiKeyLength = 64; // Change this to the actual length#}
+  {#      const expectedSecretKeyLength = 64; // Change this to the actual length#}
+  {##}
+  {#      // Function to validate the keys#}
+  {#      function validateKeys() {#}
+  {#          const apiKey = document.getElementById('api_key').value;#}
+  {#          const secretKey = document.getElementById('api_secret').value;#}
+  {##}
+  {#          if (apiKey.length !== expectedApiKeyLength || secretKey.length !== expectedSecretKeyLength) {#}
+  {#              alert('API key and Secret key must be ' + expectedApiKeyLength + ' and ' + expectedSecretKeyLength + ' characters long, respectively.');#}
+  {##}
+  {#              // Optionally, you can clear the input fields#}
+  {#              document.getElementById('api_key').value = '';#}
+  {#              document.getElementById('api_secret').value = '';#}
+  {##}
+  {#              return false;#}
+  {#          }#}
+  {##}
+  {#          // Submit the form if the keys are valid#}
+  {#          document.getElementById('apiForm').submit();#}
+  {#      }#}
+  {##}
+  {#      // Add an event listener to the form's submit button#}
+  {#      document.querySelector('#apiForm input[type="submit"]').addEventListener('click', function (event) {#}
+  {#          event.preventDefault(); // Prevent the default form submission#}
+  {#          validateKeys(); // Call the validation function#}
+  {#      });#}
+  {#  </script>#}
+{% endblock %}

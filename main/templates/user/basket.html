@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+  <h1 style="text-align: center">{% trans "Your Cart" %}</h1>
+  <br>
+  {% if backtesting_in_basket == 0 and optimization_in_basket == 0 %}
+    <h5 style="text-align: center">
+      {% trans "Right now your cart is empty." %}
+    </h5>
+  {% else %}
+    <div style="text-align: center;">
+      {% if backtesting_in_basket > 0 and optimization_in_basket == 0 %}
+        <div class="item-container">
+          {% blocktrans with backtesting_in_basket=backtesting_in_basket %}
+            <h5>"You have {{ backtesting_in_basket }} Backtestings in your Basket</h5>
+          {% endblocktrans %}
+          <form method="post" action="{% url 'main_service:basket' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger btn-remove-item" name="remove_backtesting">
+              ✖
+            </button>
+          </form>
+        </div>
+      {% elif optimization_in_basket > 0 and backtesting_in_basket == 0 %}
+        <div class="item-container">
+          {% blocktrans with optimization_in_basket=optimization_in_basket %}
+            <h5>You have {{ optimization_in_basket }} ML Optimization in your Basket</h5>
+          {% endblocktrans %}
+          <form method="post" action="{% url 'main_service:basket' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger btn-remove-item" name="remove_optimization">
+              ✖
+            </button>
+          </form>
+        </div>
+      {% else %}
+        <div class="item-container">
+          {% blocktrans with backtesting_in_basket=backtesting_in_basket %}
+            <h5>You have {{ backtesting_in_basket }} Backtestings in your Basket</h5>
+          {% endblocktrans %}
+          <form method="post" action="{% url 'main_service:basket' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger btn-remove-item" name="remove_backtesting">
+              ✖
+            </button>
+          </form>
+
+        </div>
+        <div class="item-container">
+          {% blocktrans with optimization_in_basket=optimization_in_basket %}
+            <h5>You have {{ optimization_in_basket }} ML Optimization in your Basket</h5>
+          {% endblocktrans %}
+          <form method="post" action="{% url 'main_service:basket' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger btn-remove-item" name="remove_optimization">
+              ✖
+            </button>
+          </form>
+        </div>
+      {% endif %}
+      <br>
+        <h5 style="text-align: center">{% blocktrans with total_amount_to_pay=total_amount_to_pay %}Total Amount to pay: {{ total_amount_to_pay }}$ {% endblocktrans %}</h5>
+      <form method="post" action="{% url 'main_service:basket' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-main btn-main-white" name="optimization_added_to_basket">
+          {% trans "Pay" %}
+        </button>
+      </form>
+    </div>
+  {% endif %}
+{% endblock %}

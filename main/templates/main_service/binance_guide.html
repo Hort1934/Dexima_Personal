@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+  <div class="image-trading-description-container">
+    <img src="{% static 'images/api_guide_1.png' %}" alt="Alternative text"><br>
+    <img src="{% static 'images/api_guide_2.png' %}" alt="Alternative text"><br>
+    <img src="{% static 'images/api_guide_3.png' %}" alt="Alternative text"><br>
+    <img src="{% static 'images/api_guide_4.png' %}" alt="Alternative text"><br>
+    <img src="{% static 'images/api_guide_5.png' %}" alt="Alternative text">
+    <p>{% trans "After creating your APIs and Secret Keys, save them to yourself and go back to the page."%}</p>
+    <a href="{% url 'main_service:trading_description' %}?next={{ request.path }}">{% trans "Ready! Go back" %}</a>
+  </div>
+{% endblock %}

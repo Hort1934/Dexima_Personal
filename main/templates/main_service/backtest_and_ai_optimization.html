@@ -1,0 +1,1747 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% load i18n %}
+
+
+{% block content %}
+  {% load static %}
+  <script>window.scrollTo(0, 0)</script>
+
+  <style>
+
+      .active {
+          transition: height 1.25s ease-in;
+      }
+
+      .displayNone {
+          display: None !important;
+      }
+
+      @keyframes moveLeftRight {
+          0% {
+              transform: translateX(0);
+          }
+          50% {
+              transform: translateX(-2px); /* Измените значение влево */
+          }
+          100% {
+              transform: translateX(2px); /* Измените значение вправо */
+          }
+      }
+
+      .move-animation {
+          animation: moveLeftRight 100ms; /* Бесконечное выполнение анимации */
+          animation-iteration-count: 2;
+      }
+
+      .errMsgTxt {
+          color: red;
+          font-size: 10px;
+          height: 0;
+      }
+
+      #tableContainer {
+          background-color: #CFD5CD;
+          width: 100%;
+          font-size: 11px;
+      }
+
+      table {
+          background-color: rgb(197 234 247) !important;
+          margin: 0;
+          color: black !important;
+      }
+
+      #tableContainer table {
+          background-color: rgb(197 234 247);
+          margin: 0;
+      }
+
+      #tableContainer tr td:first-child input {
+          /* text-align: left; */
+          float: left;
+
+      }
+
+      #tableContainer input[type="number"] {
+          width: 35px;
+          text-align: center;
+      }
+
+      #tableContainer select {
+          width: 45px;
+          font-size: 12px;
+      }
+
+      #tableContainer th, #tableContainer td {
+          padding: 2px 4px;
+      }
+
+      .errorMsg {
+          border-color: red !important;
+      }
+
+      .mt-5 {
+          margin-top: 4rem !important;
+      }
+
+      table {
+          border-collapse: collapse;
+          width: 100%;
+      }
+
+      td {
+          border: 1px solid #ddd;
+          padding: 8px;
+      }
+
+      th {
+          background-color: #f2f2f2;
+          text-align: left;
+          padding: 8px;
+      }
+
+      input[type="number"] {
+          -webkit-appearance: textfield;
+          -moz-appearance: textfield;
+          appearance: textfield;
+      }
+
+      input[type=number]::-webkit-inner-spin-button,
+      input[type=number]::-webkit-outer-spin-button {
+          -webkit-appearance: none;
+      }
+
+      .input-wrapper {
+          position: relative;
+          display: inline-block;
+      }
+
+      /* Style for the input and select elements */
+      .btn-main {
+          /* Add your common styles here */
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          width: 200px; /* Adjust width as needed */
+          text-align: -moz-left;
+          /* text-align: left; */
+      }
+
+      /* Style for the custom arrow (optional) */
+      .custom-arrow {
+          position: absolute;
+          top: 50%;
+          right: 10px;
+          transform: translateY(-50%);
+      }
+
+      .archive {
+          width: 100%;
+          background-color: #f2ebdc;
+          color: black;
+          border: 2px solid #CFD5CD;
+          border-radius: 10px;
+          text-align: center;
+          width: 70px;
+
+      }
+
+      {##myTable tr:nth-child(n+6) {#}
+      {#    display: none;#}
+
+
+      a {
+          color: black;
+      }
+
+      #myTable td {
+          width: 100px;
+          height: 47px;
+      }
+
+      #myTableJumper td {
+          width: 100px;
+          height: 47px;
+      }
+
+      #myTable,
+      #myTableJumper {
+          display: table;
+          height: auto;
+      }
+      {#New logic styles from quick start#}
+      .modalFlex > button{
+      border-radius: 20px;
+    }
+    .imageBtn img{
+      width: 150px;
+      height: 100px;
+      border-radius: 67px;
+    }
+    #tableSymbolInfo tbody tr{
+      cursor: pointer;
+    }
+
+    .btn {
+        transition: opacity .5s ease, max-height .5s ease !important;
+        position: relative;
+    }
+    .displayNone {
+        display: none;
+    }
+
+    div[class$="section"] {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    div[class$="section"] > div[class$="selection"] {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      width: 100%;
+    }
+
+    .tableMaxHeight {
+      max-height: 350px;
+      overflow-y: scroll; /* Enable vertical scrolling */
+      overflow-x: hidden; /* Disable horizontal scrolling */
+      width: 100%;
+    }
+    .market-selection button{
+      margin: 0;
+    }
+    .strategy-selection button{
+      position: relative;
+      margin: 0px;
+    }
+    .connectDiv a{
+      color: blue;
+    }
+
+    #tableSymbolInfo th.default-sort:nth-child(1) {
+      width: 25%;
+    }
+    #tableSymbolInfo th.default-sort:nth-child(2) {
+      width: 19%;
+    }
+    #tableSymbolInfo th.default-sort:nth-child(3) {
+      width: 27%;
+    }
+    #tableSymbolInfo th.default-sort:nth-child(4) {
+      width: 24%;
+    }
+    @media only screen and (min-width: 300px) and (max-width: 700px) {
+        #tableSymbolInfo td, #tableSymbolInfo th{
+          line-height: 2.8;
+          font-size: 0.7rem;
+          padding: .05rem 0;
+          letter-spacing: -.3px;
+        }
+        .tableMaxHeight {
+          max-height: 350px;
+          overflow-y: scroll;
+          /* width: auto; */
+        }
+
+        .secondSection .market-selection{
+          gap: 13px 0px;
+        }
+        .secondSection button{
+          padding: 17px 0 0 0;
+        }
+
+
+    }
+    input:focus::-moz-placeholder { /* Firefox 19+ */
+      color: pink;
+    }
+    .asset-selection{
+      width: 100% !important;
+      flex-direction: row;
+      max-width: 700px;
+      /* min-width: 524px; */
+    }
+    .thirdSection{
+      width: 100% !important;
+    }
+    #tableSymbolInfo thead{
+      overflow: visible;
+      position: sticky;
+      width: 100%;
+      top: 0;
+      background-color: #8c9495;
+    }
+
+    #tableBodySymbolInfo tr > td:last-child {
+      font-size: 10px;
+    }
+
+    #tableSymbolInfo th{
+      font-size: 10px;
+    }
+    #tableBodySymbolInfo tr > td {
+      font-size: 10px;
+      text-align: right;
+      padding-right: 5px;
+    }
+    #tableBodySymbolInfo tr > td:first-child {
+      font-size: 10px;
+      text-align: left;
+      padding-left: 5px;
+    }
+    .hidden1 {
+        opacity: 0;
+        overflow: hidden;
+        transition: opacity .5s ease;
+        pointer-events: none !important;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <!-- Include the flatpickr library -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <div class="history-title">
+  </div>
+
+  <div id="mountElem" class="center-content">
+    <!-- FIRST SECTION -->
+
+    <div id="market_selection">
+      {#      <label for="exchange">MARKET:</label>#}
+      <select name="market" id="market" class="btn btn-main btn-main-white">
+        <option value="" disabled selected hidden>Market</option>
+        <option>Crypto</option>
+        <option disabled>Stock</option>
+        <option disabled>Forex</option>
+      </select>
+
+
+    </div>
+    <br>
+    <!-- SECOND SECTION -->
+    <div id="exchange_selection">
+      {#      <label for="market">EXCHANGE:</label>#}
+      <select name="exchange" id="exchange" class="btn btn-main btn-main-white">
+        <option value="" disabled selected hidden>Exchange</option>
+        <option value="bybit">Bybit</option>
+        <option value="binance">Binance</option>
+        <option disabled>KuCoin</option>
+      </select>
+    </div>
+    <br>
+    <!-- THIRD SECTION -->
+    <div class="thirdSection section">
+        <div class="asset-selection">
+            <div class="index">
+                <h6>{% trans "CHOOSE ASSET" %}<br></h6>
+            </div>
+            <!-- Search Asset section -->
+            <div class="search-team">
+                <label for="trading_pair"></label>
+                <input type="text" id="search-input" placeholder="{% trans "Search trading pairs" %}" required><br>
+            </div>
+            <!-- Table of assets section -->
+            <div class="justify-content-between tableMaxHeight outterTableContainer mb-1">
+                <table id="tableSymbolInfo" class="table table-bordered table-dark" style="color: white">
+                    <thead>
+                        <th scope="col" class="asc">Symbol</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Change 24H</th>
+                        <th scope="col">Volume 24H</th>
+                    </thead>
+                    <tbody id="tableBodySymbolInfo"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="asset_selection" class="hidden1">
+        <select name="asset" id="asset" class="btn btn-main btn-main-white">
+            <option value="" disabled selected>Asset</option>
+            {% for asset in dexima_symbols_list %}
+            <option value="{{ asset }}">{{ asset }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <!-- FOURTH SECTION -->
+    <!-- send request to get_minimal_quantity, get min and max amount and leverage -->
+   <span>USDT</span>
+    <div id="amount_selection">
+      <input type="number" name="amount" id="amount" placeholder="Amount" class="btn btn-main btn-main-white">
+    </div>
+    <!-- FIFTH SECTION -->
+   <span>Leverage</span>
+    <div id="leverage_selection"></div>
+    <div id="leverage_selection">
+      <input type="number" name="leverage" id="leverage" placeholder="Leverage" max="10"
+             class="btn btn-main btn-main-white">
+    </div>
+  <br>
+    <!-- SIXTH SECTION -->
+    <div id="strategy_selection" onchange="toggleTables()">
+      <select v-model="choosedStrategy" name="strategy" id="strategy" class="btn btn-main btn-main-white">
+        <option value="" disabled selected hidden>Strategy</option>
+        <option value="jumper">Jumper</option>
+        <option disabled value="">Tango Spot</option>
+        <option value="expo_grid">Expo Grid</option>
+      </select>
+        {% if user.username == 'SlavaLapin' %}
+      <div class="checkbox-container">
+        <input type="checkbox" id="isAdminCheckbox">
+        <label for="isAdminCheckbox">Preset</label>
+      </div>
+        {% endif %}
+    </div>
+    <div id="tableContainer">
+    </div>
+    <br>
+      <!-- EIGHTH SECTION -->
+    <div id="data_selection">
+      <div id="date_range_selection">
+        <input type="text" name="from_date" id="from_date" class="btn btn-main btn-main-white" placeholder="From"
+               data-input>
+        <input type="text" name="to_date" id="to_date" class="btn btn-main btn-main-white" placeholder="To" data-input>
+      </div>
+    </div>
+    <!-- NINE SECTION, BACKTEST BUTTON-->
+    <!-- активна если все выборы выше сделаны верно-->
+
+    <div id="result"></div>
+    <div>
+      <button class="btn btn-main btn-main-white" id="backtestBtnn">BACKTEST</button>
+    </div>
+    <div>
+      <button class="btn btn-main btn-main-white" id="aiOptimizerBtnn">AI OPTIMIZER</button>
+    </div>
+
+    <table class="displayNone" id="myTable">
+      <tr>
+        <td>CHOSEN STRATEGY</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>ASSET</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>DATES</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>INITIAL BALANCE</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>AVAILABLE BALANCE</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>PROFIT</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>TOTAL TRADES</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>LONG TRADES</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>LONG TP</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>LONG SL</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>SHORT TRADES</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>SHORT TP</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>SHORT SL</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>FEES PAID</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>LEVERAGE</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>NUM OF GRIDS</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>TIMEFRAME</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>PRICE RANGE</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>ACTIVATION TRIGGER IN PERCENT</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>DISTRIBUTION OF GRID LINES</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>LINE DISBALANCE DIRECTION</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>SHORT STOP LOSS IN PERCENT</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>LONG STOP LOSS IN PERCENT</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>GRID DISBALANCE DIRECTION</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>TREND PERIOD TIMEFRAME</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>TREND PERIOD</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+    </table>
+    <table class="displayNone" id="myTableJumper">
+      <tr>
+        <td>STRATEGY</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>ASSET</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>DATES</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>INVESTMENT</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>END BALANCE</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>PROFIT</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>TOTAL TRADES</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>LONG TRADES</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>SHORT TRADES</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>LEVERAGE</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>TIMEFRAME</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>AMOUNT FOR LONG</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>AMOUNT FOR SHORT</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>LONG TP %</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>LONG PERIOD</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>LONG SL %</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>LONG DIVERGENCE %</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>LONG PAUSE MINUTE</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>LONG TRAILING STOP</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>SHORT TP %</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>SHORT PERIOD</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>SHORT PAUSE MINUTE</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>SHORT SL %</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>SHORT DIVERGENCE %</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>SHORT TRAILING STOP</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+      <tr>
+        <td>PRICE CHANGE LIMIT %</td>
+        <td data-cell="1"></td>
+        <td data-cell="2"></td>
+      </tr>
+    </table>
+    <button id="showMoreBtn" class="btn btn-main btn-main-white">Details</button>
+    <br>
+    <!-- FOURTEEN SECTION-->
+    <!-- Test Section-->
+
+    <button id="startTradingBtn" class="btn btn-main btn-main-white">Start Trading</button>
+      <div class="infoVerify "></div>
+
+    <!-- End of Test Section-->
+    {#    <div>#}
+    {#      <button disabled class="btn btn-main btn-main-white" id="addToDashboardBtn">ADD TO DASHBOARD</button>#}
+    {#    </div>#}
+    <button id="archiveBtn" class="btn btn-main btn-main-white">Archive</button>
+
+  </div>
+
+    <div id="notification" class="notification"></div>
+
+    <style>
+        /* Styles for notification */
+        .notification {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+            animation: fadeOut 5s ease-in-out forwards;
+        }
+
+        /* Animation for fading out */
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+    </style>
+
+  <script>
+        // Asset from quick start
+        document.addEventListener('DOMContentLoaded', function() {
+            const tableBody = document.getElementById('tableBodySymbolInfo');
+            const assetSelect = document.getElementById('asset');
+
+            // Hide table when page is enabled
+            const tableContainer = document.querySelector('.justify-content-between.tableMaxHeight.outterTableContainer');
+            const searchInput = document.getElementById('search-input');
+            tableContainer.style.display = 'none';
+            // Adding an event handler for the input field
+            searchInput.addEventListener('click', function() {
+                tableContainer.style.display = 'block';
+            });
+            // Hide table when page is enabled
+
+            // Add an event handler for clicking on a table row
+            tableBody.addEventListener('click', function(event) {
+                const clickedRow = event.target.closest('tr'); // Getting the nearest table row
+
+                if (clickedRow) {
+                    const symbol = clickedRow.querySelector('td').textContent; // Getting a character from a string
+                    assetSelect.value = symbol; // Update the value of the dropdown list
+
+                    // Create a change event
+                    const changeEvent = new Event('change');
+
+                    // Add the created event to the assetSelect element
+                    assetSelect.dispatchEvent(changeEvent);
+
+                    // Hiding all other options in the drop-down list except the selected one
+                    for (let row of tableBody.rows) {
+                        if (row !== clickedRow) {
+                            row.style.display = 'none';
+                        }
+                    }
+                }
+            });
+        // Ensure the symbols list is available
+        const symbolsList = {{ symbols_list|safe }};
+
+        // Initialize flatpickr
+        const from_date_picker = flatpickr('#from_date', {
+            enableTime: false,
+            dateFormat: 'd-m-Y',
+            minDate: '01-11-2023',
+            maxDate: "today",
+            disableMobile: "true"
+        });
+
+        const to_date_picker = flatpickr('#to_date', {
+            enableTime: false,
+            dateFormat: 'd-m-Y',
+            minDate: '01-11-2023',
+            maxDate: "today",
+            disableMobile: "true"
+        });
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}-${month}-${year}`;
+        }
+
+        // Update date pickers based on selected symbol # 314-DB2Range
+        function updateDatePickers() {
+            {#const exchangeForSymbolList = document.querySelector('#exchange').value;#}
+            const exchangeForSymbolList = 'dexima'
+            const selectedSymbol = assetSelect.value;
+            const newSelectedSymbol = exchangeForSymbolList + '_' + selectedSymbol + '_futures_1m';
+
+            if (symbolsList[newSelectedSymbol]) {
+                const startDate = symbolsList[newSelectedSymbol].start_date;
+                const endDate = symbolsList[newSelectedSymbol].end_date;
+                const formattedStartDate = formatDate(startDate);
+                const formattedEndDate = formatDate(endDate);
+                console.log(`Start Date: ${formattedStartDate}`);
+                console.log(`End Date: ${formattedEndDate}`);
+
+                // Update the flatpickr minDate and maxDate based on the symbol's date range
+                from_date_picker.set('minDate', formattedStartDate);
+                from_date_picker.set('maxDate', formattedEndDate);
+
+                to_date_picker.set('minDate', formattedStartDate);
+                to_date_picker.set('maxDate', formattedEndDate);
+            }
+        }
+
+        // Add event listener to update date pickers when the asset changes
+        assetSelect.addEventListener('change', updateDatePickers);
+
+        // Initial update of date pickers based on the default selected symbol # 314-DB2Range
+        updateDatePickers();
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const archiveBtn = document.getElementById("archiveBtn");
+            archiveBtn.addEventListener("click", function() {
+                window.location.href = "{% url 'main_service:backtest_and_optimization_history' %}";
+            });
+        });
+
+
+      const tableContainer = document.getElementById('tableContainer');
+      const table = document.createElement('table');
+
+      // Call the function with your response data
+
+
+  </script>
+  <script>
+      function toggleTables() {
+          var strategySelection = document.getElementById("strategy_selection").value;
+          var table1 = document.getElementById("myTable");
+          var table2 = document.getElementById("myTableJumper");
+
+          if (strategySelection === "expo_grid") {
+              table1.style.display = "table"; // Show the Expo Grid table
+              table2.style.display = "none"; // Hide the Jumper table
+          } else if (strategySelection === "jumper") {
+              table1.style.display = "none"; // Hide the Expo Grid table
+              table2.style.display = "table"; // Show the Jumper table
+          }
+      }
+  </script>
+  <script src="{% static 'js/backtest_and_ai_optimization/parse_inputs_and_send_data.js' %}"></script>
+  <script src="{% static 'js/backtest_and_ai_optimization/set_minimal_amount_leverage.js' %}"></script>
+  <script>
+      selectBtnAmount.addEventListener('focusout', checkMinMaxInputValue)
+      selectBtnLeverage.addEventListener('focusout', checkMinMaxInputValue)
+  </script>
+  <script>
+
+      {#const spinner = document.createElement('span');#}
+
+      function showSpinner(button) {
+          spinner.classList.add('spinner-border', 'spinner-border-sm');
+          spinner.setAttribute('role', 'status');
+          spinner.setAttribute('aria-hidden', 'true');
+          // button.innerHTML = '';
+
+          button.appendChild(spinner);
+      }
+
+      const startTradingBtn = document.querySelector("#startTradingBtn");
+      // Disable the button
+      startTradingBtn.disabled = true;
+      const backtestBtnn = document.querySelector("#backtestBtnn");
+      const aiOptimizerBtnn = document.querySelector("#aiOptimizerBtnn");
+
+      // Check if all selections are made above
+      const allSelectionsMade = () => {
+        const market = document.querySelector('#market').value;
+        const exchange = document.querySelector('#exchange').value;
+        const asset = document.querySelector('#asset').value;
+        const strategy = document.querySelector('#strategy').value;
+        const fromDate = document.querySelector('#from_date').value;
+        const toDate = document.querySelector('#to_date').value;
+
+        return market && exchange && asset && strategy && fromDate && toDate;
+    }
+
+        // Function to toggle buttons based on selections
+        const toggleButtons = () => {
+            if (allSelectionsMade()) {
+                aiOptimizerBtnn.disabled = false;
+                backtestBtnn.disabled = false;
+            } else {
+                aiOptimizerBtnn.disabled = true;
+                backtestBtnn.disabled = true;
+            }
+        }
+
+        // Add event listeners for relevant elements
+        document.querySelectorAll('#market, #exchange, #asset, #strategy , #from_date, #to_date').forEach(item => {
+            item.addEventListener('change', toggleButtons);
+        });
+
+        // Call toggleButtons initially to set initial state
+        toggleButtons();
+
+      backtestBtnn.addEventListener("click", async function (e) {
+          startTradingBtn.disabled = true;
+          aiOptimizerBtnn.disabled = true;
+          backtestBtnn.disabled = true;
+          let assetVal = document.querySelector('#asset').value;
+          let strategy = document.querySelector('#strategy');
+          let exchangeVal = document.querySelector('#exchange').value;
+          console.log(exchangeVal)
+          let dataFromTable = parseTable();
+          let url = undefined;
+          if (strategy.value == 'expo_grid') {
+              let grids = dataFromTable.num_of_grids ? dataFromTable.num_of_grids.value : "10";
+              let timeframe = dataFromTable.timeframe ? dataFromTable.timeframe.value : "1m";
+              let price_range = dataFromTable.price_range ? dataFromTable.price_range.value : "12";
+              let activation_trigger_in_percent = dataFromTable.activation_trigger_in_percent ? dataFromTable.activation_trigger_in_percent.value : "1.0";
+              let distribution_of_grid_lines = dataFromTable.distribution_of_grid_lines ? dataFromTable.distribution_of_grid_lines.value : "LINEAR";
+              let short_stop_loss_in_percent = dataFromTable.short_stop_loss_in_percent ? dataFromTable.short_stop_loss_in_percent.value : "1.0";
+              let long_stop_loss_in_percent = dataFromTable.long_stop_loss_in_percent ? dataFromTable.long_stop_loss_in_percent.value : "1.0";
+              let trend_period = dataFromTable.trend_period ? dataFromTable.trend_period.value : "1.0";
+              // console.log(dataFromTable)
+
+              url = `/get_bybit_backtest_and_optimization_params/?chosen_exchange=${exchangeVal}&activity=backtest&symbol=${assetVal}&strategy=expo_grid&leverage=${leverage.value}&num_of_grids=${grids}&available_balance=${amount.value}&timeframe=${timeframe}&price_range=${price_range}&activation_trigger_in_percent=${activation_trigger_in_percent}&distribution_of_grid_lines=${distribution_of_grid_lines}&line_disbalance_direction=DESCENDING&short_stop_loss_in_percent=${short_stop_loss_in_percent}&long_stop_loss_in_percent=${long_stop_loss_in_percent}&grid_disbalance_direction=DESCENDING&trend_period_timeframe=1h&trend_period=${trend_period}&from=${from_date.value}&to=${to_date.value}`;
+            {#58-archiveAndLaboratoryProgressbar#}
+            let progress;
+            let progressText = document.createElement('div');
+            progressText.style.textAlign = 'center';
+            progressText.style.marginBottom = '1px';
+            progressText.textContent = `Calculation`;
+            this.insertAdjacentElement('beforeend', progressText);
+
+            function updateProgressText() {
+                if (progress === undefined) {
+                    let currentText = progressText.textContent;
+                    let dotsCount = (currentText.match(/\./g) || []).length;
+                    let nextDotsCount = (dotsCount + 1) % 4;
+                    progressText.textContent = `Calculation${'.'.repeat(nextDotsCount)}`;
+                } else {
+                    clearInterval(textIntervalId);
+                    progressText.textContent = `${progress.toFixed(2)}%`;
+                }
+            }
+
+            let textIntervalId = setInterval(updateProgressText, 500);
+
+            let progressBar = document.createElement('progress');
+            progressBar.setAttribute('max', '100');
+            progressBar.style.width = '100%';
+            progressBar.style.height = '20px';
+            progressBar.style.marginTop = '1px';
+            progressBar.value = 0;
+            this.insertAdjacentElement('beforeend', progressBar);
+
+            // Create a promise to request data
+            let fetchingPromise = fetching_data(url);
+
+            let finalresult = null; // Declare finalresult outside the function
+
+            // Function for updating the progress bar based on received data
+            async function updateProgressBar() {
+                let progressData = await fetchDataForProgressBar();
+                progressBar.value = progressData;
+                progressText.textContent = `${progress.toFixed(2)}%`;
+                if (progressData === 100) {
+                    clearInterval(intervalId); // Stopping the interval function
+                    const rows = document.querySelectorAll("#myTable tr");
+                    updateTableWithDataBacktest(finalresult, rows);
+                    progressBar.remove(); // Removing the progress bar
+                    progressText.remove();
+                    finalresult = null;
+                    // Enable the button
+                    startTradingBtn.disabled = false;
+                    aiOptimizerBtnn.disabled = false;
+                    backtestBtnn.disabled = false;
+                }
+            }
+
+            // Run an interval function to update the progress bar every 5 seconds
+            let intervalId = setInterval(updateProgressBar, 5000);
+            let hasFetchedData = false;
+            let strategyID;
+            // Function for obtaining data for updating the progress bar
+            async function fetchDataForProgressBar() {
+                if (!hasFetchedData) {
+                    let data_id = await fetching_data(`/get_last_data_id/`);
+                    strategyID = data_id.strategyID;
+                    hasFetchedData = true;
+                }
+                let response = await fetching_data(`/get_progress_data/`);
+                let items = JSON.parse(response.items);
+
+                // Use a for...of loop to iterate through the elements of the items array
+                for (let item of items) {
+                    if (strategyID == item.pk) {
+                        finalresult = item.fields.data; // Assign value to finalresult
+                        progress = item.fields.progress;
+                        if ((finalresult === null || finalresult === 'empty') && progress === 1) {
+                            progress = 0;
+                        }
+                        if (progress !== -1 && progress !== 0) {
+                            let finalProgressNumber = item.fields.final_progress_number;
+                            progress = (1 - (finalProgressNumber - progress) / finalProgressNumber) * 100;
+                        }
+                        return progress;
+                    }
+                }
+                return 0;
+            }
+
+            // We receive BacktestResult data after executing the request
+            let BacktestResult = await fetchingPromise;
+            if (BacktestResult && BacktestResult.error) {
+                alert("An error occurred: " + BacktestResult.error);
+                location.reload();
+            } else if (BacktestResult) {
+                    clearInterval(intervalId); // Stopping the interval function
+                    const rows = document.querySelectorAll("#myTable tr");
+                    updateTableWithDataBacktest(BacktestResult, rows);
+                    progressBar.remove(); // Removing the progress bar
+                    progressText.remove();
+                    BacktestResult = null;
+                    finalresult = null;
+                    // Enable the button
+                    startTradingBtn.disabled = false;
+                    aiOptimizerBtnn.disabled = false;
+                    backtestBtnn.disabled = false;
+                }
+            {#58-archiveAndLaboratoryProgressbar#}
+          } else if (strategy.value == 'jumper') {
+              let long_entry_sum_in_dollars = dataFromTable.long_entry_sum_in_dollars ? dataFromTable.long_entry_sum_in_dollars.value : "500";
+              let short_entry_sum_in_dollars = dataFromTable.short_entry_sum_in_dollars ? dataFromTable.short_entry_sum_in_dollars.value : "500";
+              let long_take_profit_percent = dataFromTable.long_take_profit_percent ? dataFromTable.long_take_profit_percent.value : "50";
+              let long_stop_loss_percent = dataFromTable.long_stop_loss_percent ? dataFromTable.long_stop_loss_percent.value : "5";
+              let short_take_profit_percent = dataFromTable.short_take_profit_percent ? dataFromTable.short_take_profit_percent.value : "50";
+              let short_stop_loss_percent = dataFromTable.short_stop_loss_percent ? dataFromTable.short_stop_loss_percent.value : "5";
+              let price_difference_long_entry = dataFromTable.price_difference_long_entry ? dataFromTable.price_difference_long_entry.value : "0.1";
+              let price_difference_short_entry = dataFromTable.price_difference_short_entry ? dataFromTable.price_difference_short_entry.value : "0.1";
+
+              let long_pause_after_trade_min = dataFromTable.long_pause_after_trade_min ? dataFromTable.long_pause_after_trade_min.value : "1";
+              let short_pause_after_trade_min = dataFromTable.short_pause_after_trade_min ? dataFromTable.short_pause_after_trade_min.value : "1";
+              let order_expiration_by_price_percent_limit = dataFromTable.order_expiration_by_price_percent_limit ? dataFromTable.order_expiration_by_price_percent_limit.value : "5";
+              let timeframe = dataFromTable.timeframe ? dataFromTable.timeframe.value : "1m";
+              let short_period = dataFromTable.short_period ? dataFromTable.short_period.value : "5";
+              let long_period = dataFromTable.long_period ? dataFromTable.long_period.value : "5";
+              let long_trailing_stop = dataFromTable.long_trailing_stop ? dataFromTable.long_trailing_stop.value : "0.1";
+              let short_trailing_stop = dataFromTable.short_trailing_stop ? dataFromTable.short_trailing_stop.value : "0.1";
+
+              url = `/get_bybit_backtest_and_optimization_params/?chosen_exchange=${exchangeVal}&activity=backtest&symbol=${assetVal}&strategy=jumper&leverage=${leverage.value}&long_entry_sum_in_dollars=${long_entry_sum_in_dollars}&short_entry_sum_in_dollars=${short_entry_sum_in_dollars}&long_take_profit_percent=${long_take_profit_percent}&long_stop_loss_percent=${long_stop_loss_percent}&short_take_profit_percent=${short_take_profit_percent}&short_stop_loss_percent=${short_stop_loss_percent}&price_difference_long_entry=${price_difference_long_entry}&price_difference_short_entry=${price_difference_short_entry}&block_long_trade_until=None&block_short_trade_until=None&long_pause_after_trade_min=${long_pause_after_trade_min}&short_pause_after_trade_min=${short_pause_after_trade_min}&order_expiration_by_price_percent_limit=${order_expiration_by_price_percent_limit}&timeframe=${timeframe}&short_period=${short_period}&long_period=${long_period}&long_trailing_stop=${long_trailing_stop}&short_trailing_stop=${short_trailing_stop}&from=${from_date.value}&to=${to_date.value}&available_balance=${amount.value}`;
+            {#58-archiveAndLaboratoryProgressbar#}
+            let progress;
+            let progressText = document.createElement('div');
+            progressText.style.textAlign = 'center';
+            progressText.style.marginBottom = '1px';
+            progressText.textContent = `Calculation`;
+            this.insertAdjacentElement('beforeend', progressText);
+
+            function updateProgressText() {
+                if (progress === undefined) {
+                    let currentText = progressText.textContent;
+                    let dotsCount = (currentText.match(/\./g) || []).length;
+                    let nextDotsCount = (dotsCount + 1) % 4;
+                    progressText.textContent = `Calculation${'.'.repeat(nextDotsCount)}`;
+                } else {
+                    clearInterval(textIntervalId);
+                    progressText.textContent = `${progress.toFixed(2)}%`;
+                }
+            }
+
+            let textIntervalId = setInterval(updateProgressText, 500);
+
+            let progressBar = document.createElement('progress');
+            progressBar.setAttribute('max', '100');
+            progressBar.style.width = '100%';
+            progressBar.style.height = '20px';
+            progressBar.style.marginTop = '1px';
+            progressBar.value = 0;
+            this.insertAdjacentElement('beforeend', progressBar);
+
+            // Create a promise to request data
+            let fetchingPromise = fetching_data(url);
+
+            let finalresult = null; // Declare finalresult outside the function
+
+            // Function for updating the progress bar based on received data
+            async function updateProgressBar() {
+                let progressData = await fetchDataForProgressBar();
+                progressBar.value = progressData;
+                progressText.textContent = `${progress.toFixed(2)}%`;
+                if (progressData === 100) {
+                    clearInterval(intervalId); // Stopping the interval function
+                    const rows = document.querySelectorAll("#myTableJumper tr");
+                    updateTableWithDataBacktest(finalresult, rows);
+                    progressBar.remove(); // Removing the progress bar
+                    progressText.remove();
+                    finalresult = null;
+                    // Enable the button
+                    startTradingBtn.disabled = false;
+                    aiOptimizerBtnn.disabled = false;
+                    backtestBtnn.disabled = false;
+                }
+            }
+
+            // Run an interval function to update the progress bar every 5 seconds
+            let intervalId = setInterval(updateProgressBar, 5000);
+            let hasFetchedData = false;
+            let strategyID;
+            // Function for obtaining data for updating the progress bar
+            async function fetchDataForProgressBar() {
+                if (!hasFetchedData) {
+                    let data_id = await fetching_data(`/get_last_data_id/`);
+                    strategyID = data_id.strategyID;
+                    hasFetchedData = true;
+                }
+                let response = await fetching_data(`/get_progress_data/`);
+                let items = JSON.parse(response.items);
+
+                // Use a for...of loop to iterate through the elements of the items array
+                for (let item of items) {
+                    if (strategyID == item.pk) {
+                        finalresult = item.fields.data; // Assign value to finalresult
+                        progress = item.fields.progress;
+                        if ((finalresult === null || finalresult === 'empty') && progress === 1) {
+                            progress = 0;
+                        }
+                        if (progress !== -1 && progress !== 0) {
+                            let finalProgressNumber = item.fields.final_progress_number;
+                            progress = (1 - (finalProgressNumber - progress) / finalProgressNumber) * 100;
+                        }
+                        return progress;
+                    }
+                }
+                return 0;
+            }
+
+            // We receive BacktestResult data after executing the request
+            let BacktestResult = await fetchingPromise;
+            if (BacktestResult && BacktestResult.error) {
+                alert("An error occurred: " + BacktestResult.error);
+                location.reload();
+            } else if (BacktestResult) {
+                    clearInterval(intervalId); // Stopping the interval function
+                    const rows = document.querySelectorAll("#myTableJumper tr");
+                    updateTableWithDataBacktest(BacktestResult, rows);
+                    progressBar.remove(); // Removing the progress bar
+                    progressText.remove();
+                    BacktestResult = null;
+                    finalresult = null;
+                    // Enable the button
+                    startTradingBtn.disabled = false;
+                    aiOptimizerBtnn.disabled = false;
+                    backtestBtnn.disabled = false;
+            }
+            {#58-archiveAndLaboratoryProgressbar#}
+          }
+      });
+
+      aiOptimizerBtnn.addEventListener("click", async function (e) {
+          console.log('aiOptimizerBtnn')
+          startTradingBtn.disabled = true;
+          aiOptimizerBtnn.disabled = true;
+          backtestBtnn.disabled = true;
+          let strategy = document.querySelector('#strategy').value;
+          let exchangeVal = document.querySelector('#exchange').value;
+          const requestData = {
+              symbol: asset.value,
+              leverage: leverage.value,
+              available_balance: amount.value,
+              from_date: from_date.value,
+              to_date: to_date.value,
+              data: parseTable()
+          };
+          let url = undefined;
+          let isAdmin;
+          try {
+                // Trying to get the checkbox value
+                isAdmin = document.querySelector('#isAdminCheckbox').checked; // Getting the value of the Admin checkbox
+            } catch (error) {
+                // If an error occurs (for example, an element with id "isAdminCheckbox" was not found), set isAdmin to false
+                isAdmin = false;
+            }
+          if (strategy == 'expo_grid') {
+              url = `/get_bybit_backtest_and_optimization_params/?isAdmin=${isAdmin}&chosen_exchange=${exchangeVal}&activity=optimize&strategy=${strategy}&requestData=${JSON.stringify(requestData)}`;
+
+            {#58-archiveAndLaboratoryProgressbar#}
+            let progress;
+            let progressText = document.createElement('div');
+            progressText.style.textAlign = 'center';
+            progressText.style.marginBottom = '1px';
+            progressText.textContent = `Calculation`;
+            this.insertAdjacentElement('beforeend', progressText);
+
+            function updateProgressText() {
+                if (progress === undefined) {
+                    let currentText = progressText.textContent;
+                    let dotsCount = (currentText.match(/\./g) || []).length;
+                    let nextDotsCount = (dotsCount + 1) % 4;
+                    progressText.textContent = `Calculation${'.'.repeat(nextDotsCount)}`;
+                } else {
+                    clearInterval(textIntervalId);
+                    progressText.textContent = `${progress.toFixed(2)}%`;
+                }
+            }
+
+            let textIntervalId = setInterval(updateProgressText, 500);
+
+            let progressBar = document.createElement('progress');
+            progressBar.setAttribute('max', '100');
+            progressBar.style.width = '100%';
+            progressBar.style.height = '20px';
+            progressBar.style.marginTop = '1px';
+            progressBar.value = 0;
+            this.insertAdjacentElement('beforeend', progressBar);
+
+            // Create a promise to request data
+            let fetchingPromise = fetching_data(url);
+
+            let finalresult = null; // Declare finalresult outside the function
+
+            // Function for updating the progress bar based on received data
+            async function updateProgressBar() {
+                let progressData = await fetchDataForProgressBar();
+                progressBar.value = progressData;
+                progressText.textContent = `${progress.toFixed(2)}%`;
+                if (progressData === 100) {
+                    clearInterval(intervalId); // Stopping the interval function
+                    const rows = document.querySelectorAll("#myTable tr");
+                    updateTableWithDataOptimize(finalresult, rows);
+                    progressBar.remove(); // Removing the progress bar
+                    progressText.remove();
+                    finalresult = null;
+                    // Enable the button
+                    startTradingBtn.disabled = false;
+                    aiOptimizerBtnn.disabled = false;
+                    backtestBtnn.disabled = false;
+                }
+            }
+
+            // Run an interval function to update the progress bar every 5 seconds
+            let intervalId = setInterval(updateProgressBar, 5000);
+            let hasFetchedData = false;
+            let strategyID;
+            // Function for obtaining data for updating the progress bar
+            async function fetchDataForProgressBar() {
+                if (!hasFetchedData) {
+                    let data_id = await fetching_data(`/get_last_data_id/`);
+                    strategyID = data_id.strategyID;
+                    hasFetchedData = true;
+                }
+                let response = await fetching_data(`/get_progress_data/`);
+                let items = JSON.parse(response.items);
+
+                // Use a for...of loop to iterate through the elements of the items array
+                for (let item of items) {
+                    if (strategyID == item.pk) {
+                        finalresult = item.fields.data; // Assign value to finalresult
+                        progress = item.fields.progress;
+                        if ((finalresult === null || finalresult === 'empty') && progress === 1) {
+                            progress = 0;
+                        }
+                        if (progress !== -1 && progress !== 0) {
+                            let finalProgressNumber = item.fields.final_progress_number;
+                            progress = (1 - (finalProgressNumber - progress) / finalProgressNumber) * 100;
+                        }
+                        return progress;
+                    }
+                }
+                return 0;
+            }
+
+            // We receive optimizeResult data after executing the request
+            let optimizeResult = await fetchingPromise;
+            if (optimizeResult && optimizeResult.error) {
+                alert("An error occurred: " + optimizeResult.error);
+                location.reload();
+            } else if (optimizeResult) {
+                    clearInterval(intervalId); // Stopping the interval function
+                    const rows = document.querySelectorAll("#myTable tr");
+                    updateTableWithDataOptimize(optimizeResult, rows);
+                    progressBar.remove(); // Removing the progress bar
+                    progressText.remove();
+                    optimizeResult = null;
+                    finalresult = null;
+                    // Enable the button
+                    startTradingBtn.disabled = false;
+                    aiOptimizerBtnn.disabled = false;
+                    backtestBtnn.disabled = false;
+                }
+            {#58-archiveAndLaboratoryProgressbar#}
+
+          } else if (strategy == 'jumper') {
+              url = `/get_bybit_backtest_and_optimization_params/?isAdmin=${isAdmin}&chosen_exchange=${exchangeVal}&activity=optimize&strategy=${strategy}&requestData=${JSON.stringify(requestData)}`;
+                        {#58-archiveAndLaboratoryProgressbar#}
+            {#58-archiveAndLaboratoryProgressbar#}
+            let progress;
+            let progressText = document.createElement('div');
+            progressText.style.textAlign = 'center';
+            progressText.style.marginBottom = '1px';
+            progressText.textContent = `Calculation`;
+            this.insertAdjacentElement('beforeend', progressText);
+
+            function updateProgressText() {
+                if (progress === undefined) {
+                    let currentText = progressText.textContent;
+                    let dotsCount = (currentText.match(/\./g) || []).length;
+                    let nextDotsCount = (dotsCount + 1) % 4;
+                    progressText.textContent = `Calculation${'.'.repeat(nextDotsCount)}`;
+                } else {
+                    clearInterval(textIntervalId);
+                    progressText.textContent = `${progress.toFixed(2)}%`;
+                }
+            }
+
+            let textIntervalId = setInterval(updateProgressText, 500);
+
+            let progressBar = document.createElement('progress');
+            progressBar.setAttribute('max', '100');
+            progressBar.style.width = '100%';
+            progressBar.style.height = '20px';
+            progressBar.style.marginTop = '1px';
+            progressBar.value = 0;
+            this.insertAdjacentElement('beforeend', progressBar);
+
+            // Create a promise to request data
+            let fetchingPromise = fetching_data(url);
+
+            let finalresult = null; // Declare finalresult outside the function
+
+            // Function for updating the progress bar based on received data
+            async function updateProgressBar() {
+                let progressData = await fetchDataForProgressBar();
+                progressBar.value = progressData;
+                progressText.textContent = `${progress.toFixed(2)}%`;
+                if (progressData === 100) {
+                    clearInterval(intervalId); // Stopping the interval function
+                    const rows = document.querySelectorAll("#myTableJumper tr");
+                    updateTableWithDataOptimize(finalresult, rows);
+                    progressBar.remove(); // Removing the progress bar
+                    progressText.remove();
+                    finalresult = null;
+                    // Enable the button
+                    startTradingBtn.disabled = false;
+                    aiOptimizerBtnn.disabled = false;
+                    backtestBtnn.disabled = false;
+                }
+            }
+
+            // Run an interval function to update the progress bar every 5 seconds
+            let intervalId = setInterval(updateProgressBar, 5000);
+            let hasFetchedData = false;
+            let strategyID;
+            // Function for obtaining data for updating the progress bar
+            async function fetchDataForProgressBar() {
+                if (!hasFetchedData) {
+                    let data_id = await fetching_data(`/get_last_data_id/`);
+                    strategyID = data_id.strategyID;
+                    hasFetchedData = true;
+                }
+                let response = await fetching_data(`/get_progress_data/`);
+                let items = JSON.parse(response.items);
+
+                // Use a for...of loop to iterate through the elements of the items array
+                for (let item of items) {
+                    if (strategyID == item.pk) {
+                        finalresult = item.fields.data; // Assign value to finalresult
+                        progress = item.fields.progress;
+                        if ((finalresult === null || finalresult === 'empty') && progress === 1) {
+                            progress = 0;
+                        }
+                        if (progress !== -1 && progress !== 0) {
+                            let finalProgressNumber = item.fields.final_progress_number;
+                            progress = (1 - (finalProgressNumber - progress) / finalProgressNumber) * 100;
+                        }
+                        return progress;
+                    }
+                }
+                return 0;
+            }
+
+            // We receive optimizeResult data after executing the request
+            let optimizeResult = await fetchingPromise;
+            if (optimizeResult && optimizeResult.error) {
+                alert("An error occurred: " + optimizeResult.error);
+                location.reload();
+            } else if (optimizeResult) {
+                    clearInterval(intervalId); // Stopping the interval function
+                    const rows = document.querySelectorAll("#myTableJumper tr");
+                    updateTableWithDataOptimize(optimizeResult, rows);
+                    progressBar.remove(); // Removing the progress bar
+                    progressText.remove();
+                    optimizeResult = null;
+                    finalresult = null;
+                    // Enable the button
+                    startTradingBtn.disabled = false;
+                    aiOptimizerBtnn.disabled = false;
+                    backtestBtnn.disabled = false;
+                }
+            {#58-archiveAndLaboratoryProgressbar#}
+          }
+
+      });
+
+      function updateTableWithDataBacktest(BacktestResult, rows) {
+          // Выбираем все строки в таблице
+
+
+          rows.forEach(row => {
+              // Для каждой строки получаем первый и второй td
+              const firstTd = row.querySelector('td:first-child');
+              const secondTd = row.querySelector('td:nth-child(2)'); // Второй td для обновления значения
+              console.log(firstTd)
+              if (firstTd && secondTd) {
+
+                  // Преобразуем текст в первом td к верхнему регистру для сравнения
+
+                  const key = firstTd.textContent.trim().toUpperCase(); // Или используйте .toLowerCase()
+
+                  if (key === 'DATES') {
+                      secondTd.textContent = BacktestResult['FROM'] + '-' + BacktestResult['TO'];
+                  }
+                  // Проверяем, есть ли соответствующий ключ в BacktestResult
+                  if (BacktestResult.hasOwnProperty(key)) {
+                      // Если есть, обновляем текст во втором td этой строки
+                      secondTd.textContent = BacktestResult[key];
+                  }
+              }
+          });
+      }
+
+      function updateTableWithDataOptimize(optimizeResult, rows) {
+          console.log(optimizeResult)
+          // Выбираем все строки в таблице
+
+          rows.forEach(row => {
+              // Для каждой строки получаем первый и второй td
+              const firstTd = row.querySelector('td:first-child');
+              const secondTd = row.querySelector('td:nth-child(3)'); // Второй td для обновления значения
+              if (firstTd && secondTd) {
+
+                  // Преобразуем текст в первом td к верхнему регистру для сравнения
+
+                  const key = firstTd.textContent.trim().toUpperCase(); // Или используйте .toLowerCase()
+
+                  if (key === 'DATES') {
+                      secondTd.textContent = optimizeResult['FROM'] + '-' + optimizeResult['TO'];
+                  }
+                  // Проверяем, есть ли соответствующий ключ в optimizeResult
+                  if (optimizeResult.hasOwnProperty(key)) {
+                      // Если есть, обновляем текст во втором td этой строки
+                      secondTd.textContent = optimizeResult[key];
+                  }
+                  if (optimizeResult['SETTINGS'].hasOwnProperty(key)) {
+                      // Если есть, обновляем текст во втором td этой строки
+                      secondTd.textContent = optimizeResult['SETTINGS'][key];
+                  }
+              }
+          });
+      }
+
+
+        // Define event handler function for the button
+        startTradingBtn.addEventListener("click", async function (e) {
+            // Handler function to start trading
+            async function startTradingHandler(e) {
+                console.log('1');
+                const requestData = {
+                    chosen_strategy: strategy.value,
+                    chosen_exchange: exchange.value,
+                    chosen_asset: asset.value,
+                    total_investment: amount.value,
+                    leverage: leverage.value
+                };
+                console.log('2');
+                if (strategy.value === 'jumper') {
+                    document.querySelector('#myTableJumper').classList.remove('displayNone');
+                } else if (strategy.value === 'expo_grid') {
+                    document.querySelector('#myTable').classList.remove('displayNone');
+                }
+
+                const urls = {
+                    'Account_status_checking': {
+                        'url': `/check_account_status/`,
+                        'key': 'expired',
+                    },
+                    'Available_ats_checking': {
+                        'url': `/check_ats/`,
+                        'key': 'no_ats',
+                    },
+                    'API_Keys_checking': (() => {
+                        if (requestData.chosen_exchange === 'bybit') {
+                            return {
+                                'url': "/check_user_api_keys_bybit/",
+                                'key': 'keys_saved'
+                            };
+                        } else if (requestData.chosen_exchange === 'binance') {
+                            return {
+                                'url': "/check_user_api_keys/",
+                                'key': 'keys_saved'
+                            };
+                        }
+                    })(),
+                    'Balance_checking': {
+                        'url': `/check_balance/?total_investment=${requestData.total_investment}&chosen_exchange=${requestData.chosen_exchange}`,
+                        'key': 'enough_balance',
+                    },
+                    'Available_positions_and_orders_checking': {
+                        'url': `/check_pos_and_orders/?chosen_asset=${requestData.chosen_asset}&chosen_exchange=${requestData.chosen_exchange}`,
+                        'key': 'no_positions',
+                        "key2": 'no_orders'
+                    },
+                    'Available_bots_checking': {
+                        'url': `/check_bots/?chosen_asset=${requestData.chosen_asset}&chosen_exchange=${requestData.chosen_exchange}`,
+                        'key': 'no_bots',
+                    },
+                };
+                // Placeholder for isDone
+                let isDone = await fullfillInfoDiv(urls);
+                console.log(isDone)
+                if (isDone) {
+                    const url = `/add_to_dashboard/?requestData=${JSON.stringify(requestData)}`;
+                    fetching_data(url); // Execute function without waiting for the result
+                    // Disable the button
+                    startTradingBtn.disabled = true;
+
+                    // Show notification
+                    const notification = document.getElementById('notification');
+                    notification.innerText = 'Well done, the bot has started and is already making big money';
+                    notification.style.display = 'block';
+
+                    // Wait for 1 second before redirecting to the dashboard
+                    setTimeout(function() {
+                        window.location.href = '/dashboard/'; // Redirect to the dashboard
+                    }, 1000);
+                    window.location.href = '/dashboard';
+                }
+            }
+            await startTradingHandler(); // Call the handler function
+        });
+
+      // const responseData = {
+      //   "grids_object": {"name": "num_of_grids", "name_display": "Grids", "num_of_grids": 10, "num_of_grids_start": 10, "num_of_grids_end": 100, "num_of_grids_step": 10},
+      //   "timeframe_object": {"name": "timeframe", "name_display": "Timeframe", "timeframe": "1m", "timeframe_list": ["1m", "5m", "15m", "30m", "1h", "2h", "4h", "1d"]},
+      //   "price_range_object": {"name": "price_range", "name_display": "Price Range", "price_range": 12, "price_range_start": 12, "price_range_end": 72, "price_range_step": 10},
+      //   "activation_trigger_in_percent_object": {"name": "activation_trigger_in_percent", "name_display": "Trigger +-%", "activation_trigger_in_percent": 1.0, "activation_trigger_in_percent_start": 1.0, "activation_trigger_in_percent_end": 5.0, "activation_trigger_in_percent_step": 0.5},
+      //   "distribution_of_grid_lines_object": {"name": "distribution_of_grid_lines", "name_display": "Grid Distribution", "distribution_of_grid_lines": "LINEAR", "distribution_of_grid_lines_list": ["LINEAR", "FIBONACCI"]},
+      //   "short_stop_loss_in_percent_object": {"name": "short_stop_loss_in_percent", "name_display": "Short SL%", "short_stop_loss_in_percent": 1.0, "short_stop_loss_in_percent_start": 1.0, "short_stop_loss_in_percent_end": 5.0, "short_stop_loss_in_percent_step": 0.5},
+      //   "long_stop_loss_in_percent_object": {"name": "long_stop_loss_in_percent", "name_display": "Long SL%", "long_stop_loss_in_percent": 1.0, "long_stop_loss_in_percent_start": 1.0, "long_stop_loss_in_percent_end": 5.0, "long_stop_loss_in_percent_step": 0.5},
+      //   "trend_period_object": {"name": "trend_period", "name_display": "Trend Period", "trend_period": 12, "trend_period_start": 12, "trend_period_end": 72, "trend_period_step": 10}
+      // };
+
+      function generateTable(data) {
+          const tableContainer = document.getElementById('tableContainer');
+          const table = document.createElement('table');
+          table.classList.add('table', 'table-bordered', 'table-dark');
+
+          const thead = document.createElement('thead');
+          const headerRow = document.createElement('tr');
+
+          // Headers
+          const headers = ['Options', 'STATIC', 'START', 'STOP', 'STEP'];
+
+          headers.forEach(headerText => {
+              const headerCell = document.createElement('th');
+              headerCell.textContent = headerText;
+              headerRow.appendChild(headerCell);
+          });
+
+          thead.appendChild(headerRow);
+          table.appendChild(thead);
+
+          const tbody = document.createElement('tbody');
+
+          for (const key in data) {
+              const object = data[key];
+              const row = document.createElement('tr');
+              row.dataset.name = object.name;
+
+              // Options column (checkbox)
+              const optionsCell = document.createElement('td');
+              optionsCell.innerHTML = `<input type="checkbox">${object.name_display}`;
+              row.appendChild(optionsCell);
+
+              if (Object.keys(object).some(val => val.includes('list'))) {
+                  const selectCell = document.createElement('td');
+                  const selectElement = document.createElement('select');
+                  object[object.name + '_list'].forEach(option => {
+                      const optionElement = document.createElement('option');
+                      optionElement.value = option;
+                      optionElement.textContent = option;
+                      selectElement.appendChild(optionElement);
+                  });
+                  selectCell.appendChild(selectElement);
+                  row.appendChild(selectCell.cloneNode(true));
+                  row.appendChild(selectCell.cloneNode(true));
+                  row.appendChild(selectCell.cloneNode(true));
+              } else {
+                  // STATIC, START, STOP, STEP columns
+                  const inputNames = [object.name, `${object.name}_start`, `${object.name}_end`, `${object.name}_step`];
+
+                  inputNames.forEach(inputName => {
+                      const inputCell = document.createElement('td');
+                      const inputElement = document.createElement('input');
+                      inputElement.type = 'number';
+                      inputElement.value = object[inputName];
+                      inputCell.appendChild(inputElement);
+                      row.appendChild(inputCell);
+                  });
+              }
+
+              tbody.appendChild(row);
+          }
+
+          table.appendChild(tbody);
+          tableContainer.innerHTML = '';
+          tableContainer.appendChild(table);
+      }
+
+
+      function parseTable(parseAll = true) {
+          const table = document.getElementById('tableContainer').querySelector('table');
+          const rows = table.querySelectorAll('tbody tr');
+          const parsedData = {};
+          parsedData['strategyName'] = strategy.value;
+          rows.forEach(row => {
+              let checkBox = row.querySelector('input[type="checkbox"]');
+              if (parseAll || checkBox.checked) {
+                  const name = row.dataset.name;
+                  const nameDisplay = row.querySelector('td:nth-child(1)').textContent;
+                  const valueCell = row.querySelector('td:nth-child(2)');
+                  const selectElements = row.querySelectorAll('select');
+
+                  parsedData[name] = {
+                      name: name,
+                      nameDisplay: nameDisplay,
+                      value: selectElements[0] ? selectElements[0].value : valueCell.textContent,
+                      checked: checkBox.checked,
+                  };
+
+                  if (selectElements[0]) {
+                      parsedData[name][`${name}_list`] = Array.from(selectElements[0].options).map(option => option.value);
+                  }
+
+                  // Assuming the second and third select elements are present
+                  if (selectElements.length >= 3) {
+                      parsedData[name][`${name}_start`] = selectElements[1].value;
+                      parsedData[name][`${name}_end`] = selectElements[2].value;
+                  } else {
+                      const inputs = Array.from(row.querySelectorAll('input[type="number"]'));
+                      const inputNames = ['value', `${name}_start`, `${name}_end`, `${name}_step`];
+
+                      inputs.forEach((input, index) => {
+                          parsedData[name][inputNames[index]] = input.value;
+                      });
+                  }
+              }
+          });
+
+          return parsedData;
+      }
+
+      const settingsUrl = '/get_bybit_expo_grid_bot_settings/'
+      const settingsUrlJumper = '/get_jumper_bot_settings/'
+
+      strategy.addEventListener('change', async function (e) {
+          if (e.target.value === 'expo_grid') {
+              const respData = await fetching_data(settingsUrl);
+              generateTable(respData);
+          } else if (e.target.value === "jumper") {
+              const respData = await fetching_data(settingsUrlJumper);
+              generateTable(respData)
+          }
+      });
+
+            async function fetching_data(url) {
+                try {
+                    const response = await fetch(url);
+                    console.log(response);
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+
+                    // Проверяем Content-Type ответа сервера
+                    const contentType = response.headers.get('content-type');
+                    if (contentType && contentType.indexOf('application/json') !== -1) {
+                        // Если тип содержимого - JSON, преобразуем его и возвращаем
+                        return await response.json();
+                    } else {
+                        // Если тип содержимого не JSON, возвращаем как есть
+                        return await response.text();
+                    }
+                } catch (error) {
+                    console.error('Error:', error.message);
+                    throw error; // Перебрасываем ошибку для ее обработки вызывающим кодом
+                }
+            }
+
+
+      const [...tablesResult] = document.querySelectorAll('#myTable,#myTableJumper');
+
+      document.querySelector('#strategy').addEventListener('change', function (e) {
+          tablesResult.forEach(el => {
+              el.classList.add('displayNone');
+          })
+          if (e.target.value == 'jumper') {
+              document.querySelector('#myTableJumper').classList.remove('displayNone')
+          } else if (e.target.value == 'expo_grid') {
+              document.querySelector('#myTable').classList.remove('displayNone')
+          }
+      })
+
+      tablesResult.forEach(table => {
+          const rows = table.querySelectorAll('tr')
+          rows.forEach((row, index) => {
+              if (index > 5) {
+                  row.classList.add('active')
+                  row.classList.add('displayNone')
+              }
+          })
+      })
+
+      showMoreBtn.addEventListener('click', function () {
+          tablesResult.forEach(table => {
+              const rows = table.querySelectorAll('tr')
+              rows.forEach((row, index) => {
+                  if (index > 5) {
+                      row.classList.toggle('displayNone')
+                  }
+              })
+          })
+      })
+
+  </script>
+        <script src="{% static 'js/backtest_and_ai_optimization/set_minimal_amount_leverage.js' %}?v=1.0.0"></script>
+
+    <script src="{% static 'js/js_scripts/symbols_table.js' %}?v=1.0.0"></script>
+    <script src="{% static 'js/js_scripts/search_sybmol_in_table.js' %}?v=1.0.0"></script>
+
+    <script src="{% static 'js/ai_optimizer/verify_account.js' %}?v=1.0.0"></script>
+
+
+{% endblock %}

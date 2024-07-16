@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <h1>Discovery ML Strategy Settings</h1>
+  <p>
+  <div class="d-flex justify-content-between mb-3">
+    <!-- 1 box -->
+    <div class="block card">
+      <div class="card-body">
+        {% if not results %}
+          <p>
+            You have the option to view the machine-learned settings right here.
+          </p>
+        {% elif results %}
+          {% for setting, value in results.items %}
+            {{ setting }}:
+            <span>{{ value }}</span><br>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+    <!-- 2 box -->
+    <div class="block card">
+      <div class="card-body">
+        <p>
+          You have the option to download the configuration file with machine-learned settings.
+        </p>
+      </div>
+    </div>
+
+    <!-- 3 box -->
+    <div class="block card">
+      <div class="card-body">
+        <p>
+          Ready to trade? If yes, then click on the button below to go to the description
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-between mb-3">
+    <!-- buttons for 1 box -->
+    <div class="block-button-group">
+      <form method="post" action="{% url 'main_service:ml_settings' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-main btn-main-white" name="watch_ml_settings">
+          Watch your ML strategy results with settings:
+        </button>
+      </form>
+    </div>
+
+    <!-- buttons for 2 box -->
+    <div class="block-button-group">
+
+      <form method="post" action="{% url 'main_service:download_file' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-main btn-main-white" name="download_ml_settings">
+          Download optimized settings
+        </button>
+      </form>
+    </div>
+
+    <!-- buttons for 3 box -->
+    <div class="block-button-group">
+      <form method="post" action="{% url 'main_service:trading_description' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-main btn-main-white" name="description">
+          Use ML strategy on real account:
+        </button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,224 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% block content %}
+  {% load crispy_forms_tags %}
+
+  <!-- Register -->
+
+  <div class="container-registration py-5">
+    <h1 class="center-content theme-toggle">{% trans "Register" %}</h1>
+    <p class="text-center">{% trans "If you already have an account," %} <a
+        href="{% url 'main_service:login' %}?next={{ request.path }}"
+        style="color: black;"><strong>{% trans "login" %}</strong></a> {% trans "instead." %}</p>
+    <div class="container-form-registration ">
+      <form method="POST" class="login-form"> <!-- Добавьте класс "login-form" для стилей CSS -->
+        {% csrf_token %}
+        {{ register_form.username|as_crispy_field }}
+        {{ register_form.email|as_crispy_field }}
+        {{ register_form.first_name|as_crispy_field }}
+        {{ register_form.last_name|as_crispy_field }}
+        {{ register_form.gender|as_crispy_field }}
+        <div class="icon-selector">
+          <label for="{{ register_form.icon.id_for_label }}">{% trans "Choose an icon:" %}</label>
+          <div class="icon-list">
+            {% for icon_value, icon_label in register_form.icon.field.choices %}
+              <div class="icon-item" onclick="selectIcon('{{ icon_value }}')">
+                <img src="{% static 'images/profile_icons/'|add:icon_value %}" alt="{{ icon_label }}"
+                     class="icon-preview" id="icon-preview-{{ icon_value }}">
+              </div>
+            {% endfor %}
+          </div>
+          <input type="hidden" id="selected-icon" name="{{ register_form.icon.name }}" value="">
+        </div>
+        <div class="password-input-container">
+          {{ register_form.password1|as_crispy_field }}
+          <div class="toggle-password" id="show_password1">
+            <i class="fa fa-eye"></i>
+          </div>
+        </div>
+        <p class="pass-help">
+          Your password can’t be too similar to your other personal information.<br>
+          Your password must contain at least 8 characters.<br>
+          Your password can’t be a commonly used password.<br>
+          Your password can’t be entirely numeric.
+        </p>
+        <div class="password-input-container">
+          {{ register_form.password2|as_crispy_field }}
+          <div class="toggle-password-2" id="show_password2">
+            <i class="fa fa-eye"></i>
+          </div>
+        </div>
+        <div class="register-form-privacy-policy">
+          <p><input type="checkbox" id="privacy-checkbox"> <label for="privacy-checkbox">I carefully read <a
+              href="{% url 'main_service:privacy_policy' %}" target="_blank">Privacy Policy</a></label></p>
+          <br>
+          <p><input type="checkbox" id="risk-checkbox"> <label for="risk-checkbox">I carefully read <a
+              href="{% url 'main_service:risk_disclaimer' %}" target="_blank">Risk Disclaimer</a></label></p>
+        </div>
+
+
+        <div class="center-content">
+          <button class="btn btn-dark center-content" type="submit"
+                  style="color: white;">{% trans "Register" %}</button>
+        </div>
+      </form>
+      <br>
+      {% if register_form.errors %}
+        <div class="alert alert-danger">
+          <strong>{% trans "Error:" %}</strong>
+          <ul>
+            {% for field, errors in register_form.errors.items %}
+              {% for error in errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+      <br>
+
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+      $(document).ready(function () {
+          // Select the first icon as the default
+          var firstIconValue = '{{ register_form.icon.field.choices.0.0 }}';
+          selectIcon(firstIconValue);
+      });
+      $(document).ready(function () {
+          $('#show_password1').click(function () {
+              var passwordField1 = $('#id_password1');
+              var passwordFieldType1 = passwordField1.attr('type');
+              if (passwordFieldType1 === 'password') {
+                  passwordField1.attr('type', 'text');
+                  $(this).html('<i class="fa fa-eye-slash"></i>');
+              } else {
+                  passwordField1.attr('type', 'password');
+                  $(this).html('<i class="fa  fa-eye"></i>');
+              }
+          });
+
+          $('#show_password2').click(function () {
+              var passwordField2 = $('#id_password2');
+              var passwordFieldType2 = passwordField2.attr('type');
+              if (passwordFieldType2 === 'password') {
+                  passwordField2.attr('type', 'text');
+                  $(this).html('<i class="fa fa-eye-slash"></i>');
+              } else {
+                  passwordField2.attr('type', 'password');
+                  $(this).html('<i class="fa  fa-eye"></i>');
+              }
+          });
+      });
+
+      function selectIcon(iconValue) {
+          var selectedIcon = document.getElementById('selected-icon');
+          selectedIcon.value = iconValue;
+
+          // Update the styling to indicate the selected icon
+          var iconItems = document.querySelectorAll('.icon-item');
+          iconItems.forEach(function (item) {
+              item.classList.remove('selected');
+          });
+
+          var selectedIconItem = document.querySelector('.icon-item[onclick="selectIcon(\'' + iconValue + '\')"]');
+          selectedIconItem.classList.add('selected');
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+          var registerButton = document.querySelector('.btn-dark');
+
+          registerButton.addEventListener('click', function (event) {
+              var privacyCheckbox = document.getElementById('privacy-checkbox');
+              var riskCheckbox = document.getElementById('risk-checkbox');
+
+              if (!privacyCheckbox.checked || !riskCheckbox.checked) {
+                  event.preventDefault(); // Отменить отправку формы
+                  alert("You must read and check 'Risk Disclaimer' and 'Privacy Policy'");
+              }
+          });
+      });
+
+  </script>
+
+  <style>
+      .password-input-container {
+          position: relative;
+      }
+
+      .toggle-password {
+          position: absolute;
+          top: 30px;
+          left: -8%;
+          cursor: pointer;
+      }
+
+      .toggle-password-2 {
+          position: absolute;
+          top: 30px;
+          left: -8%;
+          cursor: pointer;
+      }
+
+      .container-registration {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+      }
+
+      .container-form-registration {
+          color: black;
+      }
+
+      /* Уменьшение размера форм для ввода на 1/3 */
+      input[type="text"],
+      input[type="email"],
+      input[type="password"] {
+          width: 104%; /* Уменьшение ширины на 1/3 */
+      }
+
+      .password-input-container {
+          position: relative;
+      }
+
+      /* Стили для формы регистрации */
+      .login-form {
+          width: 400px; /* Ширина формы */
+          padding: 50px;
+          background-color: #fff;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .icon-preview {
+          max-width: 50px;
+          max-height: 50px;
+      }
+
+      .icon-list {
+          display: flex;
+          flex-wrap: wrap;
+      }
+
+      .icon-item {
+          margin: 5px;
+          cursor: pointer;
+      }
+
+      .icon-item img {
+          max-width: 50px;
+          max-height: 50px;
+      }
+
+      .icon-item.selected {
+          border: 2px solid #D27D19; /* Add your desired style for the selected icon */
+      }
+  </style>
+{% endblock %}

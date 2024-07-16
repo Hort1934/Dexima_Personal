@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+
+  <div class="dashboard center-content">
+    <br>
+    <h1>{% trans "Detailed information about your trading bot" %}</h1>
+    {% include 'includes/trading_view_graphic.html' with pair=pair only %}
+    <br>
+    <div class="container dashboard detail">
+      <h1>Bot Statistics</h1>
+      <p>Total PNL: {{ total_pnl }} $</p>
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">asset</th>
+          <th scope="col">amount</th>
+          <th scope="col">realized PnL</th>
+          <th scope="col">unrealized PnL</th>
+          <th scope="col">run time</th>
+          <th scope="col">start date and time</th>
+          <th scope="col">stop date and time</th>
+          <th scope="col">strategy</th>
+          <th scope="col">exchange</th>
+
+
+          <!-- Add other headers as needed -->
+        </tr>
+        </thead>
+        <tbody>
+        {% for bot_stat in this_bot_stats %}
+          <tr>
+              <td>{{ bot_stat.trading_bot.id}}</td>
+              <td>{{ bot_stat.trading_bot.trading_pair }}</td>
+              <td>{{ bot_stat.trading_bot.investment_amount }} $</td>
+              <td>{{ bot_stat.realized_pnl }} $</td>
+              <td>{{ bot_stat.unrealized_pnl }} $</td>
+              <td>{{ bot_stat.trading_bot.running_time }}</td>
+              <td>{{ bot_stat.close_time|date:"Y-m-d H:i:s" }}</td>
+              <td>{{ bot_stat.open_time|date:"Y-m-d H:i:s" }}</td>
+              <td>{{ bot_stat.trading_bot.strategy_name }}</td>
+              <td>{{ bot_stat.trading_bot.exchange }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      {#      <div class="orders list">#}
+      {#        <h5>{% trans "List of orders" %}</h5>#}
+      {#        <p>1 order</p>#}
+      {#        <p>2 order</p>#}
+      {#      </div>#}
+    </div>
+  </div>
+  <br>
+{% endblock %}

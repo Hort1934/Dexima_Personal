@@ -1,0 +1,231 @@
+{% load i18n %}
+<div class="center-content">
+
+  {% if crypto_market_chosen %}
+    <div class="index">
+      <input type="hidden" name="chosen_strategy" value="{{ chosen_strategy }}">
+      <h6>
+        <br>
+        {% trans "CHOOSE EXCHANGE" %} <br>
+        <br>
+      </h6>
+    </div>
+    <div class="market-selection">
+      <form method="post" action="{% url 'main_service:ai_optimizer' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-main btn-main-white" name="binance">{% trans "Binance" %} </button>
+        <a href="{% url 'main_service:trading_description' %}">
+          CONNECT</a>&nbsp;
+        <button type="submit" class="btn btn-main btn-main-white" name="bybit">{% trans "Bybit" %}</button>
+{#        <a href="{% url 'main_service:trading_description' %}">#}
+{#          CONNECT</a>&nbsp;#}
+        <button type="submit" class="btn btn-main btn-main-white" name="ku_coin">{% trans "KuCoin" %}</button>
+{#        <a href="{% url 'main_service:trading_description' %}">#}
+{#          CONNECT</a>&nbsp;#}
+
+      </form>
+    </div>
+    {% if exchange_binance_chosen %}
+      <div class="index">
+        <input type="hidden" name="chosen_strategy" value="{{ chosen_strategy }}">
+        <h6>
+          <br>
+          {% trans "CHOOSE ASSET" %} <br>
+          <br>
+        </h6>
+      </div>
+      {% if not selected_pair %}
+        <div class="search-team">
+          <form id="filter-form">
+            {% csrf_token %}
+            <label for="trading_pair"></label>
+            <input type="text" id="search-input" placeholder="{% trans "Search trading pairs" %}" required>
+          </form>
+          <br>
+        </div>
+        <br>
+        <div class="d-flex justify-content-between mb-1">
+          <!-- 1 box -->
+          <br>
+          <div class="table-container">
+            <table id="crypto-table">
+              <thead>
+              <tr>
+                <th>{% trans "Pair" %}</th>
+                <th>{% trans "Price" %}</th>
+                <th>{% trans "Change 24h" %}</th>
+                <th>{% trans "Volume 24h" %}</th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for trading_pair in data %}
+                <tr>
+                  <td><a href="{% url 'main_service:crypto' trading_pair.trading_pair %}">
+                    {{ trading_pair.trading_pair }}</a>&nbsp;
+                  </td>
+                  <td>{{ trading_pair.price }}$&nbsp;</td>
+                  <td style="color: {% if trading_pair.price_change_in_24h > 0 %}green{% else %}red{% endif %};">
+                    {{ trading_pair.price_change_in_24h }}%
+                  </td>
+                  <td>{{ trading_pair.volume_change_in_24h }}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+            <button id="resetBtn">Reset</button>
+          </div>
+        </div>
+      {% else %}
+        <div class="index">
+          <input type="hidden" name="chosen_strategy" value="{{ chosen_strategy }}">
+          <h6 style="color: #43D510">
+            {{ selected_pair }}
+          </h6>
+        </div>
+      {% endif %}
+      <form method="post" action="{% url 'main_service:crypto' %}" style="text-align: center">
+        {% csrf_token %}
+        {% if pair_selected %}
+          <button type="submit" name="Next">Next</button> {% endif %}
+        <br>
+      </form>
+
+    {% endif %}
+  {% endif %}
+
+
+</div>
+
+<div class="modal" id="exchangeModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{% trans "Confirmation" %}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="exchangeModalText"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Cancel" %}</button>
+        <a class="btn btn-primary" id="exchangeModalLink" href="#" target="_blank">{% trans "Register" %}</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    let confirmationModalOpen = false;
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById("search-input");
+        const rows = document.querySelectorAll("#crypto-table tbody tr");
+
+        searchInput.addEventListener("input", function () {
+            const query = this.value.toLowerCase();
+
+            rows.forEach(function (row) {
+                const pairName = row.querySelector("td:first-child a").textContent.toLowerCase();
+
+                if (pairName.includes(query)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
+    });
+
+
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var table = document.getElementById("crypto-table");
+        var thArray = Array.from(table.querySelectorAll("th"));
+        var resetBtn = document.getElementById("resetBtn");
+
+        // Зберегти оригінальний порядок рядків
+        var originalOrder = Array.from(table.querySelectorAll("tbody tr"));
+
+        thArray.forEach(function (th, index) {
+            th.addEventListener("click", function () {
+                var rows = Array.from(table.querySelectorAll("tbody tr"));
+
+                rows.sort(comparator(index));
+
+                this.asc = !this.asc;
+                if (!this.asc) {
+                    rows = rows.reverse();
+                }
+
+                rows.forEach(function (row) {
+                    table.querySelector("tbody").appendChild(row);
+                });
+
+                // Видалити всі класи сортування і додати потрібний для позначення напрямку
+                thArray.forEach(function (otherTh) {
+                    otherTh.classList.remove("asc", "desc");
+                });
+                th.classList.add(this.asc ? 'asc' : 'desc');
+            });
+
+            // Додати стрілки сортування за замовчуванням
+            th.innerHTML += '<span class="asc"></span><span class="desc"></span>';
+            th.classList.add("default-sort");
+        });
+
+        resetBtn.addEventListener("click", function () {
+            // Видалити всі рядки з таблиці
+            table.querySelector("tbody").innerHTML = "";
+
+            // Додати рядки в оригінальному порядку
+            originalOrder.forEach(function (row) {
+                table.querySelector("tbody").appendChild(row);
+            });
+
+            // Забути всі класи сортування
+            thArray.forEach(function (th) {
+                th.classList.remove("asc", "desc");
+            });
+        });
+
+        function comparator(index) {
+            return function (a, b) {
+                var valA = transToInteger(getCellValue(a, index));
+                var valB = transToInteger(getCellValue(b, index));
+
+                // Перевірити, якщо значення рівні, порівняти за іншими стовпцями
+                if (valA === valB) {
+                    for (var i = 0; i < thArray.length; i++) {
+                        if (i !== index) {
+                            valA = getCellValue(a, i);
+                            valB = getCellValue(b, i);
+                            if (valA !== valB) {
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                return !isNaN(valA) && !isNaN(valB) ?
+                    valA - valB :
+                    valA.toString().localeCompare(valB);
+            };
+        }
+
+        function getCellValue(row, index) {
+            return row.children[index].textContent;
+        }
+
+        function transToInteger(val) {
+            var endsWithDollarOrPercent = /[$%]/.test(val);
+            if (endsWithDollarOrPercent) {
+                return parseFloat(val.replace(/[$%]/g, ''));
+            } else {
+                return val;
+            }
+        }
+    });
+</script>
+

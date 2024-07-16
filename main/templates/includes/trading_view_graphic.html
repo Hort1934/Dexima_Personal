@@ -1,0 +1,26 @@
+{% load i18n %}
+<div class="tradingview-widget-container">
+  <div id="tradingview_1dc57"></div>
+  <div class="tradingview-widget-copyright"><a href="https://ru.tradingview.com/" rel="noopener nofollow"
+                                               target="_blank"><span
+      class="blue-text">{% trans "Follow the markets on TradingView" %}</span></a>
+  </div>
+  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+  <script type="text/javascript">
+      new TradingView.widget(
+          {
+              "width": 980,
+              "height": 410,
+              "symbol": "BINANCE:{{ pair }}",
+              "interval": "D",
+              "timezone": "Etc/UTC",
+              "theme": "light",
+              "style": "1",
+              "locale": "ru",
+              "enable_publishing": false,
+              "allow_symbol_change": true,
+              "container_id": "tradingview_1dc57"
+          }
+      );
+  </script>
+</div>

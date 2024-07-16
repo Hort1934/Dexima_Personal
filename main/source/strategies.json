@@ -1,0 +1,24 @@
+{
+  "grid_bot": {
+    "description": "A strategy where traders place orders at regular intervals around a set price, profiting from any price movement, irrespective of its direction.",
+    "high_price": "1500",
+    "low_price": "1300",
+    "grid_step": "1",
+    "grids": "200",
+    "balance": 1500
+  },
+  "futures_grid_bot": {
+    "description": "A version of the grid strategy tailored for futures contracts, considering the added complexity and leverage involved in futures trading.",
+    "high_price": "1500",
+    "low_price": "1300",
+    "grid_step": "1",
+    "grids": "200",
+    "balance": 100000
+  },
+  "f1": {
+    "description": "The F1 strategy is a dynamic market response system tailored to capitalize on both upward and downward price movements.",
+    "days_of_backtest": "30",
+    "interval": "1.35",
+    "start_balance": "1000"
+  }
+}

@@ -1,0 +1,11 @@
+{% load i18n %}
+{% load static %}
+<form method="post" action="{% url 'main_service:show_chosen_strategy' %}">
+  {% csrf_token %}
+  <div class="center-content">
+    <h2>{% trans "Let`s Make your AI profitable strategy!" %}</h2>
+    <button type="submit" class="btn btn-main btn-main-white" name="download_ml_settings">
+      Start!
+    </button>
+  </div>
+</form>

@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+  <!-- 1 box -->
+  <div class="d-flex justify-content-between mb-2">
+    <div class="block card deposit">
+      <div class="card-body">
+        {% blocktrans %}
+          <p><strong>Custom Backtesting Service</strong> <br>
+            <br>
+            Unlock the power of tailored trading strategies with our Custom Backtesting Service. We offer you the
+            opportunity to fine-tune and test your investment strategies, providing you with valuable insights before
+            making real financial decisions. <br>
+            <br>
+            <strong>What is Backtesting?</strong> <br>
+            <br>
+            Backtesting is a crucial step in the world of trading and investment. It involves applying your trading
+            strategy to historical market data to evaluate how it would have performed in the past. By backtesting your
+            strategies, you gain a comprehensive understanding of their strengths and weaknesses without risking your
+            capital. <br>
+            <br>
+            <strong>Tailored to Your Needs</strong> <br>
+            <br>
+            With our Custom Backtesting Service, you're in control. You can select from a range of customizable
+            parameters, including trading indicators, risk levels, time frames, and more. We cater to both novice
+            traders
+            looking to refine their strategies and experienced investors seeking to optimize their portfolios. <br>
+            <br>
+            <strong> Key Features </strong> <br>
+            <br>
+            Strategy Customization: Adjust your strategy parameters to align with your unique investment goals. <br>
+
+            Historical Data: Access a vast database of historical market data to simulate real-world scenarios. <br>
+
+            Risk Management: Implement risk management rules to safeguard your investments. <br>
+
+            Performance Analysis: Evaluate the performance of your strategies with detailed reports and metrics. <br>
+            <br>
+            <strong>How It Works</strong> <br>
+            <br>
+            Select Your Strategy: Choose from a variety of trading strategies or create your own. <br>
+
+            Customize Parameters: Fine-tune your strategy by specifying entry and exit criteria, timeframes, and risk
+            tolerance. <br>
+
+            Run Backtests: Our platform will simulate your strategy over historical data to provide performance
+            insights.
+            <br>
+
+            Analyze Results: Review comprehensive reports and performance metrics to refine your strategy further. <br>
+            <br>
+            <strong>Why Choose Us</strong> <br>
+            <br>
+            Expertise: Benefit from our team's expertise in backtesting and financial analysis. <br>
+
+            Data Accuracy: Access reliable and accurate historical market data. <br>
+
+            User-Friendly: Our platform is designed with ease of use in mind, making it accessible to traders of all
+            levels. <br>
+            <br>
+            <strong>Make Informed Decisions</strong> <br>
+            <br>
+            With our Custom Backtesting Service, you can make informed investment decisions based on historical
+            performance data. Whether you're a seasoned trader or just starting out, our platform empowers you to
+            optimize
+            your trading strategies and maximize your potential returns. <br>
+            <br>
+            Start your custom backtesting journey today and gain the confidence to succeed in the world of trading and
+            investments.</p>
+          <h3>How many backtestings you need?</h3>
+          <p>1 backtesting = 1 $</p>
+        {% endblocktrans %}
+        <form method="post" action="{% url 'main_service:deposit' %}">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="quantity">{% trans "Quantity:" %}</label>
+            <input type="number" id="quantity" name="backtesting_quantity" min="1" max="500" value="1">
+          </div>
+          <button type="submit" class="btn btn-main btn-main-white" name="backtesting_added_to_basket">
+            {% trans "Add to Cart" %}
+          </button>
+        </form>
+        <form method="post" action="{% url 'main_service:basket' %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-main btn-main-white"
+                  name="optimization_added_to_basket">
+            {% trans "Go to Cart and pay" %}
+          </button>
+        </form>
+
+      </div>
+
+
+    </div>
+    <!-- 2 box -->
+    <div class="block card deposit">
+      <div class="card-body">
+        {% blocktrans %}
+          <p>
+            <strong>Machine Learning-Powered Strategy Optimization</strong> <br>
+            <br>
+            Unlock the full potential of your trading strategies with our cutting-edge Machine Learning-Powered Strategy
+            Optimization service. Harness the power of artificial intelligence to refine and enhance your trading
+            techniques, ultimately maximizing your investment returns. <br>
+            <br>
+            <strong>Why Choose Strategy Optimization?</strong> <br>
+            <br>
+            In the dynamic world of financial markets, a well-optimized trading strategy can make all the difference.
+            Our
+            service leverages state-of-the-art machine learning algorithms to fine-tune your strategies based on
+            historical market data, adapting to changing market conditions in real-time. <br>
+            <br>
+            <strong>Key Benefits:</strong> <br>
+            <br>
+            Enhanced Performance: Achieve superior trading results by optimizing your strategies for maximum
+            profitability.
+            <br>
+            Risk Mitigation: Minimize potential losses through intelligent risk assessment and mitigation strategies.
+            <br>
+            Data-Driven Insights: Leverage data-driven insights to make informed trading decisions.
+            <br>
+            Adaptive Trading: Stay ahead of market trends with strategies that adapt to changing conditions. <br>
+            <br>
+            <strong>How It Works:</strong> <br>
+            <br>
+            Select Your Strategies: Choose the trading strategies you want to optimize.
+            <br>
+            Data Analysis: We analyze historical market data to identify patterns and trends.
+            <br>
+            Machine Learning Optimization: Our AI algorithms optimize your strategies for optimal performance.
+            <br>
+            Real-time Monitoring: Track the performance of your optimized strategies in real-time. <br>
+            <br>
+            <strong>Customized Solutions:</strong> <br>
+            <br>
+            Our service is tailored to meet your unique needs. Whether you're an experienced trader seeking to fine-tune
+            your existing strategies or a newcomer looking to embark on your trading journey, we've got you covered.
+            <br>
+            <br>
+            <strong>Experience the Future of Trading:</strong> <br>
+            <br>
+            Experience the power of machine learning and artificial intelligence in optimizing your trading strategies.
+            Stay ahead of the competition, minimize risks, and maximize your trading success with our Strategy
+            Optimization service.
+            <br>
+            Take the next step toward achieving your financial goals. Explore the possibilities of Strategy Optimization
+            today.
+          </p>
+          <h3>How many AI Optimizations you need?</h3>
+          <p>1 AI Optimization = 5 $</p>
+        {% endblocktrans %}
+        <form method="post" action="{% url 'main_service:deposit' %}">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="quantity">{% trans "Quantity:" %}</label>
+            <input type="number" id="quantity" name="optimization_quantity" min="1" max="500" value="1">
+          </div>
+          <button type="submit" class="btn btn-main btn-main-white" name="optimization_added_to_basket">
+            {% trans "Add to Cart" %}
+          </button>
+        </form>
+        <form method="post" action="{% url 'main_service:basket' %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-main btn-main-white"
+                  name="optimization_added_to_basket">
+            {% trans "Go to Cart and pay" %}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

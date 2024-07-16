@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  app:
+    container_name: backend-app
+    build:
+      context: .
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:81"
+    networks:
+      - backend-network
+    volumes:
+      - ./:/app/
+  
+  nginx:
+    image: nginx:latest
+    restart: always
+    container_name: backend-nginx
+    depends_on:
+      - app
+    networks:
+      - backend-network
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./nginx/:/etc/nginx/
+      - ./static/:/app/static/
+
+networks:
+  backend-network:
+    name: backend-network

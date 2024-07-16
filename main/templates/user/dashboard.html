@@ -1,0 +1,604 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_filters %}
+{% load i18n %}
+{% load humanize %}
+{% block content %}
+  <script src="{% static 'js/main_services/dashboard/redirect_to_appropriate_dashboard.js' %}"></script>
+  <script>window.scrollTo(0, 0)</script>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/dashboard_styles.css' %}">
+  <h2 style="text-align-last: center">Dashboard</h2>
+  <br>
+  <div class="dashboard-content">
+    <div class="row dashboard-row">
+      <div class="col-lg-8">
+
+        <div class="all-trading-bots">
+          <div class="trading-bots-title">
+            <ul>
+              <li class="title-block">
+                <div class="title-block-text">
+                  <button type="submit" id="active-bots-button" class="dashboard-menu-buttons-style">Active Bots
+                  </button>
+                </div>
+              </li>
+              <li class="title-block">
+                <div class="title-block-text">
+                  <button type="submit" id="archive-button" class="dashboard-menu-buttons-style">Archive</button>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div id="active-bots-content" class="trading-bots-content-active-bots" style="display: none;">
+            <table class="table table-striped dashboard-table-size active-bots-style">
+
+              <thead>
+              <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Asset</th>
+                  <th scope="col">Profit</th>
+                  <th scope="col">Running time</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Exchange</th>
+                  <th scope="col">Strategy</th>
+                  <th scope="col">Launch date</th>
+                  <th scope="col">APY</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Management</th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for item in current_user_active_trading_bots %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.trading_pair }}</td>
+                    <td style="color: {% if item.profit > 0 %}#43D510{% elif item.profit < 0 %}red{% else %}black{% endif %}">{{ item.profit }}$</td>
+                    <td>{{ item.running_time }}</td>
+                    <td>{{ item.investment_amount }}$</td>
+                    <td>{{ item.exchange }}</td>
+                    <td>{{ item.strategy_name }}</td>
+                    <td style="font-size: 9px; padding: 0 !important; padding-top: 0.30rem !important;">{{ item.launch_date|date:"Y-m-d H:i:s" }}</td>
+                    <td style="color: {% if item.approximately_price_year > 0 %}#43D510{% elif item.approximately_price_year > 0 %}red{% else %}black{% endif %}">{{ item.approximately_price_year }}$</td>
+                    <td style="color: {% if item.status == "started" %}#43D510{% elif item.status == "stopped" %}red{% else %}#199BD2{% endif %}">{{ item.status }}</td>
+                    <td style="border: none">
+                    <div class="dashboard-buttons">
+                      <br>
+                      <a href="{% url 'main_service:dashboard_details' user_id=item.user.id strategy_id=item.id %}"
+                         class="btn btn-main btn-main-white btn-dashboard link-to-page dashboard-buttons-style">
+                        {% trans "Details" %}
+                      </a>
+                      <br>
+                      {% if item.status == "started" %}
+                        <button type="button" onclick="confirmStop({{ item.id }})"
+                                class="btn btn-main btn-main-white btn-dashboard dashboard-buttons-style"
+                                style="background-color: red">
+                          {% trans "Stop" %}
+                        </button>
+                      {% else %}
+                        <form id="startBotForm" method="post">
+                          <a id="startBotButton" href="{% url 'main_service:dashboard_start' strategy_id=item.id %}"
+                             class="btn btn-main btn-main-white btn-dashboard dashboard-buttons-style">
+                            {% trans "Start" %}
+                          </a>
+                        </form>
+                      {% endif %}
+
+                      <div class="modal modal-dashboard" id="stopModal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content" style="width: 99%">
+                            <div class="bg-gray-800 text-gray-200">
+                              <div class="flex items-center justify-center h-screen">
+                                <div class="bg-gray-700 p-10 rounded-lg shadow-xl text-sm">
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                  <div class="text-center mb-4">
+                                    <i class="fas fa-sync-alt fa-3x text-blue-400"></i>
+                                    <h1 class="text-lg text-blue-200 font-semibold mt-2">Confirm Bot Shutdown</h1>
+                                    <p class="text-blue-100" style="font-size: 12px">As requested, Bot platform will
+                                      perform a trading bot
+                                      shutdown.</p>
+                                  </div>
+
+                                  <div class="space-y-4">
+                                    <div class="bg-gray-600 p-4 rounded">
+                                      <div class="flex items-center justify-between">
+                                        <span>Leave positions and orders open</span>
+                                        <div class="flex items-center">
+                                          <input id="stop-bot" type="checkbox"
+                                                 class="form-checkbox h-5 w-5 text-green-500">
+                                          <span class="ml-2 text-green-300"></span>
+                                        </div>
+                                      </div>
+                                      <br>
+                                      <div class="flex items-center justify-between">
+                                        <span>Close positions and orders by market price</span>
+                                        <div class="flex items-center">
+                                          <input id="stop-bot-and-close" type="checkbox"
+                                                 class="form-checkbox h-5 w-5 text-red-500">
+                                          <span class="ml-2 text-red-300"></span>
+                                        </div>
+                                      </div>
+
+                                    </div>
+
+                                    <div class="bg-gray-600 p-4 rounded center-content">
+                                      <div class="mt-4">
+                                        <span>Bot ID:</span>
+                                        <p class="item-id-display"></p>
+                                      </div>
+                                    </div>
+
+                                    <div class="text-center mt-8">
+                                      <a class="btn btn-main btn-main-white center-content" id="confirmButton">
+                                        CONFIRM
+                                      </a>
+                                    </div>
+                                    <br>
+                                  </div>
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class="modal" id="deleteModal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">{% trans "Confirm Deletion" %}</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <h4>{% trans "Are you sure you want to delete this bot?" %}</h4>
+                            </div>
+                            <div class="modal-footer">
+
+                              <a class="btn btn-danger" id="delete-button">
+                                {% trans "Delete" %}
+                              </a>
+                              <a class="btn btn-secondary" href="{% url 'main_service:dashboard' %}">
+                                {% trans "Cancel" %}
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+              {% empty %}
+                <tr>
+                  <td colspan="9">{% trans "No data available" %}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="trading-bots-content">
+
+            <table class="table table-striped dashboard-table-size">
+
+              <thead>
+              <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Asset</th>
+                  <th scope="col">Profit</th>
+                  <th scope="col">Running time</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Exchange</th>
+                  <th scope="col">Strategy</th>
+                  <th scope="col">Launch date</th>
+                  <th scope="col">APY</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Management</th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for item in current_user_trading_bots %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.trading_pair }}</td>
+                    <td style="color: {% if item.profit > 0 %}#43D510{% elif item.profit < 0 %}red{% else %}black{% endif %}">{{ item.profit }}$</td>
+                    <td>{{ item.running_time }}</td>
+                    <td>{{ item.investment_amount }}$</td>
+                    <td>{{ item.exchange }}</td>
+                    <td>{{ item.strategy_name }}</td>
+                    <td style="font-size: 9px; padding: 0 !important; padding-top: 0.30rem !important;">{{ item.launch_date|date:"Y-m-d H:i:s" }}</td>
+                    <td style="color: {% if item.approximately_price_year > 0 %}#43D510{% elif item.approximately_price_year > 0 %}red{% else %}black{% endif %}">{{ item.approximately_price_year }}$</td>
+                    <td style="color: {% if item.status == "started" %}#43D510{% elif item.status == "stopped" %}red{% else %}#199BD2{% endif %}">{{ item.status }}</td>
+                    <td style="border: none">
+                        <div class="dashboard-buttons">
+                      {#                      <a href="{% url 'main_service:dashboard_edit' user_id=item.user.id strategy_id=item.id %}"#}
+                      {#                         class="btn btn-main btn-main-white btn-dashboard link-to-page dashboard-buttons-style">#}
+                      {#                        {% trans "Edit" %}#}
+                      {#                      </a>#}
+                      <br>
+                        <a class="btn btn-main btn-main-white btn-dashboard link-to-page dashboard-buttons-style"
+                           href="javascript:void(0);" id="restartButton" onclick="restartButton({{ item.id }}, '{{ item.trading_pair }}', '{{ item.exchange }}')" data-item-id="{{ item.id }}">{% trans "Restart" %}</a>
+                        <br>
+                        <a href="{% url 'main_service:dashboard_details' user_id=item.user.id strategy_id=item.id %}"
+                         class="btn btn-main btn-main-white btn-dashboard link-to-page dashboard-buttons-style">
+                        {% trans "Details" %}
+                      </a>
+                      <br>
+                      <a href="#" onclick="confirmDelete({{ item.id }})" class="delete-bot">
+                        <img src="../../static/images/dashboard/delete_bot.png" alt="Удалить" class="delete-icon">
+                      </a>
+
+                      <div class="modal" id="stopModal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content" style="width: 60%">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                            <div class="modal-footer">
+                              <div>
+                                <p class="stop-button-title">Stop the ATS</p>
+                                <p>{{ item.id }}</p>
+                                <hr class="hr-dashboard">
+                                <p class="stop-button-content">leave all positions and orders to close them
+                                  yourself?</p>
+                                <a class="btn center-content" id="stop-bot">
+                                  Yes
+                                </a>
+                              </div>
+                              <div>
+                                <p class="stop-button-content">close all positions and orders at the market price?</p>
+                                <a class="btn center-content" id="stop-bot-and-close">
+                                  Yes
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class="modal" id="deleteModal-{{ item.id }}" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">{% trans "Confirm Deletion" %}</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <h4>{% trans "Are you sure you want to delete this bot?" %}</h4>
+                            </div>
+                            <div class="modal-footer">
+
+                              <a class="btn btn-danger" id="delete-button-{{ item.id }}">
+                                    {% trans "Delete" %}
+                                </a>
+                                <button class="btn btn-secondary" data-dismiss="modal" aria-label="Close">
+                                {% trans "Cancel" %}
+                                </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+              {% empty %}
+                <tr>
+                  <td colspan="9">{% trans "No data available" %}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+        <div class="summary-started-bots">
+          <div class="summary-title"><h4>SUMMARY STARTED BOTS</h4></div>
+          <div class="summary-content" style="display: flex">
+            <div class="summary-image">
+              <img class="dashboard-image" src="../../static/images/dashboard/trading_bots_visual.png"
+                   alt="trading_bots_visual">
+            </div>
+            <div class="summary-text">
+              <div class="col-md-8 col-sm-12 text_align_last">
+                <h3>Total active Bots</h3>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3 col-xs-6">
+                    <h6>AMOUNT</h6>
+                    <h5>{{ stats_start }}</h5>
+                  </div>
+                  <div class="col-sm-3 col-xs-6">
+                    <h6>RESULT</h6>
+                    {% if summary_total > 0 %}
+                      <h5 style="color: #43D510">{{ summary_total }}%</h5>
+                    {% else %}
+                      <h5>{{ summary_total }}%</h5>
+                    {% endif %}
+                  </div>
+                  <div class="col-sm-3 col-xs-6">
+                    <h6>AGE</h6>
+                    <h5>0 days</h5>
+                  </div>
+                  <div class="col-sm-3 col-xs-6">
+                    <h6>BOTS</h6>
+                    <h5>{{ count_of_bots }}</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <hr>
+        <hr>
+        <div class="dashboard-faq">
+          <h4 style="margin-bottom: 20px">Having problems with your bot?</h4>
+          <i class="fa fa-book m-r-5"></i>
+          Read the documentation
+          <br>
+          {#          <i class="fa fa-check-square-o m-r-5"></i>#}
+          {#          Start Troubleshooter#}
+          <i class="fa fa-users m-r-5"></i>
+          Ask the community
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="subscription-info">
+          <div class="subscription-title"><h4>SUBSCRIPTION</h4></div>
+          <div class="subscription-content">
+            <div class="stats-row" style="">
+              <div class="col-xs-2"><img style="width: 50px;height: 50px"
+                                         src="../../static/images/dashboard/sub_star.png" alt="sub_star"></div>
+              <div class="col-xs-10">
+                <h6 style="font-size: 12px">CURRENT SUBSCRIPTION</h6>
+                <h4 style="color: #199BD2">{{ user_subscription }}</h4>
+              </div>
+            </div>
+            <hr>
+            <div class="stats-row-2" style="">
+              <div class="col-xs-2-2"><img style="width: 50px;height: 50px"
+                                           src="../../static/images/dashboard/sub_calendar.png" alt="sub_calendar">
+              </div>
+              <div class="col-xs-10-2">
+                <h6 style="font-size: 12px">SUBSCRIPTION DAYS LEFT</h6>
+                <h4 style="color: #199BD2">{{ subscription_days_left }} days</h4>
+                <p style="font-size: 10px">Don't forget to renew your subscription on time</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="bot-stats">
+          <div class="bot-stats-title"><h4>STATS</h4></div>
+          <div class="bot-stats-content">
+            <div class="stats-row" style="">
+              <div class="col-xs-2"><img style="width: 50px;height: 50px"
+                                         src="../../static/images/dashboard/profit.png" alt="profit"></div>
+              <div class="col-xs-10">
+                <h6 style="font-size: 12px">CURRENT PROFIT</h6>
+                {% if stats_profit > 0 %}
+                  <h4 style="color: #43D510">${{ stats_profit }}</h4>
+                {% else %}
+                  <h4>${{ stats_profit }}</h4>
+                {% endif %}
+              </div>
+            </div>
+            <hr>
+            <div class="stats-row-2" style="">
+              <div class="col-xs-2-2"><img style="width: 50px;height: 50px"
+                                           src="../../static/images/dashboard/wallet.png" alt="wallet"></div>
+              <div class="col-xs-10-2">
+                <h6 style="font-size: 12px">Available Balance</h6>
+                <h4 style="color: #43D510">${{ stats_total }}</h4>
+                <p>Total trade amount ({{ count_of_bots }} bots): ${{ stats_start }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panic-button-block">
+          <img style="max-height: 50px;max-width: 50px" src="../../static/images/dashboard/panic_button.png"
+               alt="panic_button">
+          Close All bots by market price
+          <button class="panic-button">Panic Button</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    {# 295-RestartButtonDashboardArchiveDesktop #}
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h5 class="modal-title">Error</h5>
+                </div>
+                <div class="modal-body">
+                    <p id="errorMessage"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Ок</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  <script>
+
+        function restartButton(item_id, asset, exchange) {
+            console.log(item_id, asset, exchange)
+            var url = "/start_trading_from_archive/" + item_id + "/?chosen_asset=" + asset + "&chosen_exchange=" + exchange + "&restart_bot=restart_bot";
+            fetch(url)
+                .then(function(response) {
+                    if (!response.ok) {
+                        return response.json().then(function(data) {
+                            throw new Error(data.error || 'Network response was not ok');
+                        });
+                    }
+                    return response.json();
+                })
+                .then(function(data) {
+                    if (data.error) {
+                        $('#errorMessage').text(data.error);
+                        $('#errorModal').modal('show');
+                    } else {
+                        window.location.href = '/dashboard/';
+                    }
+                })
+                .catch(function(error) {
+                    $('#errorMessage').text(error.message);
+                    $('#errorModal').modal('show');
+                });
+        }
+              {# 295-RestartButtonDashboardArchiveDesktop #}
+      function confirmStop(itemId) {
+          const stopButtonAndClosePosition = document.getElementById("stop-bot-and-close");
+          const stopButton = document.getElementById("stop-bot");
+          stopButtonAndClosePosition.href = `/dashboard_stop_and_close/${itemId}/`
+          stopButton.href = `/dashboard_stop/${itemId}/`
+          const itemIdDisplay = document.querySelector('#stopModal p.item-id-display'); // предполагаем, что у вас есть такой элемент
+          if (itemIdDisplay) {
+              itemIdDisplay.textContent = itemId;
+
+          }
+          console.log(itemIdDisplay)
+          $('#stopModal').modal('show');
+          const [...checkboxes] = document.querySelectorAll('.form-checkbox');
+
+          const confirmButton = document.getElementById('confirmButton')
+
+
+          confirmButton.addEventListener('click', function (e) {
+
+              if (!checkboxes.some(checkbox => checkbox.checked)) {
+                  e.preventDefault();
+                  confirmButton.disabled = true
+              }
+
+
+          })
+
+          function updateButtonState() {
+              let isChecked = false;
+
+              checkboxes.forEach(checkbox => {
+                  if (checkbox.checked) {
+                      isChecked = true;
+                  }
+              });
+
+          }
+
+          function enforceSingleCheckbox() {
+              checkboxes.forEach(checkbox => {
+                  checkbox.addEventListener('change', function () {
+                      checkboxes.forEach(box => {
+                          if (box !== checkbox) box.checked = false;
+                          if (box.checked === true) {
+                              var chosen_checkbox = box.id
+                          }
+                          if (chosen_checkbox === 'stop-bot-and-close') {
+                              confirmButton.href = `/dashboard_stop_and_close/${itemId}/`
+                              console.log(confirmButton.href)
+                          }
+                          if (chosen_checkbox === 'stop-bot') {
+                              confirmButton.href = `/dashboard_stop/${itemId}/`
+                              console.log(confirmButton.href)
+                          }
+                      });
+                      updateButtonState();
+                  });
+              });
+          }
+
+          enforceSingleCheckbox();
+          updateButtonState(); // Инициализация начального состояния кнопки
+      }
+
+        function confirmDelete(itemId) {
+            const deleteButton = document.querySelector(`#delete-button-${itemId}`);
+            const row = deleteButton.closest('tr');
+
+            deleteButton.addEventListener('click', function(event) {
+                event.preventDefault();
+                fetch(`/delete_bot/${itemId}/?mobile=mobile`, {
+                    method: 'GET'
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Request sent successfully');
+                        row.remove();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error while sending request:', error);
+                });
+            });
+
+            $('#deleteModal-' + itemId).modal('show');
+
+        }
+
+
+      document.addEventListener("DOMContentLoaded", function () {
+            // Получение ссылок на элементы
+            var activeBotsButton = document.getElementById("active-bots-button");
+            var tradingBotsContent = document.querySelector(".trading-bots-content");
+            var newTableContent = document.getElementById("active-bots-content");
+
+            // Установка активных ботов как видимых по умолчанию
+            tradingBotsContent.style.display = "none";
+            newTableContent.style.display = "block";
+
+            // Добавление обработчика событий на кнопку "Active Bots"
+            activeBotsButton.addEventListener("click", function () {
+                // Переключение видимости trading-bots-content и active-bots-content
+                tradingBotsContent.style.display = "none";
+                newTableContent.style.display = "block";
+
+                // Удаление размытия с неактивной кнопки
+                activeBotsButton.classList.remove("inactive-button");
+                archiveButton.classList.add("inactive-button");
+            });
+
+            // Добавление обработчика событий на кнопку "Archive" (если нужно)
+            var archiveButton = document.getElementById("archive-button");
+            archiveButton.addEventListener("click", function () {
+                // Переключение видимости trading-bots-content и active-bots-content
+                tradingBotsContent.style.display = "block";
+                newTableContent.style.display = "none";
+
+                // Удаление размытия с неактивной кнопки
+                archiveButton.classList.remove("inactive-button");
+                activeBotsButton.classList.add("inactive-button");
+            });
+        });
+
+
+      function confirmStart(itemId, event) {
+          event.preventDefault();  // prevent the default behavior of the anchor tag
+
+          const startButton = document.getElementById("startBotButton");
+          const startForm = document.getElementById("startBotForm");
+
+          // Set the href attribute of the start button
+          startButton.href = `dashboard_start/${itemId}/`;
+
+          // Set the action attribute of the form
+          startForm.action = startButton.href;
+
+          console.log(startButton.href);
+          $('#DashboardModal').modal('show');
+      }
+
+
+  </script>
+
+{% endblock %}

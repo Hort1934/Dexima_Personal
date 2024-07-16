@@ -1,0 +1,305 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% load i18n %}
+
+
+{% block content %}
+  {% load static %}
+  <style>
+      body {
+          font-family: Arial, sans-serif;
+      }
+
+      table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 10px;
+      }
+
+      th, td {
+          border: 1px solid black;
+          padding: 5px;
+          text-align: left;
+      }
+
+      th {
+          background-color: #f2f2f2;
+      }
+  </style>
+  </head>
+  <body>
+  <div>
+    <button class="btn btn-main btn-main-white" id="backtestBtnn" style="color: black">BACKTEST</button>
+  </div>
+  <div>
+    <button class="btn btn-main btn-main-white" id="aiOptimizerBtnn">AI OPTIMIZER</button>
+  </div>
+  <table id="myTable">
+    <tr>
+      <td>CHOSEN STRATEGY</td>
+      <td data-cell="1"></td>
+      <td data-cell="2"></td>
+    </tr>
+    <tr>
+      <td>ASSET</td>
+      <td data-cell="1"></td>
+      <td data-cell="2"></td>
+    </tr>
+    <tr>
+      <td>DATES</td>
+      <td data-cell="1"></td>
+      <td data-cell="2"></td>
+    </tr>
+    <tr>
+      <td>INITIAL BALANCE</td>
+      <td data-cell="1"></td>
+      <td data-cell="2"></td>
+    </tr>
+    <tr>
+      <td>AVAILABLE BALANCE</td>
+      <td data-cell="1"></td>
+      <td data-cell="2"></td>
+    </tr>
+    <tr>
+      <td>PROFIT</td>
+      <td data-cell="1"></td>
+      <td data-cell="2"></td>
+    </tr>
+    <tr>
+      <td>TOTAL TRADES</td>
+      <td data-cell="1"></td>
+      <td data-cell="2"></td>
+    </tr>
+    <tr>
+      <td>LONG TRADES</td>
+      <td data-cell="1"></td>
+      <td data-cell="2"></td>
+    </tr>
+    <tr>
+      <td>LONG TP</td>
+      <td data-cell="1"></td>
+      <td data-cell="2"></td>
+    </tr>
+    <tr>
+      <td>LONG SL</td>
+      <td data-cell="1"></td>
+      <td data-cell="2"></td>
+    </tr>
+    <tr>
+      <td>SHORT TRADES</td>
+      <td data-cell="1"></td>
+      <td data-cell="2"></td>
+    </tr>
+    <tr>
+      <td>SHORT TP</td>
+      <td data-cell="1"></td>
+      <td data-cell="2"></td>
+    </tr>
+    <tr>
+      <td>SHORT SL</td>
+      <td data-cell="1"></td>
+      <td data-cell="2"></td>
+    </tr>
+    <tr>
+      <td>FEES PAID</td>
+      <td data-cell="1"></td>
+      <td data-cell="2"></td>
+    </tr>
+    <tr>
+      <td>LEVERAGE</td>
+      <td data-cell="1"></td>
+      <td data-cell="2"></td>
+    </tr>
+    <tr>
+      <td>NUM OF GRIDS</td>
+      <td data-cell="1"></td>
+      <td data-cell="2"></td>
+    </tr>
+    <tr>
+      <td>TIMEFRAME</td>
+      <td data-cell="1"></td>
+      <td data-cell="2"></td>
+    </tr>
+    <tr>
+      <td>PRICE RANGE</td>
+      <td data-cell="1"></td>
+      <td data-cell="2"></td>
+    </tr>
+    <tr>
+      <td>ACTIVATION TRIGGER IN PERCENT</td>
+      <td data-cell="1"></td>
+      <td data-cell="2"></td>
+    </tr>
+    <tr>
+      <td>DISTRIBUTION OF GRID LINES</td>
+      <td data-cell="1"></td>
+      <td data-cell="2"></td>
+    </tr>
+    <tr>
+      <td>LINE DISBALANCE DIRECTION</td>
+      <td data-cell="1"></td>
+      <td data-cell="2"></td>
+    </tr>
+    <tr>
+      <td>SHORT STOP LOSS IN PERCENT</td>
+      <td data-cell="1"></td>
+      <td data-cell="2"></td>
+    </tr>
+    <tr>
+      <td>LONG STOP LOSS IN PERCENT</td>
+      <td data-cell="1"></td>
+      <td data-cell="2"></td>
+    </tr>
+    <tr>
+      <td>GRID DISBALANCE DIRECTION</td>
+      <td data-cell="1"></td>
+      <td data-cell="2"></td>
+    </tr>
+    <tr>
+      <td>TREND PERIOD TIMEFRAME</td>
+      <td data-cell="1"></td>
+      <td data-cell="2"></td>
+    </tr>
+    <tr>
+      <td>TREND PERIOD</td>
+      <td data-cell="1"></td>
+      <td data-cell="2"></td>
+    </tr>
+  </table>
+  <script src="{% static 'js/backtest_and_ai_optimization/parse_inputs_and_send_data.js' %}"></script>
+  <script>
+      const backtestBtnn = document.querySelector("#backtestBtnn");
+      const aiOptimizerBtnn = document.querySelector("#aiOptimizerBtnn");
+      console.log(backtestBtnn)
+      backtestBtnn.addEventListener("click", async function (e) {
+          console.log("clicked")
+          {#let assetVal = document.querySelector('#asset').value;#}
+          {#let dataFromTable = parseTable();#}
+
+          let assetVal = document.querySelector('#asset').value;
+          let dataFromTable = parseTable();
+
+          let grids = dataFromTable.num_of_grids ? dataFromTable.num_of_grids.value : "10";
+          console.log(grids, 'numofGRIDS||||||||||||')
+          let timeframe = dataFromTable.timeframe ? dataFromTable.timeframe.value : "1m";
+          let price_range = dataFromTable.price_range ? dataFromTable.price_range.value : "12";
+          let activation_trigger_in_percent = dataFromTable.activation_trigger_in_percent ? dataFromTable.activation_trigger_in_percent.value : "1.0";
+          let distribution_of_grid_lines = dataFromTable.distribution_of_grid_lines ? dataFromTable.distribution_of_grid_lines.value : "LINEAR";
+          let short_stop_loss_in_percent = dataFromTable.short_stop_loss_in_percent ? dataFromTable.short_stop_loss_in_percent.value : "1.0";
+          let long_stop_loss_in_percent = dataFromTable.long_stop_loss_in_percent ? dataFromTable.long_stop_loss_in_percent.value : "1.0";
+          let trend_period = dataFromTable.trend_period ? dataFromTable.trend_period.value : "1.0";
+          // console.log(dataFromTable)
+
+          const url = `/get_bybit_backtest_and_optimization_params/?symbol=${assetVal}&leverage=${leverage.value}&num_of_grids=${grids}&available_balance=${amount.value}&timeframe=${timeframe}&price_range=${price_range}&activation_trigger_in_percent=${activation_trigger_in_percent}&distribution_of_grid_lines=${distribution_of_grid_lines}&line_disbalance_direction=ASCENDING&short_stop_loss_in_percent=${short_stop_loss_in_percent}&long_stop_loss_in_percent=${long_stop_loss_in_percent}&grid_disbalance_direction=ASCENDING&trend_period_timeframe=1h&trend_period=${trend_period}&from=${from_date.value}&to=${to_date.value}`;
+
+          let BacktestResult = await fetching_data(url);
+
+
+          updateTableWithDataBacktest(BacktestResult)
+
+      });
+
+      aiOptimizerBtnn.addEventListener("click", async function (e) {
+          console.log("clicked")
+
+          const requestData = {
+              symbol: asset.value,
+              leverage: leverage.value,
+              available_balance: amount.value,
+              from_date: from_date.value,
+              to_date: to_date.value,
+              data: parseTable()
+          };
+
+          const url = `/get_bybit_backtest_and_optimization_params/?requestData=${JSON.stringify(requestData)}`;
+
+          console.log(url)
+          let optimizeResult = await fetching_data(url);
+
+          console.log('newOptimizeData', optimizeResult)
+
+          updateTableWithDataOptimize(optimizeResult)
+
+      });
+
+      function updateTableWithDataBacktest(BacktestResult) {
+          // Выбираем все строки в таблице
+          console.log(1)
+          const rows = document.querySelectorAll("#myTable tr");
+
+          rows.forEach(row => {
+              // Для каждой строки получаем первый и второй td
+              const firstTd = row.querySelector('td:first-child');
+              const secondTd = row.querySelector('td:nth-child(2)'); // Второй td для обновления значения
+              console.log(firstTd)
+              if (firstTd && secondTd) {
+
+                  // Преобразуем текст в первом td к верхнему регистру для сравнения
+
+                  const key = firstTd.textContent.trim().toUpperCase(); // Или используйте .toLowerCase()
+
+                  if (key === 'DATES') {
+                      secondTd.textContent = BacktestResult['FROM'] + '-' + BacktestResult['TO'];
+                  }
+                  // Проверяем, есть ли соответствующий ключ в newBacktestData
+                  if (BacktestResult.hasOwnProperty(key)) {
+                      // Если есть, обновляем текст во втором td этой строки
+                      secondTd.textContent = BacktestResult[key];
+                  }
+              }
+          });
+      }
+
+      function updateTableWithDataOptimize(optimizeResult) {
+          // Выбираем все строки в таблице
+          console.log(1)
+          const rows = document.querySelectorAll("#myTable tr");
+
+          rows.forEach(row => {
+              // Для каждой строки получаем первый и второй td
+              const firstTd = row.querySelector('td:first-child');
+              const secondTd = row.querySelector('td:nth-child(3)'); // Второй td для обновления значения
+              console.log(firstTd)
+              if (firstTd && secondTd) {
+
+                  // Преобразуем текст в первом td к верхнему регистру для сравнения
+
+                  const key = firstTd.textContent.trim().toUpperCase(); // Или используйте .toLowerCase()
+
+                  if (key === 'DATES') {
+                      secondTd.textContent = optimizeResult['FROM'] + '-' + optimizeResult['TO'];
+                  }
+                  // Проверяем, есть ли соответствующий ключ в newBacktestData
+                  if (optimizeResult.hasOwnProperty(key)) {
+                      // Если есть, обновляем текст во втором td этой строки
+                      secondTd.textContent = optimizeResult[key];
+                  }
+              }
+          });
+      }
+
+
+      {#function fillBacktestOrOptimizerResults(backtestData, optimizerData) {#}
+      {#    const rows = document.querySelectorAll("table tr");#}
+      {##}
+      {#    rows.forEach(row => {#}
+      {#        const key = row.querySelector('td:first-child').textContent.trim().toLowerCase().replace(/\s+/g, '');#}
+      {#console.log(key)#}
+      {##}
+      {#        const backtestCell = row.querySelector('td[data-cell="1"]');#}
+      {#        const optimizerCell = row.querySelector('td[data-cell="2"]');#}
+      {##}
+      {#        if (backtestData[key] && backtestCell) {#}
+      {##}
+      {#            backtestCell.textContent = backtestData[key];#}
+      {#        }#}
+      {##}
+      {#        if (optimizerData[key] && optimizerCell) {#}
+      {#            optimizerCell.textContent = optimizerData[key];#}
+      {#        }#}
+      {#    });#}
+
+  </script>
+
+  </body>
+{% endblock %}

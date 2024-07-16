@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+  <div class="support_form_style">
+    <form action="{% url 'main_service:support' %}" method="post" role="form" class="support-form"
+          enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-group">
+        <input type="text" name="name" class="form-control input-text" id="name"
+               placeholder={% trans "Name" %}
+                   data-rule="minlen:4" data-msg="Please enter at least 4 chars"/>
+        <div class="validation"></div>
+      </div>
+      <div class="form-group">
+        <input type="email" class="form-control input-text" name="email" id="email"
+               placeholder={% trans "Email" %}
+                   data-rule="email" data-msg="Please enter a valid email"/>
+        <div class="validation"></div>
+      </div>
+      <div class="form-group">
+        <select class="form-control" name="subject" id="subject" data-rule="required"
+                data-msg="Please select a subject">
+          <option style="color: white" value="" disabled selected>{% trans "Select a topic" %}</option>
+          <option value="connection">{% trans "Connection of trading bot" %}</option>
+          <option value="payment">{% trans "Payment issues" %}</option>
+          <option value="other">{% trans "Other" %}</option>
+        </select>
+        <div class="validation"></div>
+      </div>
+      <div class="form-group">
+                          <textarea class="form-control input-text text-area" name="message" rows="5"
+                                    data-rule="required"
+                                    data-msg="Please write something for us"
+                                    placeholder={% trans "Message" %}></textarea>
+        <div class="validation"></div>
+      </div>
+      <div class="text-center">
+        <button type="submit" name="support_form" class="btn btn-main">{% trans "Send Message" %}</button>
+        <p id="form-message" style="color: green;"></p>
+        {% if form_saved_success %}
+          <p style="color:green">Form saved</p>
+        {% elif form_saved_error %}
+          <p style="color:red;">Some error happen, try again</p>
+        {% endif %}
+      </div>
+    </form>
+    <br>
+    {% if form.errors %}
+      <div class="alert alert-danger">
+        <strong>{% trans "Error:" %}</strong>
+        <ul>
+          {% for field, errors in form.errors.items %}
+            {% for error in errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          {% endfor %}
+        </ul>
+      </div>
+
+    {% endif %}
+  </div>
+  <style>
+
+      input[type="text"],
+      input[type="email"],
+      input[type="password"] {
+          width: 100%;
+      }
+
+
+      .support-form {
+          margin-top: 20px;
+          width: 550px;
+          padding: 20px;
+          border-radius: 5px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .icon-item img {
+          max-width: 50px;
+          max-height: 50px;
+      }
+
+
+      input#name {
+          background-color: #596068;
+          color: white;
+          border: none;
+      }
+
+      input:-webkit-autofill,
+      input:-webkit-autofill:hover,
+      input:-webkit-autofill:focus,
+      textarea:-webkit-autofill,
+      textarea:-webkit-autofill:hover,
+      textarea:-webkit-autofill:focus,
+      select:-webkit-autofill,
+      select:-webkit-autofill:hover,
+      select:-webkit-autofill:focus {
+          -webkit-text-fill-color: #FFFFFF;
+          -webkit-box-shadow: 0 0 0px 1000px #596068 inset;
+          transition: background-color 5000s ease-in-out 0s;
+      }
+
+      #name::placeholder {
+          color: #ffffffcc;
+      }
+
+      input#email {
+          background-color: #596068;
+          border: none;
+          color: white;
+      }
+
+      #email::placeholder {
+          color: #ffffffcc;
+      }
+
+      select#subject {
+          background-color: #596068;
+          border: none;
+      }
+
+      select#subject {
+          color: #ffffffcc;
+      }
+
+
+      textarea.form-control {
+          background-color: #596068;
+          border: none;
+
+      }
+
+      textarea.form-control.input-text {
+          background-color: #596068;
+          color: white;
+      }
+
+      textarea.form-control.input-text.text-area::placeholder {
+          color: #ffffffcc;
+      }
+
+
+  </style>
+{% endblock %}

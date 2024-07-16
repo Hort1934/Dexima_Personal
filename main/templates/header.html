@@ -1,0 +1,267 @@
+{% load custom_filters %}
+{% load i18n %}
+{% load static %}
+<style>
+
+    .nav-link-container {
+        width: fit-content;
+        float: right;
+        bottom: 43px;
+    }
+
+    #theme-toggle {
+        max-width: 55px;
+        max-height: 55px;
+    }
+
+    .navbar > a:nth-child(3) > img:nth-child(1) {
+        max-width: 35px;
+        max-height: 35px;
+        left: 25px;
+        position: relative;
+    }
+
+    #navbarTogglerDemo01 > a:nth-child(3) {
+        display: block;
+        width: fit-content;
+    }
+
+    a.navbar-brand:nth-child(4) {
+        display: block;
+        width: fit-content;
+    }
+
+    a.navbar-brand:nth-child(2) {
+        display: block;
+        width: fit-content;
+    }
+
+    #navbarTogglerDemo01 > div:nth-child(1) > a:nth-child(1) {
+        display: block;
+        width: fit-content;
+    }
+
+    #theme-toggle {
+        cursor: pointer;
+    }
+
+    .headerImg {
+        position: relative;
+    }
+
+
+</style>
+<nav class="navbar navbar-expand-lg navbar-dark custom-bg-dark" style="justify-content: flex-start;">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+          aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div style="height: 40px;padding: 0 0;width: 190px;">
+    <img class="headerImg" src="{% static 'images/header/Logo Dexima.svg' %}" alt="Theme Global" width="180"
+         height="auto">
+  </div>
+
+  {% if user.is_authenticated %}
+    <a class="navbar-brand ml-3" href="{% url "main_service:profile" %}">
+      <img src="/static/images/profile_icons/{{ user.icon }}" alt="icon" style="max-width: 35px; max-height: 35px;">
+    </a>
+
+  {% else %}
+    <a class="navbar-brand ml-1"
+       href="{% url 'main_service:login' %}?next={% url "main_service:index" %}">Login</a>
+    <a class="navbar-brand ml-2" href="{% url 'register' %}?next={{ request.path }}">Register</a>
+  {% endif %}
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <div>
+        <a class="navbar-brand" style="display: block;" href="{% url "main_service:index" %}">About ATS</a>
+      <!-- Ваш HTML-код -->
+      <div class="nav-link-container">
+        <a href="{% url 'main_service:basket' %}">
+          <img src="/static/images/basket.png" alt="basket" style="max-width: 35px; max-height: 35px;"> </a>
+        <img id="theme-toggle" class="navbar-brand ml-auto" src="../static/images/header/darkmode_sun.png"
+             alt="Theme Toggle" style="max-width: 65px; max-height: 65px;">
+        <a class="navbar-brand" href="#" id="language-selector-trigger">
+          <img src="/static/images/global.png" alt="Theme Global" width="30" height="30">
+        </a>
+      </div>
+    </div>
+
+
+    <a class="navbar-brand" style="display: block;" href="{% url "main_service:ai_optimizer" %}">Quick start</a>
+    <a class="navbar-brand" style="display: block;" href="{% url "main_service:dashboard" %}">Dashboard</a>
+    <a class="navbar-brand" style="display: block;" href="{% url "main_service:backtest_optimization" %}">Laboratory</a>
+    {% if user.is_authenticated %}
+      <form
+          action="{% url 'main_service:logout' %}?next={% url 'main_service:login' %}?next={% url 'main_service:profile' %}"
+          method="post"
+          class="navbar-brand">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">{% trans "Log Out" %}</button>
+      </form>
+    {% endif %}
+
+
+  </div>
+  <div id="myModal" class="modal-global">
+    <div class="modal-content-global center-content">
+      <span class="close">&times;</span>
+      <br>
+      <a href="?lang=en" style="color:black;">English</a>
+      <br>
+      <a href="?lang=uk" style="color:black;">Українська</a>
+    </div>
+  </div>
+</nav>
+
+<style>
+    /* Стили для модального окна */
+    .modal-global {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .modal-content-global {
+        border: solid 2px black;
+        border-radius: 15px;
+        position: relative;
+        top: 10%;
+        left: 48%;
+        color: black;
+        width: 20%;
+        height: 20%;
+        padding: 0px;
+        background-color: #fff;
+        font-size: 14px !important;
+    }
+
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 24px !important; /* Фиксированный размер шрифта для кнопки закрытия */
+        cursor: pointer;
+    }
+
+    header.hide {
+        transform: translateY(-100%);
+    }
+
+    header {
+        z-index: 3;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        transition: transform .1s linear;
+    }
+
+    @media screen and (min-width: 600px) and (max-width: 3000px) {
+
+
+        .iframeCont {
+            margin: 10px auto 26px auto;
+        }
+
+        .nav-link-container {
+            position: absolute;
+            right: 80px;
+            top: -3px;
+        }
+
+
+        .ml-3 {
+            position: absolute;
+            right: 42px;
+            top: 3px;
+        }
+
+
+        #theme-toggle {
+            position: relative;
+            right: -14px;
+        }
+
+
+        .nav-link-container > a:nth-child(1) > img:nth-child(1) {
+            position: relative;
+            right: -12px;
+        }
+
+
+        .navbar > div:nth-child(2) > img:nth-child(1) {
+            height: auto;
+            bottom: 1px;
+            width: 180px;
+        }
+
+    }
+
+
+    .col-md-12 {
+        margin-bottom: 41px;
+    }
+
+
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var modal = document.getElementById("myModal");
+        var trigger = document.getElementById("language-selector-trigger");
+        var span = document.getElementsByClassName("close")[0];
+
+        // Открывать модальное окно при клике на ссылку
+        trigger.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
+    });
+
+</script>
+
+<!-- TODO add into specific file -->
+<script>
+    // document.addEventListener('scroll', function(){
+    //   // if (window.pageYOffset > window.innerHeight){}
+
+    //   document.querySelector('header')
+    // header.animate([{transform : `translateY(-${header.getBoundingClientRect().height}px)`}], 100)
+
+    // })
+
+    let lastScroll = 0;
+    const defaultOffset = 200;
+    const header = document.querySelector('header');
+
+    const scrollPosition = () => window.pageYOffset || document.documentElement.scrollTop;
+    const containHide = () => header.classList.contains('hide');
+
+    window.addEventListener('scroll', () => {
+        if (scrollPosition() > lastScroll && !containHide() && scrollPosition() > defaultOffset) {
+            //scroll down
+            header.classList.add('hide');
+        } else if (scrollPosition() < lastScroll && containHide()) {
+            //scroll up
+            header.classList.remove('hide');
+        }
+
+        lastScroll = scrollPosition();
+    })
+</script>

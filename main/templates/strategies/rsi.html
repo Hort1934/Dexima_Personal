@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+  {% if start %}
+    <h1 style="text-align: center"> {% trans "Optimization options" %}</h1>
+    <br>
+  {% elif not start %}
+    <h1 style="text-align: center"> What is a RSI?</h1>
+    <p>
+      RSI (Relative Strength Index) is a technical momentum indicator that measures the magnitude and change of price
+      movements. It was developed by J. Welles Wilder and first introduced in his 1978 book. The RSI oscillates between
+      zero and 100 and is typically used to identify overbought or oversold conditions in a traded security.
+    </p>
+    <p>
+      RSI Calculation:
+
+      RS (Relative Strength) = Average of 'n' day's up closes / Average of 'n' day's down closes.
+      RSI = 100 - (100 / (1 + RS))
+      RSI Interpretation:
+
+      Overbought and Oversold: When RSI reaches 70 or above, it might be considered overbought, indicating a potential
+      downward reversal. If RSI drops to 30 or below, it might be considered oversold, suggesting a potential upward
+      move.
+
+      Divergences: If the asset’s price is rising but the RSI is dropping, it may signify a weakening of the trend and a
+      possible reversal. Conversely, if the asset’s price is falling but RSI is rising, it might also signify weakening
+      of the trend and a potential upward reversal.
+
+      Centerline: When RSI crosses above the 50 level, it might be an indication of a potential bullish trend. When RSI
+      crosses below the 50 level, it could be an indication of a bearish trend.
+
+      It's important to understand that, like all technical indicators, RSI is not always accurate and is best used in
+      conjunction with other indicators and methods of analysis.
+    </p>
+    <br>
+    {% include "includes/lets_make_ml_strategy.html" %}
+  {% endif %}
+  {% include "includes/backtest_and_optimization.html" %}
+{% endblock %}

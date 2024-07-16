@@ -1,0 +1,12 @@
+[
+    {
+        "fields": {
+            "base_currency": "AAPL"
+        }
+    },
+    {
+        "fields": {
+            "base_currency": "TSLA"
+        }
+    }
+]

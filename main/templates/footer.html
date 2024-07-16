@@ -1,0 +1,98 @@
+{% load i18n %}
+{% load static %}
+<footer class="footer" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+  <style>
+    .social-icons {
+      /* height: 30px; */
+      line-height: -4;
+      }
+  </style>
+
+      <div class="footer-row">
+
+        <div class="form container-registration-footer" style="font-size: 16px; font-weight: 400;">
+          <div class="container-form">
+            <div class="contact-info-box address clearfix">
+              <div><a class="" style="color: white" href="{% url "main_service:support" %}">Contact us</a></div>
+
+              <div><img style="height: 17px; margin: 0 5px 0 0;" src="/static/images/social_icons/telegram.png" alt="tgImg"><a href="https://t.me/Dexima_support">TELEGRAM</a>  </div>
+
+              <div>✉️<a href="mailto:info@dexima.com.ua" style="color: white"> EMAIL</a></div>
+            </div>
+          </div>
+          <br>
+        </div>
+
+
+
+
+
+
+
+
+
+      <div class="social-icons nav-link-social">
+        <!-- <a href="https://t.me/Yevhen_Dexima"> -->
+        <!-- <a href="https://t.me/Yevhen_Dexima"> -->
+          <img
+            src="/static/images/social_icons/telegram.png"
+            alt="Theme Global" class="footer-icons-size"></a>
+
+        <a href="https://www.linkedin.com/company/dexima-software/">
+          <img
+            src="/static/images/social_icons/linkedin.png"
+            alt="Theme Global" class="footer-icons-size"></a>
+
+        <a href="#"><img
+            src="/static/images/social_icons/discord.png"
+            alt="Theme Global" class="footer-icons-size"></a>
+
+        <a href="#"><img
+            src="/static/images/social_icons/instagram.png"
+            alt="Theme Global" class="footer-icons-size"></a>
+
+        <a href="#"><img
+            src="/static/images/social_icons/facebook.png"
+            alt="Theme Global" class="footer-icons-size"></a>
+      </div>
+
+
+
+
+      </div>
+
+              
+      <div>
+        <span class="copyright"><div>&copy; Dexima Software.</div> All Rights Reserved</span>
+        <div class="credits">
+            Visit our <a href="https://dexima.com.ua/#en" target="_blank">website</a>
+        </div>
+      </div>
+
+
+
+</footer>
+<style>
+    .container-registration-footer {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .container-form {
+        color: white;
+    }
+
+    .icon-item img {
+        max-width: 50px;
+        max-height: 50px;
+    }
+
+    @media screen and (min-height: 200px) {
+
+        .footer-icons-size {
+            width: 25px;
+            height: 25px;
+            margin: 0 2px;
+        }
+    }
+</style>

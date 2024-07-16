@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+  {% if start %}
+    <h1 style="text-align: center"> {% trans "Optimization options" %}</h1>
+    <br>
+  {% elif not start %}
+    <h1 style="text-align: center"> What is a Grid Bot?</h1>
+    <p>
+      Grid Bot is a cryptocurrency or other asset trading algorithm that automatically places limit orders to buy and
+      sell
+      at predefined price intervals (grids). This trading method has become popular among cryptocurrency traders as it
+      can
+      automatically profit from small price fluctuations.
+    </p>
+    <p>
+      How it works:
+
+      Starting Price: The trader defines the starting price from which the grid bot will begin its operation.
+
+      Grid Size: This is the distance between consecutive limit orders. For instance, if the grid size is 1%, the grid
+      bot
+      will place orders at every 1% interval from the starting price.
+
+      Limit Orders: Based on the starting price and grid size, the bot places limit orders to buy below the starting
+      price
+      and limit orders to sell above the starting price.
+
+      Trading: When the asset's price reaches one of the buy orders, the bot buys. When the price reaches one of the
+      sell
+      orders, the bot sells.
+
+      Advantages of the grid bot:
+
+      Automation: The grid bot automates the trading process, allowing traders to avoid constant market monitoring.
+
+      Profit in Volatility: A grid bot can be profitable even with small price movements.
+
+      Simplicity: Using a grid bot doesn't require deep trading knowledge.
+
+      However, the grid bot also has its disadvantages:
+
+      Limited Profit: If the asset's price goes beyond the set grids and continues moving in one direction, the bot
+      might
+      miss additional profits.
+
+      Risks: As with any trading method, using a grid bot involves the risk of losses.
+
+      Dependence on Volatility: If the asset's price remains stable and doesn't reach the set grids, the grid bot may
+      not
+      execute any trades.
+
+      When using a grid bot, it's crucial to set sensible parameters and regularly check its performance to adapt the
+      strategy to changing market conditions.
+    </p>
+    <br>
+    {% include "includes/lets_make_ml_strategy.html" %}
+  {% endif %}
+  {% include "includes/backtest_and_optimization.html" %}
+{% endblock %}

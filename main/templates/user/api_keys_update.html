@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="api_keys_update_style">
+    <h1 class="center-content" style="margin-top: 80px">Api keys Update</h1>
+    <br>
+    {% if user_api_keys %}
+      {% if 'binance' in user_api_keys %}
+        <button type="submit" class="btn btn-main-white btn-main customBtn" name="Binance">Binance Keys
+        </button>
+      {% endif %}
+      {% if 'bybit' in user_api_keys %}
+        <button type="submit" class="btn btn-main-white btn-main customBtn" name="Bybit">Bybit Keys</button>
+      {% endif %}
+    {% else %}
+      <h4>You dont have any joined Api keys.</h4>
+    {% endif %}
+  </div>
+
+  <style>
+      .customBtn {
+          height: 100px;
+          width: 100px !important;
+          border-radius: 20px;
+      }
+  </style>
+{% endblock %}

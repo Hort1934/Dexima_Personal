@@ -1,0 +1,392 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_filters %}
+{% load i18n %}
+
+{% block content %}
+  <style>
+      .history-trash-style {
+          max-width: 35px;
+          max-height: 35px;
+          position: relative;
+          bottom: 10px;
+          left: 5px
+      }
+
+      .history-checkbox-style {
+          width: 20px;
+          height: 20px;
+      }
+
+      body.light-theme {
+          background-color: #e5f8ff;
+      }
+
+      .hidden-data {
+          display: none;
+          position: fixed;
+          z-index: 1000; /* Убедитесь, что z-index больше, чем у других элементов */
+          {#left: 50%;#}
+          {#top: 60%;#}
+          {#transform: translate(-0%, -52%);#}
+          background-color: white; /* Цвет фона с прозрачностью */
+          color: black; /* Цвет текста (если нужно) */
+          padding: 20px;
+          border-radius: 5px;
+          box-shadow: 0 0 10px rgba(0, 0, 0); /* Тень вокруг модального окна */
+          min-height: 360px;
+          max-width: 100%;
+          line-height: 1; /* Уменьшение отступов между строками */
+          font-size: 14px; /* Уменьшение размера текста */
+      }
+
+      .hidden-data.show {
+          display: block;
+      }
+
+      .history-close {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          font-size: 24px !important; /* Фиксированный размер шрифта для кнопки закрытия */
+          cursor: pointer;
+      }
+      .table {
+          background-color: #e5f8ff;
+      }
+     .table tbody tr td {
+          color: #e5f8ff;
+      }
+     .default-link-color {
+        color: #e5f8ff;
+     }
+
+    {##118-LaboratoryDeletingWarning#}
+     .modal {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1050;
+        display: none;
+        overflow: hidden;
+        outline: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-dialog {
+        position: relative;
+        width: auto;
+        margin: 10px;
+    }
+
+    .modal-content {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 0.3rem;
+        outline: 0;
+    }
+    {##118-LaboratoryDeletingWarning#}
+  </style>
+  <br>
+  <h1 class="center-content">Archive</h1>
+    <form id="archive-form" method="post" action="{% url 'main_service:delete_archive_data' %}">
+    {% csrf_token %}
+    <a href="#" id="delete-selected">
+        <img src="{% static 'images/history/trash.png' %}" alt="trash" class="history-trash-style" style="border: none;">
+    </a>
+    <br>
+    {#118-LaboratoryDeletingWarning#}
+    <!-- Added modal window -->
+    <div class="modal" id="deleteModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-body">Confirm Deletion</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4>Are you sure you want to delete the selected items?</h4>
+                    <h4>It will not be possible to restore them.</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="confirm-delete">Delete</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {#118-LaboratoryDeletingWarning#}
+    <div class="table-responsive">
+      <table class="table table-striped dashboard-table-size">
+        <thead>
+        <tr>
+          <td><input type="checkbox" id="select-all" class="history-checkbox-style" data-id="{{ item.id }}">
+          </td>
+          <th class="history-titles" style="margin-right: 14px; margin-left: 8px;">DATE</th>
+          <th class="history-titles" style="margin-left: -12px;">ASSET</th>
+          <th class="history-titles" style="margin-left: -5px;">STRATEGY</th>
+          <th class="history-titles" style="margin-left: -5px;">EXCHANGE</th>
+          <th class="history-titles" style="margin-left: -20px;">ACTIVITY</th>
+          <th class="history-titles" style="margin-left: 23px;">PERIOD</th>
+          <th class="history-titles" style="margin-left: 32px;">PNL</th>
+          <th class="history-titles" style="margin-left: 32px;"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in history %}
+            <tr id="progress-bar-{{ item.id }}" style="background: {% if item.progress == -1 %}#A6171F{% else %}linear-gradient(to right, {% cycle '#2197a6' '#1d4250' %} {{ item.progress }}%, #e5f8ff {{ item.progress }}%){% endif %}">
+
+            <td><input type="checkbox" name="selected_items" class="select-item history-checkbox-style"
+                       value="{{ item.id }}">
+            </td>
+            <td>{{ item.date|date:"Y.m.d" }}</td>
+            <td>{{ item.asset }}</td>
+            <td>{{ item.strategy }}</td>
+            <td>{{ item.exchange }}</td>
+            <td>
+            {% if item.status == 'success' %}
+                <a class="detail-info default-link-color" data-target="{{ item.id }}">{{ item.activity }}</a>
+            {% endif %}
+
+            </td>
+            <td>{{ item.date_from|date:"Y.m.d" }}-{{ item.date_to|date:"Y.m.d" }}</td>
+            {% if item.pnl < 0 %}
+              <td style="color: red">{{ item.pnl }} %</td>
+            {% elif item.pnl > 0 %}
+              <td style="color: green">{{ item.pnl }} %</td>
+            {% else %}
+              <td>{{ item.pnl }} %</td>
+            {% endif %}
+            <td>
+            <td>
+                {% if item.status == 'success' %}
+                <a class="default-link-color" href="javascript:void(0);" onclick="startTrading({{ item.id }}, '{{ item.asset }}', '{{ item.exchange }}')" data-item-id="{{ item.id }}">start trading</a>
+                {% endif %}
+            </td>
+            </tr>
+            <div style="border: solid 1px black" class="hidden-data" data-id="{{ item.id }}">
+                <span class="history-close" onclick="closeModal()">×</span>
+                {% for key, value in item.data.items %}
+                    {% if key == 'SETTINGS' %}
+                        {% for settings_key, settings_value in value.items %}
+                            {{ settings_key }}: {{ settings_value }}<br>
+                        {% endfor %}
+                    {% else %}
+                        {{ key }}: {{ value }}<br>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </form>
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-body" id="errorModalLabel">Error</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="errorMessage"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ок</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+function startTrading(item_id, asset, exchange) {
+    var url = "/start_trading_from_archive/" + item_id + "/?chosen_asset=" + asset + "&chosen_exchange=" + exchange;
+    fetch(url)
+        .then(function(response) {
+            if (!response.ok) {
+                return response.json().then(function(data) {
+                    throw new Error(data.error || 'Network response was not ok');
+                });
+            }
+            return response.json();
+        })
+        .then(function(data) {
+            if (data.error) {
+                $('#errorMessage').text(data.error);
+                $('#errorModal').modal('show');
+            } else {
+                window.location.href = '/dashboard/';
+            }
+        })
+        .catch(function(error) {
+            $('#errorMessage').text(error.message);
+            $('#errorModal').modal('show');
+        });
+}
+
+    // 118-LaboratoryDeletingWarning
+    $(document).ready(function () {
+        // When you click on the trash can icon, we display a modal window
+        $('#delete-selected').click(function (e) {
+            e.preventDefault(); // Отменяем стандартное действие ссылки
+            var selectedItemsCount = $('.select-item:checked').length;
+            if (selectedItemsCount > 0) {
+                $('#deleteModal').modal('show'); // Show the modal window only if at least one element is selected
+            }
+        });
+
+        // When you click on the deletion confirmation button, we submit the form
+        $('#confirm-delete').click(function () {
+            $('#archive-form').submit();
+        });
+
+        // Hide the modal window when clicking the "Cancel" and "Close" buttons
+        $('#deleteModal').on('hidden.bs.modal', function () {
+            $('#archive-form').trigger('reset'); // Reset form when closing modal window
+        });
+
+        // Show delete-selected when at least one element is selected
+        $('.select-item').change(function () {
+            if ($('.select-item:checked').length > 0) {
+                $('#delete-selected').show();
+            } else {
+                $('#delete-selected').hide();
+            }
+        });
+
+        // Function to select all checkboxes
+        $('#select-all').click(function () {
+            $('.select-item').prop('checked', $(this).prop('checked'));
+            if ($(this).prop('checked')) {
+                $('#delete-selected').show();
+            } else {
+                $('#delete-selected').hide();
+            }
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".detail-info").forEach(function (trigger) {
+            trigger.addEventListener("click", function () {
+                var targetId = this.getAttribute("data-target");
+                console.log(targetId);
+                var modalElements = document.querySelectorAll(".hidden-data");
+
+                // Looping through all elements
+                modalElements.forEach(function (element) {
+                    // Getting a dataset for each element
+                    var elementDataset = element.dataset;
+
+                    // Checking if targetId is contained in dataset
+                    if (elementDataset.id && elementDataset.id === targetId) {
+                        // Change style when condition is met
+                        element.style.display = "block";  // Or any other value to show the block
+                        // Show modal window (assuming you are using Bootstrap modal)
+                        // Показать модальное окно
+                        element.classList.add("show");
+                    }
+                });
+            });
+        });
+    });
+
+    function closeModal() {
+        var modals = document.querySelectorAll(".hidden-data");
+        modals.forEach(function (element) {
+            element.style.display = "none";
+            element.classList.remove("show");
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var modalElements = document.querySelectorAll('.hidden-data');
+
+        // Добавляем обработчики событий для начала и окончания перетаскивания для каждого модального окна
+        modalElements.forEach(function (modal) {
+            modal.addEventListener('mousedown', startDrag);
+            document.addEventListener('mouseup', endDrag);
+
+            var offsetX, offsetY;
+
+            function startDrag(e) {
+                e.preventDefault();
+                offsetX = e.clientX - modal.offsetLeft;
+                offsetY = e.clientY - modal.offsetTop;
+                document.addEventListener('mousemove', dragModal);
+            }
+
+            function dragModal(e) {
+                e.preventDefault();
+                modal.style.left = e.clientX - offsetX + 'px';
+                modal.style.top = e.clientY - offsetY + 'px';
+            }
+
+            function endDrag() {
+                document.removeEventListener('mousemove', dragModal);
+            }
+        });
+    });
+
+    // 118-LaboratoryDeletingWarning
+      // 58-archiveAndLaboratoryProgressbar
+        var colorIndex = 1;
+
+        function updateProgressBar() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/get_progress_data/', true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    data = JSON.parse(xhr.responseText);
+                    var items = JSON.parse(data.items);
+
+                    {% for itemm in history %}
+                        items.forEach(function(item) {
+                            if ('{{ itemm.id }}' == item.pk) {
+                                progressUpdate(item.pk, item);
+                            }
+                        });
+                    {% endfor %}
+                }
+            };
+                xhr.send();
+        }
+
+        function progressUpdate(itemId, itemData) {
+            var progress = itemData.fields.progress;
+            if (progress !== -1){
+                var finalProgressNumber = itemData.fields.final_progress_number;
+                progress = (1 - progress / finalProgressNumber) * 100;
+            }
+            console.log(progress);
+            var colors = ['#2197a6', '#1d4250'];
+            var progressBar = document.getElementById('progress-bar-' + itemId);
+            if (progressBar) {
+                progressBar.style.background = progress == -1 ? '#A6171F' : `linear-gradient(to right, ${colors[colorIndex]} ${100 - progress}%, #e5f8ff ${100 - progress}%)`;
+                colorIndex = (colorIndex + 1) % colors.length;
+            } else {
+                console.error("Прогресс-бар с ID " + itemId + " не найден.");
+            }
+        }
+
+        updateProgressBar();
+        setInterval(function() {
+            updateProgressBar();
+            colorIndex = 1;
+        }, 10000);
+        // 58-archiveAndLaboratoryProgressbar
+
+  </script>
+{% endblock %}
+

@@ -1,0 +1,50 @@
+[
+    {
+        "fields": {
+            "base_currency": "BTC",
+            "quote_currency": "USDT"
+        }
+    },
+    {
+        "fields": {
+            "base_currency": "ETH",
+            "quote_currency": "USDT"
+        }
+    },
+    {
+        "fields": {
+            "base_currency": "XRP",
+            "quote_currency": "USDT"
+        }
+    },
+    {
+        "fields": {
+            "base_currency": "LTC",
+            "quote_currency": "USDT"
+        }
+    },
+    {
+        "fields": {
+            "base_currency": "DOT",
+            "quote_currency": "USDT"
+        }
+    },
+    {
+        "fields": {
+            "base_currency": "ETH",
+            "quote_currency": "USDT"
+        }
+    },
+    {
+        "fields": {
+            "base_currency": "TRX",
+            "quote_currency": "USDT"
+        }
+    },
+    {
+        "fields": {
+            "base_currency": "GMT",
+            "quote_currency": "USDT"
+        }
+    }
+]

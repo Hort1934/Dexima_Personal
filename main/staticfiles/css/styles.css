@@ -1,0 +1,921 @@
+.wrapper {
+    display: flex;
+    /* height: 100%; */
+    flex-direction: column;
+    -ms-flex-direction: column;
+}
+
+header {
+    height: auto;
+}
+
+.navbar {
+    background: darkgrey;
+}
+
+.btn {
+    background: rgba(33, 151, 166) !important;
+}
+
+.modal-backdrop.show {
+    background-color: transparent;
+}
+
+.modal-backdrop {
+    height: unset !important;
+}
+
+main {
+    flex: 1;
+    /* margin-bottom: 50px; */
+    /* margin-top: 100px; */
+    height: 100%;
+}
+
+html {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    margin: 0;
+    min-height: 100%;
+    padding-bottom: 6.74rem;
+    box-sizing: inherit;
+    /*transition: background-color 0.75s ease, color 0.75s ease;*/
+}
+
+
+.body {
+    background-color: #f4f4f4;
+    font-family: 'GratiaSansRegular', serif;
+    font-weight: normal;
+    font-style: normal;
+    min-width: 900px;
+    min-height: 1000px;
+}
+
+
+body .btn-main {
+    background-color: black;
+    color: white;
+    border: 2px solid #43D510;
+    width: 200px;
+    margin: 10px;
+    /*transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;*/
+}
+
+
+a.navbar-brand.ml-2:hover {
+    transition: color 0.5s ease;
+    color: #D27D19;
+}
+
+
+footer .btn-main {
+    background-color: #343a40;
+    color: white;
+    border: 2px solid #43D510;
+    width: 200px;
+    margin: 10px;
+    /*transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;*/
+}
+
+footer .btn-main:hover {
+    background-color: #596068; /* Your desired background color on hover */
+    color: #000000; /* Your desired text color on hover */
+}
+
+body .btn-main:hover {
+    background-color: #ffffff; /* Your desired background color on hover */
+    color: #000000; /* Your desired text color on hover */
+}
+
+body .btn-main-white {
+
+    border: 2px solid rgba(197, 234, 247);
+    background: #f2ebdc;
+    color: #000000;
+
+    width: 200px;
+    margin: 5px;
+    /*transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;*/
+}
+
+body .btn-main-white:hover {
+    background-color: #484433;
+    color: whitesmoke;
+}
+
+.card-body {
+    text-align: left;
+}
+
+.center-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
+.btn-main-results {
+    width: 100px;
+    margin: 10px;
+}
+
+.custom-bg-dark {
+    background-color: rgba(29, 66, 80);
+}
+
+.strategy-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.strategy-block {
+    box-sizing: border-box;
+    padding: 10px;
+    text-align: center;
+}
+
+.strategy-block img {
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto;
+}
+
+.strategy-block label {
+    display: block;
+    cursor: pointer;
+}
+
+.block {
+    width: 32%;
+    height: 400px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+}
+
+.block-button-group {
+    width: 32%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.choose-strategy-btn {
+    display: block;
+    margin: 20px auto 0 auto;
+}
+
+.block.card {
+    min-height: 100px;
+    height: auto;
+    overflow: auto;
+    color: #000000;
+}
+
+.block.card.deposit {
+    text-align: center;
+    min-height: 200px;
+    min-width: 600px;
+    height: auto;
+    overflow: auto;
+}
+
+.btn.btn-outline.btn-main {
+    background-color: transparent;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn.btn-outline.btn-main:hover {
+    background-color: #43D510;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn.btn-outline.btn-main:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-5px);
+}
+
+/* Стили для контейнера элемента и кнопки */
+.item-container {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.btn-remove-item {
+    margin-left: 10px;
+}
+
+.success-button {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.failed-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#results-container {
+    width: 300px; /* Задайте нужную ширину контейнера */
+    height: 200px; /* Задайте нужную высоту контейнера */
+    overflow: hidden; /* Скрываем содержимое, выходящее за пределы контейнера */
+}
+
+#results {
+    height: auto; /* Убираем фиксированную высоту для внутреннего блока */
+    overflow: hidden; /* Скрываем содержимое, выходящее за пределы блока */
+}
+
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+.margin_0_auto {
+    margin: 0 auto;
+}
+
+.block.card.trading_dashboard {
+    min-height: 200px;
+    height: auto;
+    width: auto;
+    overflow: auto;
+    margin: 0 auto;
+}
+
+.example {
+    font-size: 10px;
+}
+
+.excel-table {
+    margin: 0 0 0 4px;
+    font-size: 13px;
+    width: 100%;
+    border-collapse: collapse;
+
+}
+
+.excel-table th, .excel-table td {
+    /*padding: 10px;*/
+    border: 1px solid #007bff;
+    text-align: center;
+}
+
+.text_align_last {
+    text-align-last: center;
+}
+
+.info-box {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #f2f2f2;
+    padding: 15px;
+    color: #000000;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.info-box p {
+    margin: 0;
+}
+
+.info-box a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.info-box a:hover {
+    text-decoration: underline;
+}
+
+.image-trading-description-container {
+    text-align: center;
+}
+
+.image-trading-description-container img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.dark-theme {
+    background-color: rgba(29, 66, 80);
+    color: floralwhite;
+}
+
+.light-theme {
+    background-color: rgba(229, 248, 258);
+    color: black;
+}
+
+.choices__inner {
+    min-width: 420px;
+    color: #007bff;
+}
+
+.icon {
+    margin-right: 20px;
+    padding-left: 17px;
+    background: url("/static/images/search-icon.png") no-repeat left;
+    background-size: 20px;
+    border: none;
+}
+
+/* CSS styles to make the link look like a button */
+.button-link {
+    color: black;
+    display: inline-block;
+    padding: 1px 1px;
+    background-color: #007bff; /* Change to the desired button background color */
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    /*transition: background-color 0.3s ease;*/
+}
+
+.button-link:hover {
+    background-color: black; /* Change to the desired background color on hover */
+}
+
+/* CSS styles to place buttons in one row */
+.search-team {
+    color: #007bff;
+    flex: 1 1 100%;
+    margin: 2px 0 20px 0;
+}
+
+/* CSS styles for the button */
+.button {
+    background-color: #007bff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    /*transition: background-color 0.3s ease;*/
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+/* CSS styles for the link */
+.button-link {
+    text-decoration: none;
+}
+
+.dashboard {
+    min-width: 1000px;
+    min-height: 200px;
+}
+
+.button-row {
+    display: flex; /* Use flexbox to create a horizontal row */
+    gap: 20px; /* Adjust the gap (spacing) between buttons */
+    align-items: center; /* Vertically center-align buttons (optional) */
+}
+
+.btn-dashboard {
+    max-width: 105px;
+}
+
+.container.dashboard {
+    margin-left: 60px;
+}
+
+.container.dashboard.detail {
+    max-width: 1000px;
+}
+
+.trades.list,
+.orders.list {
+    min-height: 200px;
+    border: 1px solid #000;
+    margin: 10px;
+    border-radius: 15px;
+}
+
+
+.table-container {
+    max-height: 318px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+}
+
+#crypto-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#crypto-table th,
+#crypto-table td {
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+
+.index {
+    text-align: center; /* Заголовок по центру */
+    max-width: 900px; /* Максимальная ширина контейнера для ограничения текста */
+    margin: 0 auto; /* Центрирование блока по горизонтали */
+    width: 100%;
+}
+
+.index h6 {
+    margin-top: 20px; /* Верхний отступ между заголовком и текстом */
+    bottom: 200px;
+    font-size: 18px; /* Размер шрифта */
+    line-height: 1.7; /* Межстрочный интервал */
+}
+
+.index h6 strong {
+    font-weight: bold; /* Сильное выделение (жирный шрифт) для слов в strong */
+}
+
+/* Описание каждого раздела */
+.index .backtester-description::before {
+    content: "Backtester - ";
+    font-weight: bold;
+    margin-left: 11%;
+}
+
+.index .optimizer-description::before {
+    content: "Optimizer - ";
+    font-weight: bold;
+    margin-left: 11%;
+}
+
+.index .trading-bot-description::before {
+    content: "Trading bot - ";
+    font-weight: bold;
+    margin-left: 11%;
+
+}
+
+.index .reoptimizer-description::before {
+    content: "Reoptimizer - ";
+    font-weight: bold;
+    margin-left: 11%;
+
+}
+
+.index .monitor-description::before {
+    content: "Monitor - ";
+    font-weight: bold;
+    margin-left: 11%;
+
+}
+
+/* Footer
+---------------------------------*/
+
+.footer {
+    color: #fff;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0; /* Цвет фона футера, измените на свой выбор */
+    color: #fff; /* Цвет текста внутри футера, измените на свой выбор */
+    padding: 0 0; /* Внутренний отступ сверху и снизу футера, можно настроить по желанию */
+    background-color: rgba(29, 66, 80);
+}
+
+.footer-logo {
+
+    max-height: 30px;
+    margin: 15px auto 25px;
+    width: 50px;
+}
+
+.copyright, .credits {
+    color: #cccccc;
+    font-size: 12px;
+    display: block;
+    text-align: center;
+}
+
+.copyright a, .credits a {
+    color: #43D510;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+}
+
+.copyright a:hover, .credits a:hover {
+    color: #fff;
+}
+
+.hidden {
+    display: none;
+    font-size: 25px;
+    position: absolute;
+    background-color: rgb(0 0 0 / 0);
+    width: 90px;
+    bottom: -50px;
+    /*left: calc(81% - 5px);*/
+    height: 35px;
+    transform: translateY(-100%);
+}
+
+.hidden-login-language {
+    display: none;
+    font-size: 25px;
+    position: absolute;
+    background-color: rgb(0 0 0 / 0);
+    width: 90px;
+    bottom: -50px;
+    left: calc(66% - 10px);
+    height: 35px;
+    transform: translateY(-100%);
+}
+
+.nav_link_container {
+    position: relative;
+}
+
+.nav_link:hover + #menu_1,
+#menu_1:hover {
+    display: block;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-field {
+    width: 100%; /* Adjust the width as needed */
+    margin-bottom: 10px; /* Adjust the spacing between input boxes */
+}
+
+.spinner-border {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    vertical-align: text-bottom;
+    border: .2em solid currentColor;
+    border-right: .2em solid transparent;
+    border-radius: 50%;
+    animation: spinner-border .75s linear infinite;
+}
+
+@keyframes spinner-border {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+label.base-backtest-results-1 {
+    background-color: #9797972b;
+    display: inline-block;
+    width: 320px;
+    max-height: 50px;
+    /*border-bottom: 2px solid rgb(255, 0, 0, 0.30);*/
+    /*border-top: 2px solid rgb(128, 128, 128, 0.40)*/
+}
+
+label {
+    margin-bottom: unset !important;
+}
+
+label.base-backtest-results-2 {
+    /*background-color: #9797972b;*/
+    display: inline-block;
+    max-height: 20px;
+    /*border-bottom: 2px solid rgb(255, 0, 0, 0.30);*/
+    /*border-top: 2px solid rgb(128, 128, 128, 0.40)*/
+}
+
+.selected-items {
+    /*border: 2px solid white;*/
+    color: #43D510;
+    min-width: 15px;
+    padding: 5px;
+    font-size: 17px;
+    margin-right: 13px; /* Add some space between items */
+}
+
+.navbar-brand.mr-auto {
+    display: flex; /* Use flexbox to create a row layout */
+    align-items: center; /* Vertically center items */
+}
+
+/* Стили для модального окна */
+/* Стили для модального окна */
+.pass-help {
+    font-size: 10px;
+    color: #ff0000bd;
+}
+
+/* Ваши другие стили остаются без изменений */
+
+/* Стили для иконки "global-4.png" */
+.nav-link-container {
+    position: relative;
+}
+
+ul#menu_1 {
+    position: absolute;
+    top: 60px;
+    left: -6.1px;
+}
+
+/* Add or modify your CSS styles */
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 4px; /* Adjust the margin for spacing */
+    display: none; /* Initially hide the error message */
+}
+
+.modal-body {
+    color: black !important;
+}
+
+.inactive-link {
+    pointer-events: none; /* Disable mouse events */
+    color: #999 !important; /* Change the text color to gray */
+    cursor: not-allowed; /* Change the cursor style to indicate it's not clickable */
+}
+
+.contact-info-boxes {
+    position: relative;
+    width: 500px;
+    text-align: center;
+}
+
+
+.error-message-trading-description {
+    /*text-align-last: center;*/
+    color: red;
+}
+
+.footer-row {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 7px 10px 0;
+    height: 78px;
+}
+
+.footer > div:nth-child(2) {
+    line-height: 1.18;
+}
+
+.contact-info-box > div:nth-child(2) > a:nth-child(2) {
+    color: white;
+}
+
+.support_form_style {
+    max-width: 550px;
+    margin-left: 275px;
+}
+
+.table-container table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table-container th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.table-container td:nth-child(1) {
+    cursor: pointer;
+}
+
+.table-container th .asc:after {
+    content: ' ↑';
+}
+
+.table-container th .desc:after {
+    content: ' ↓';
+}
+
+
+.bot-stat-item {
+    display: inline-block;
+    margin-right: 10px; /* Adjust margin as needed */
+}
+
+.market-selection form button,
+.market-selection form a {
+    display: block;
+    margin-bottom: 10px; /* Регулирует расстояние между кнопками/ссылками */
+}
+
+.market-selection-soon-img {
+    max-width: 75px;
+    max-height: 75px;
+}
+
+.history {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.history-titles {
+    color: #00a5bb;
+}
+
+.col-md-12 {
+    margin-bottom: 100px;
+}
+
+.footer-icons-size {
+    width: 30px;
+    height: 30px;
+}
+
+.modal-footer {
+    flex-direction: column !important;
+}
+
+a#stop-bot-and-close {
+    border: 3px solid black;
+    color: red;
+    border-radius: 15px;
+
+    font-weight: 600;
+}
+
+a#stop-bot {
+    border: 3px solid black;
+    color: red;
+    border-radius: 15px;
+
+    font-weight: 600;
+}
+
+.stop-button-title {
+    font-size: 20px;
+    margin-bottom: 0;
+}
+
+.stop-button-content {
+    font-size: 15px;
+    margin-bottom: 0;
+}
+
+.modal-footer {
+    border-radius: 15px;
+}
+
+.modal-content {
+    top: 30px;
+    /*left: 135px;*/
+    width: 60%;
+}
+
+.hr-dashboard {
+    border-top: 1px solid #43D510 !important;
+}
+
+.message-ip-error-style {
+    text-align-last: left;
+}
+
+.dashboard-menu-buttons-style {
+    border: unset;
+    width: 120px;
+    height: 60px;
+}
+
+.active-bots-style {
+    font-weight: 700;
+}
+
+table.table {
+    color: unset;
+}
+
+.bg-gray-700.p-10.rounded-lg.shadow-xl.text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+}
+
+.bg-gray-600.p-4.rounded {
+    --tw-bg-opacity: 1;
+    background-color: rgb(75 85 99 / var(--tw-bg-opacity));
+}
+
+.bg-gray-600.p-4.rounded.center-content {
+    --tw-space-y-reverse: 0;
+    margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+    margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+}
+
+.bg-gray-700.p-10.rounded-lg.shadow-xl.text-sm {
+    --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.bg-gray-700 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.flex {
+    display: flex;
+}
+
+.p-10 {
+    padding: 2.5rem;
+}
+
+button.btn.btn-main.btn-main-white.hide-button {
+    display: none;
+}
+
+.btn-confirm-inactive {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-confirm-active {
+    opacity: 1;
+    cursor: pointer;
+}
+
+div#stopModal {
+    left: -120px;
+    top: 45px;
+}
+
+a.btn.btn-main.btn-main-white {
+    /* width: 100px; */
+}
+
+.inactive-button {
+    filter: blur(2px); /* Adjust the blur amount as needed */
+}
+
+.api_keys_update_style {
+    text-align-last: center;
+}
+
+@media screen and (min-height: 200px) {
+    .header-style {
+        min-height: auto;
+        background: aqua;
+    }
+}
+
+
+.col-md-12 {
+    margin-bottom: 41px;
+}
+
+/*.table td, .table th {*/
+/*    padding: 0.70rem !important;*/
+/*    margin-top: 100px;*/
+/*    display: unset;*/
+/*    font-size: 9px;*/
+/*    font-weight: 600;*/
+/*}*/
+/*.row {*/
+/*    min-height: 730px;*/
+/*}*/

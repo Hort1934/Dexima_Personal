@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% block content %}
+  <div class="center-content">
+    <p>
+      {% trans "KuCoin cryptocurrency exchange" %}
+    </p>
+    <p>
+      {% blocktrans %}
+        KuCoin: This is another popular cryptocurrency exchange that provides a platform for trading many different
+        cryptocurrencies. It is also known for its native token, KCS (KuCoin Shares).
+      {% endblocktrans %}
+    </p>
+    {% include "includes/strategies_base.html" %}
+  </div>
+{% endblock %}

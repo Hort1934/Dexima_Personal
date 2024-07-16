@@ -1,0 +1,631 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+  <style>
+      .dark-theme {
+        background-color: rgba(29, 66, 80);
+        color: black;
+      }
+      .profile-menu-buttons > button{
+        background-color: rgb(197 234 247) !important;
+      }
+      .user-info-content-style {
+        background-color: rgb(197 234 247) !important;
+        color: black;
+      }
+      .wrapper {
+          min-height: 800px;
+      }
+
+      /* Styles for the modal */
+      #changePassword.modal {
+          display: none;
+          position: fixed;
+          z-index: 1;
+          left: 0;
+          top: 7%; /* Center the modal vertically */
+          width: 100%;
+          overflow: auto;
+          background-color: rgba(0, 0, 0, 0.4);
+      }
+
+      /* Style the modal content */
+      #changePassword .modal-content {
+          background-color: #fefefe;
+          margin: 0 auto; /* Center the modal horizontally */
+          padding: 20px;
+          border-radius: 10px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          width: 50%; /* Adjust the width as needed */
+      }
+
+      /* Style the close button */
+      #changePassword .close {
+          color: #aaa;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+      }
+
+      #changePassword .close:hover,
+      #changePassword .close:focus {
+          color: black;
+          text-decoration: none;
+          cursor: pointer;
+      }
+
+      /* Style the form elements */
+      #changePassword label {
+          display: block;
+          margin-bottom: 5px;
+      }
+
+      input#currentPassword {
+          width: 100%;
+          padding: 8px;
+          margin-bottom: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+      }
+
+      input#newPassword {
+          width: 100%;
+          padding: 8px;
+          margin-bottom: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+      }
+
+      #changePassword input[type="password"] {
+          width: 100%;
+          padding: 8px;
+          margin-bottom: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+      }
+
+      #changePassword button[type="submit"] {
+          width: 100%;
+          padding: 10px;
+          background-color: #007bff;
+          color: #fff;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+      }
+
+      #changePassword button[type="submit"]:hover {
+          background-color: #0056b3;
+      }
+
+      #changePassword a {
+          display: block;
+          text-align: right;
+          margin-top: 10px;
+          color: #007bff;
+          text-decoration: none;
+      }
+
+      #changePassword a:hover {
+          text-decoration: underline;
+      }
+
+
+      /* Кнопка закрытия модального окна */
+      .close {
+          color: #aaa;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+          color: black;
+          text-decoration: none;
+          cursor: pointer;
+      }
+
+      .profile-button {
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+          min-width: 167px;
+          min-height: 50px;
+      }
+
+      .profile-menu-buttons {
+          display: flex;
+      }
+
+      .user-info-content-style, .user-status-content-style, .user-billing-content-style {
+          min-height: 300px;
+
+          font-weight: 700;
+          background-color: #f2f2f2;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .name-box {
+          min-width: 100px;
+          min-height: 50px;
+          border: solid 2px black;
+      }
+
+      .profile-main-styles {
+          width: 100%; /* Делаем ширину адаптивной */
+          max-width: 500px; /* Максимальная ширина для больших экранов */
+          min-width: 0; /* Убираем минимальную ширину, чтобы не было конфликта на маленьких экранах */
+      }
+
+      .info-name {
+          display: flex;
+          width: 75%;
+          justify-content: space-between;
+          margin-bottom: 10px;
+          margin-left: 20px;
+      }
+
+
+      .name-box {
+          min-width: 169px;
+          min-height: 27px;
+          border: solid 2px black;
+      }
+
+      div#user-info-content, div#user-status-content, div#user-billing-content {
+          margin-top: 6px;
+      }
+
+      .change-button {
+          border: solid 1px blue;
+          color: blue;
+          position: relative;
+          top: 2px;
+          font-size: 12px;
+      }
+
+      .switch-btn {
+          display: inline-block;
+          width: 50px;
+          height: 20px;
+          border-radius: 19px;
+          background: linear-gradient(to right, #7f7f7f 0, #bfbfbf 40%, #7fd03e 60%, #118c4e 100%);
+          background-size: 180px 100%;
+          z-index: 0;
+          margin: 0;
+          padding: 0;
+          border: none;
+          cursor: pointer;
+          position: relative;
+          transition-duration: 300ms;
+          margin-left: 10px;
+          top: 5px;
+      }
+
+      .switch-btn::after {
+          content: "";
+          height: 15px;
+          width: 15px;
+          border-radius: 17px;
+          background: #fff;
+          top: 2px;
+          left: 3px;
+          transition-duration: 300ms;
+          position: absolute;
+          z-index: 1;
+      }
+
+      .switch-on {
+          background-position-x: -100px;
+      }
+
+      .switch-on::after {
+          left: 32px;
+      }
+
+      .two-fa {
+          margin-left: 4px;
+          position: relative;
+          bottom: -3px;
+      }
+
+      #status-table td {
+          height: 50px;
+          width: 94px;
+          text-align: center;
+      }
+
+      #status-table {
+          border-collapse: collapse;
+          width: 100%;
+      }
+
+      .bordered-table td, .bordered-table th {
+          border: 1px solid #dddddd; /* Default border color */
+          padding: 8px; /* Padding inside cells */
+          text-align: left;
+      }
+
+      .bordered-table th {
+          background-color: #f2f2f2; /* Background color for header cells */
+      }
+
+      /* Custom border style */
+      .custom-border {
+          border: 2px solid red; /* Custom border color and thickness */
+          border-radius: 8px; /* Rounded corners */
+      }
+
+      .user-status-content-style {
+          /* Add any additional styling for the container */
+      }
+
+      .statuses-table {
+          width: 100%;
+          border-collapse: collapse;
+      }
+
+      .statuses-table td, .statuses-table th {
+          border: 1px solid #dddddd; /* Default border color */
+          padding: 4.4px; /* Padding inside cells */
+          text-align: left;
+      }
+
+      .statuses-table th {
+          background-color: #f2f2f2; /* Background color for header cells */
+          text-align-last: center;
+      }
+
+      /* Custom border style */
+      .custom-border {
+          border-radius: 8px; /* Rounded corners */
+      }
+
+      /* Медиа запрос для экранов меньше 500px */
+      @media screen and (max-width: 500px) {
+          .profile-main-styles {
+              max-width: 100%; /* Для маленьких экранов делаем блок на всю ширину */
+              min-height: auto; /* Минимальная высота auto, если нужно */
+          }
+
+          .profile-button {
+              min-width: 128px;
+          }
+
+      }
+  </style>
+  <div id="mountElem" class="center-content">
+    <br>
+    {% if bybit_keys_changed %}
+      <div style="color: green">
+        <p>new Bybit keys successfully saved</p>
+        <h4>Permissions:</h4>
+        <p>{{bybit_permissions}}</p>
+      </div>
+    {% elif bybit_keys_changing_exception %}
+      <div style="color: red">
+        <p>new Bybit keys was not saved</p>
+        {{bybit_keys_changing_exception}}
+      </div>
+    {% endif %}
+    {% if binance_keys_changed %}
+      <div style="color: green">
+        <p>new Binance keys successfully saved</p>
+        <h4>Permissions:</h4>
+        <p>{{binance_permissions}}</p>
+      </div>
+    {% elif binance_keys_changing_exception %}
+      <div style="color: red">
+        <p>new Bybit keys was not saved</p>
+        {{binance_keys_changing_exception}}
+      </div>
+    {% endif %}
+    <h1>ACCOUNT</h1>
+    <div class="profile-main-styles">
+      <div class="profile-menu-buttons">
+        <button type="submit" id="user-info-button" class="profile-button">YOUR INFO</button>
+        <button type="submit" id="user-status-button" class="profile-button">YOUR STATUS</button>
+        <button type="submit" id="user-billing-button" class="profile-button">BILLING</button>
+      </div>
+      <div id="user-info-content" class="user-info-content-style">
+        <div class="info-container">
+          <div class="info-name">
+            <span class="name">ID</span>
+            <span class="name-box">{{ user_id }}</span>
+          </div>
+          <div style="display: flex">
+            <div class="info-name">
+              <span class="name">USERNAME</span>
+              <span class="name-box">{{ user.username }}</span>
+            </div>
+          </div>
+          <div style="display: flex">
+            <div class="info-name">
+              <span class="name">PASSWORD</span>
+              <span class="change-button" style="margin-left: 11px"><a href={% url 'main_service:password_change' %}>CHANGE PASSWORD</a></span>
+            </div>
+            <div></div>
+          </div>
+          <div style="display: flex">
+            <div class="info-name">
+              <span class="name">EMAIL</span>
+              <span class="name-box">{{ user.email }}</span>
+            </div>
+            <div class="switch-btn switch-on"></div>
+            <p class="two-fa">2FA</p>
+          </div>
+          <div style="display: flex">
+            <div class="info-name">
+              <span class="name">GOOGLE</span>
+              <span class="name-box"><input style="max-width: 180px"></span>
+            </div>
+            <div class="switch-btn switch-on"></div>
+            <p class="two-fa">2FA</p>
+          </div>
+          <div style="display: flex">
+            <div class="info-name">
+              <span class="name">API keys</span>
+              <span class="change-button" style="margin-left: 11px"><a href={% url 'main_service:change_api_keys' %}>CHANGE API KEYS</a></span>
+            </div>
+            <div></div>
+          </div>
+          <div class="info-name">
+            <span class="name">*For saving this changes push button</span>
+            <span><button type="submit" style="color: green" class="info-save">SAVE</button></span>
+          </div>
+        </div>
+      </div>
+      <div id="user-status-content" class="user-status-content-style">
+        <div class="status-container">
+          <div class="statuses-table">
+            <table id="status-table" class="statuses-table">
+
+              <tr>
+                <td>STATUS</td>
+                {% if user_status == trial.status %}
+                  <td style="background-color: green">{{ trial.status }}</td>
+                {% else %}
+                  <td>{{ trial.status }}</td>
+                {% endif %}
+                {% if user_status == basic.status %}
+                  <td style="background-color: green">{{ basic.status }}</td>
+                {% else %}
+                  <td>{{ basic.status }}</td>
+                {% endif %}
+                {% if user_status == pro.status %}
+                  <td style="background-color: green">{{ pro.status }}</td>
+                {% else %}
+                  <td>{{ pro.status }}</td>
+                {% endif %}
+                {% if user_status == vip.status %}
+                  <td style="background-color: green">{{ vip.status }}</td>
+                {% else %}
+                  <td>{{ vip.status }}</td>
+                {% endif %}
+              </tr>
+              <tr>
+                <td>ATS</td>
+                <td>{{ trial.max_ats_count }}</td>
+                <td>{{ basic.max_ats_count }}</td>
+                <td>{{ pro.max_ats_count }}</td>
+                <td>&#8734;</td>
+              </tr>
+              <tr>
+                <td>OPTIMIZATION</td>
+                <td>{{ trial.max_optimizations }}</td>
+                <td>{{ basic.max_optimizations }}</td>
+                <td>{{ pro.max_optimizations }}</td>
+                <td>{{ vip.max_optimizations }}</td>
+              </tr>
+              <tr>
+                <td>BACKTEST</td>
+                <td>{{ trial.max_backtests }}</td>
+                <td>{{ basic.max_backtests }}</td>
+                <td>{{ pro.max_backtests }}</td>
+                <td>{{ vip.max_backtests }}</td>
+              </tr>
+              <tr>
+                <td>MAX DAYS OF BACKTEST & OPTIMIZATION</td>
+                <td>{{ trial.backtest_and_optimization_duration_days }}</td>
+                <td>{{ basic.backtest_and_optimization_duration_days }}</td>
+                <td>{{ pro.backtest_and_optimization_duration_days }}</td>
+                <td>{{ vip.backtest_and_optimization_duration_days }}</td>
+              </tr>
+              <tr>
+                <td>MAX INVESTMENT</td>
+                <td>{{ trial.max_investment }}</td>
+                <td>{{ basic.max_investment }}</td>
+                <td>{{ pro.max_investment }}</td>
+                <td>{{ vip.max_investment }}</td>
+              </tr>
+              <tr>
+                <th>COST</th>
+                <th>{{ trial.cost }}</th>
+                <th class="custom-border">
+                  <button style="border-color: red">{{ basic.cost }}$</button>
+                </th>
+                <th class="custom-border">
+                  <button style="border-color: red">{{ pro.cost }}$</button>
+                </th>
+                <th>{{ vip.cost }}</th>
+              </tr>
+
+            </table>
+          </div>
+          <br>
+          {% if user_status %}
+            <strong>{{ user_status }}, {% if time_left < 0 %}Expired{% else %}</strong> {{ user_expired_date }} (
+            <strong style="color: green">{{ time_left }} days left</strong>){% endif %}
+          {% else %}
+            <strong>Expired</strong> None a subscriber yet.
+          {% endif %}
+          <br>
+          <h3>SERVICES LEFT</h3>
+          <table id="status-table" class="statuses-table">
+            <tr>
+              <th>ATS</th>
+              <th>BACKTEST</th>
+              <th>OPTIMIZATION</th>
+            </tr>
+            <tr>
+              <th>{{ ats_left }}</th>
+              <th>{{ backtest_left }}</th>
+              <th>{{ optimization_left }}</th>
+              {#              <th>{{ ats }}</th>#}
+              {#              <th>{{ backtest }}</th>#}
+              {#              <th>{{ optimization }}</th>#}
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div id="user-billing-content" class="user-billing-content-style">
+        <table id="status-table" class="statuses-table">
+          <tr>
+            <th>MEMBER SINCE</th>
+            <th>{{ user.date_joined }}</th>
+          </tr>
+          <tr>
+            <th>ACCOUNT STATUS</th>
+            <th style="color: green">{{ user_status }} <span style="color: red">{% if time_left < 0 %}Expired{% else %}{{ time_left }}D left{% endif %}</span></th>
+          </tr>
+          <tr>
+            <th>PAYMENT INFORMATION</th>
+            <th style="color: green">VISA</th>
+          </tr>
+        </table>
+        <br>
+        <h4 style="text-align: left; padding-left: 10px">BILLING HISTORY:</h4>
+        {#        {% for bill in billing_history %}#}
+        {#          <table>#}
+        {#            <tr>#}
+        {#              <th>bill.price</th>#}
+        {#              <th>bill.date</th>#}
+        {#            </tr>#}
+        {#          </table>#}
+        {#        {% endfor %}#}
+
+        <table class="statuses-table">
+          <tr>
+            <th>$10</th>
+            <th>17.02.2024</th>
+          </tr><tr>
+            <th>$100</th>
+            <th>15.02.2024</th>
+          </tr><tr>
+            <th>$10000</th>
+            <th>13.02.2024</th>
+          </tr><tr>
+            <th>$10</th>
+            <th>11.02.2024</th>
+          </tr><tr>
+            <th>$100</th>
+            <th>10.02.2024</th>
+
+        </table>
+
+      </div>
+    </div>
+  </div>
+  <script>
+      $('.switch-btn').click(function () {
+          $(this).toggleClass('switch-on');
+      });
+      document.addEventListener("DOMContentLoaded", function () {
+          // Получение ссылок на элементы
+          var InfoButton = document.getElementById("user-info-button");
+          var StatusButton = document.getElementById("user-status-button");
+          var BillingButton = document.getElementById("user-billing-button");
+          var infoContent = document.getElementById("user-info-content");
+          var statusContent = document.getElementById("user-status-content");
+          var billingContent = document.getElementById("user-billing-content");
+
+          // Установка активных ботов как видимых по умолчанию
+          statusContent.style.display = "none";
+          {#StatusButton.classList.add("inactive-button");#}
+
+          billingContent.style.display = "none";
+          {#BillingButton.classList.add("inactive-button");#}
+
+          infoContent.style.display = "block";
+          InfoButton.classList.remove("inactive-button");
+
+          // Добавление обработчика событий на кнопку "InfoButton"
+          InfoButton.addEventListener("click", function () {
+              // Переключение видимости trading-bots-content и active-bots-content
+              infoContent.style.display = "block";
+              statusContent.style.display = "none";
+              billingContent.style.display = "none";
+
+              // Удаление размытия с неактивной кнопки
+              BillingButton.classList.add("inactive-button");
+              StatusButton.classList.add("inactive-button");
+              InfoButton.classList.remove("inactive-button");
+          });
+
+          // Добавление обработчика событий на кнопку "InfoButton"
+          StatusButton.addEventListener("click", function () {
+              // Переключение видимости trading-bots-content и active-bots-content
+              infoContent.style.display = "none";
+              statusContent.style.display = "block";
+              billingContent.style.display = "none";
+
+              // Удаление размытия с неактивной кнопки
+              BillingButton.classList.add("inactive-button");
+              StatusButton.classList.remove("inactive-button");
+              InfoButton.classList.add("inactive-button");
+          });
+          BillingButton.addEventListener("click", function () {
+              // Переключение видимости trading-bots-content и active-bots-content
+              infoContent.style.display = "none";
+              statusContent.style.display = "none";
+              billingContent.style.display = "block";
+
+              // Удаление размытия с неактивной кнопки
+              BillingButton.classList.remove("inactive-button");
+              StatusButton.classList.add("inactive-button");
+              InfoButton.classList.add("inactive-button");
+          });
+      });
+
+      // Функция для открытия модального окна
+      function openModal() {
+          var modal = document.getElementById("changePassword");
+          modal.style.display = "block";
+      }
+
+      // Функция для закрытия модального окна
+      function closeModal() {
+          var modal = document.getElementById("changePassword");
+          modal.style.display = "none";
+      }
+
+      // Функция для обработки нажатия на ссылку "Забыли пароль?"
+      function forgotPassword() {
+          // Ваш код для обработки нажатия на ссылку "Забыли пароль?"
+      }
+
+      $(document).ready(function () {
+          $('#show_current_password').click(function () {
+              togglePasswordVisibility('currentPassword', 'show_current_password');
+          });
+
+          $('#show_new_password').click(function () {
+              togglePasswordVisibility('newPassword', 'show_new_password');
+          });
+      });
+
+      function togglePasswordVisibility(passwordFieldId, toggleButtonId) {
+          var passwordField = $('#' + passwordFieldId);
+          var toggleButton = $('#' + toggleButtonId);
+          var passwordFieldType = passwordField.attr('type');
+          if (passwordFieldType === 'password') {
+              passwordField.attr('type', 'text');
+              toggleButton.html('<i class="fa fa-eye-slash"></i>');
+          } else {
+              passwordField.attr('type', 'password');
+              toggleButton.html('<i class="fa fa-eye"></i>');
+          }
+      }
+  </script>
+{% endblock %}

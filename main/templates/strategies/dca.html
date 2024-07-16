@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+  {% if start %}
+  <h1 style="text-align: center"> {% trans "Optimization options" %}</h1>
+  <br>
+  {% elif not start %}
+    <h1 style="text-align: center"> What is a DCA?</h1>
+    <p>
+      DCA stands for "Dollar-Cost Averaging." It's an investment strategy in which an investor divides up the total
+      amount
+      to be invested across periodic purchases of a target asset in an effort to reduce the impact of volatility on the
+      overall purchase. Instead of putting a lump sum into an investment all at once, the investor will spread out their
+      buy-ins over time, whether the price is up or down.
+    </p>
+    <p>
+      Key Points of DCA:
+
+      Mitigating Risk: DCA can help reduce the risk of investing a large amount in a single investment at the wrong
+      time.
+
+      Automatic and Disciplined: Many people use DCA by setting up automatic contributions to their investment accounts.
+      This instills discipline in the investment process.
+
+      Reduces the Impact of Volatility: By spreading purchases out over time, you can potentially reduce the impact of
+      market volatility. This is especially beneficial for those who might be risk-averse or unsure about the perfect
+      time to invest.
+
+      No Need for Market Timing: Since the investor is committing to investing a fixed amount at regular intervals,
+      there's no need to time the market or predict the best entry points.
+
+      Average Purchase Price: Over time, this strategy can result in purchasing more shares when prices are low and
+      fewer shares when prices are high, leading to a potential lower average cost per share.
+
+      Example:
+      If you decide to invest $1200 in a particular stock over a year, instead of buying $1200 worth of the stock in
+      January, you might instead decide to invest $100 every month regardless of the stock's price. This way, you buy
+      more shares when the price is low and fewer shares when the price is high.
+
+      However, it's important to note that while DCA can help mitigate risks and take the emotion out of investing, it
+      doesn't guarantee a profit or protect against loss in declining markets. As with all investment strategies, it's
+      crucial to evaluate if it aligns with your financial goals and risk tolerance.
+    </p>
+    <br>
+    {% include "includes/lets_make_ml_strategy.html" %}
+  {% endif %}
+  {% include "includes/backtest_and_optimization.html" %}
+{% endblock %}

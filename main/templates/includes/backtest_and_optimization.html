@@ -1,0 +1,386 @@
+{% load crispy_forms_filters %}
+{% load i18n %}
+{% if start %}
+  {% load crispy_forms_tags %}
+  <div class="d-flex justify-content-between mb-3">
+    <!-- 1 box -->
+    <div class="block card">
+      <div class="card-body">
+        {% if not base_backtest_result %}
+          <form method="post" action="{% url 'main_service:show_chosen_strategy' %}">
+            <div class="center-content">
+              <p><strong>{% trans "Base settings for Strategy: " %}</strong>{{ chosen_strategy }}</p>
+            </div>
+            {% csrf_token %}
+            {% for setting, value in settings.items %}
+              {% if setting != "description" %}
+                <label>{{ setting }}: <span>{{ value }}</span></label><br>
+              {% endif %}
+            {% endfor %}
+          </form>
+        {% elif base_backtest_result %}
+          <div class="center-content">
+            <p><strong>{% trans "Backtesting Results on Base Settings:" %}</strong></p>
+          </div>
+          {% for setting, value in base_backtest_result.items %}
+            {% if setting != "interval" and setting != "chosen_strategy" %}
+              {% if forloop.counter|divisibleby:2 %}
+                <label class="base-backtest-results-1" style="padding-left: 10px">{{ setting }}:
+                  <span>{{ value }}</span></label>
+              {% else %}
+                <label class="base-backtest-results-2" style="padding-left: 10px">{{ setting }}:
+                  <span>{{ value }}</span></label>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+    <!-- 2 box -->
+    <div class="block card">
+      <div class="card-body">
+        {% if not custom_settings %}
+          <div class="center-content">
+            <p><strong>{% trans "Сustom settings" %}</strong></p>
+          </div>
+        {% endif %}
+
+        <form id="myForm" method="post" action="{% url 'main_service:show_chosen_strategy' %}">
+          {% csrf_token %}
+          {% if not manual_backtest_result %}
+            <p>{% trans "Choose your own settings and start the Backtest!" %}</p>
+            {% if not custom_settings %}
+              {% csrf_token %}
+              <div class="form-group">
+                {{ custom_form.days_of_backtest|as_crispy_field }}
+                <div id="days_of_backtest-error" class="error-message"></div>
+              </div>
+              <!-- Move the error message below the Interval field -->
+              <div class="form-group">
+                {{ custom_form.interval|as_crispy_field }}
+                <div id="interval-error" class="error-message"></div>
+              </div>
+              <div class="form-group">
+                {{ custom_form.start_balance|as_crispy_field }}
+                <div id="start_balance-error" class="error-message"></div>
+              </div>
+              {% if invalid_start_balance %}
+                <p style="color: red">{{ invalid_start_balance }}</p>
+              {% endif %}
+
+            {% elif custom_settings %}
+              {% if not manual_backtest_result %}
+                {% csrf_token %}
+                <div class="form-group">
+                  {{ custom_form.days_of_backtest|as_crispy_field }}
+                  <div id="days_of_backtest-error" class="error-message"></div>
+                </div>
+                <!-- Move the error message below the Interval field -->
+                <div class="form-group">
+                  {{ custom_form.interval|as_crispy_field }}
+                  <div id="interval-error" class="error-message"></div>
+                </div>
+                <div class="form-group">
+                  {{ custom_form.start_balance|as_crispy_field }}
+                  <div id="start_balance-error" class="error-message"></div>
+                </div>
+                {% if invalid_start_balance %}
+                  <p style="color: red">{{ invalid_start_balance }}</p>
+                {% endif %}
+              {% endif %}
+
+            {% endif %}
+          {% elif custom_settings %}
+            <div class="center-content">
+              <p><strong>{% trans "Backtesting Results on Custom Settings:" %}</strong></p>
+            </div>
+            {% for setting, value in manual_backtest_result.items %}
+              {% if setting != "interval" and setting != "chosen_strategy" %}
+                {% if forloop.counter|divisibleby:2 %}
+                  <label class="base-backtest-results-1" style="padding-left: 10px">{{ setting }}:
+                    <span>{{ value }}</span></label>
+                {% else %}
+                  <label class="base-backtest-results-2" style="padding-left: 10px">{{ setting }}:
+                    <span>{{ value }}</span></label>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+
+          {#          <input type="hidden" name="chosen_strategy" value="{{ chosen_strategy }}">#}
+
+        </form>
+      </div>
+    </div>
+
+    <!-- 3 box -->
+
+
+    <div class="block card">
+      <div class="card-body">
+        {% if not optimized_settings_backtest_result %}
+          {% blocktrans %}
+            <p>💡🤖 Meet Your New Trading Assistant: Machine learning isn’t just the future; it’s the now. Upgrade your
+              trading experience by leveraging AI to optimize your strategy. Ready to see what you've been missing?</p>
+          {% endblocktrans %}
+        {% elif optimized_settings_backtest_result %}
+          <div class="center-content">
+            <p><strong>{% trans "Backtesting Results on AI Optimizer:" %}</strong></p>
+          </div>
+          {% for setting, value in optimized_settings_backtest_result.items %}
+            {% if setting != "interval" and setting != "chosen_strategy" %}
+              {% if forloop.counter|divisibleby:2 %}
+                <label class="base-backtest-results-1" style="padding-left: 10px">{{ setting }}:
+                  <span>{{ value }}</span></label>
+              {% else %}
+                <label class="base-backtest-results-2" style="padding-left: 10px">{{ setting }}:
+                  <span>{{ value }}</span></label>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-between mb-3">
+    <!-- buttons for 1 box -->
+    <div class="block-button-group">
+      {% if not base_backtest_result %}
+        <form method="post" action="{% url 'main_service:backtest_optimization' %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-main btn-main-white" name="base_backtest">{% trans "Base Backtest" %}
+          </button>
+        </form>
+      {% else %}
+        <form method="post" action="{% url 'main_service:backtest_optimization' %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-main btn-main-white" name="base_backtest">{% trans "Run New Backtest" %}
+          </button>
+        </form>
+      {% endif %}
+    </div>
+    <!-- buttons for 2 box -->
+    <div class="block-button-group">
+      {% if not manual_backtest_result %}
+        <form method="post" action="{% url 'main_service:backtest_optimization' %}">
+          {% csrf_token %}
+          <button id="submitButton" type="submit" class="btn btn-main btn-main-white"
+                  name="manual_backtest">{% trans "Backtest" %}
+          </button>
+        </form>
+      {% elif manual_backtest_result %}
+        <form method="post" action="{% url 'main_service:backtest_optimization' %}">
+          {% csrf_token %}
+          <button id="submitButton" type="submit" class="btn btn-main btn-main-white"
+                  name="manual_backtest">{% trans "Run New?" %}
+          </button>
+        </form>
+      {% endif %}
+    </div>
+
+    <!-- buttons for 3 box -->
+
+    <div class="block-button-group">
+      {% if not optimized_settings_backtest_result %}
+        <form method="post" action="{% url 'main_service:backtest_optimization' %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-main btn-main-white" name="ml_optimization">AI Optimizer
+          </button>
+        </form>
+      {% elif optimized_settings_backtest_result %}
+        <form method="post" action="{% url 'main_service:backtest_optimization' %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-main btn-main-white"
+                  name="ml_optimization">{% trans "Run New AI Optimizer" %}
+          </button>
+        </form>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-between mb-3">
+    <div class="block-button-group">
+      <p style="text-align: right">
+      </p>
+    </div>
+    <div class="block-button-group">
+      <p style="text-align: right">
+        {% trans "You have " %}{{ num_of_backtesting }} {% trans " free backtest left" %}
+      </p>
+    </div>
+
+    <div class="block-button-group">
+      <p style="text-align: right">
+        {% trans "You have " %}{{ num_of_optimization }} {% trans " free optimization left" %}
+      </p>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-between mb-3">
+    <div class="block-button-group">
+      <p style="text-align: right">
+      </p>
+    </div>
+    <div class="block-button-group">
+      <form method="post" action="{% url "main_service:deposit" %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-main btn-main-white" name="manual_backtest"> {% trans "Buy more" %}
+        </button>
+      </form>
+    </div>
+
+    <div class="block-button-group">
+      {% if ml_finished %}
+        <form method="post" style="text-align: center" action="{% url 'main_service:ml_settings' %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-main btn-main-white"
+                  name="discovery_ml_settings">{% trans "Let`s Trade!" %}
+          </button>
+        </form>
+      {% endif %}
+    </div>
+  </div>
+
+{% endif %}
+{% if this_page %}
+  <script>
+      // Получаем все кнопки на странице
+      const buttons = document.querySelectorAll('button[type="submit"]');
+      let isButtonClicked = false; // Переменная, чтобы отслеживать, была ли нажата хотя бы одна кнопка
+
+      // Функция для отображения крутилки на кнопке
+      function showSpinner(button) {
+          const spinner = document.createElement('span');
+          spinner.classList.add('spinner-border', 'spinner-border-sm');
+          spinner.setAttribute('role', 'status');
+          spinner.setAttribute('aria-hidden', 'true');
+          button.innerHTML = '';
+          button.appendChild(spinner);
+      }
+
+      // Добавляем обработчик события для каждой кнопки
+      buttons.forEach((button) => {
+          button.addEventListener('click', () => {
+              if (!isButtonClicked) {
+                  // Если ни одна кнопка ещё не была нажата, блокируем остальные кнопки
+                  buttons.forEach((otherButton) => {
+                      if (otherButton !== button) {
+                          otherButton.setAttribute('disabled', 'disabled');
+                      }
+                  });
+
+                  isButtonClicked = true;
+
+                  // Показываем крутилку на нажатой кнопке
+                  showSpinner(button);
+              }
+          });
+      });
+      document.getElementById('myForm').addEventListener('submit', function (event) {
+          // Validate the fields here
+          const intervalValue = parseFloat(intervalField.value);
+          const daysOfBacktestValue = parseInt(daysOfBacktestField.value);
+          const startBalanceValue = parseInt(startBalanceField.value);
+
+          let hasErrors = false;
+
+          // Validate the Interval field
+          if (isNaN(intervalValue) || intervalValue < 0.01 || intervalValue > 10) {
+              intervalError.textContent = 'Interval must be between 0.01 and 10.';
+              intervalError.style.display = 'block';
+              hasErrors = true;
+          } else {
+              intervalError.textContent = ''; // Clear the error message text
+              intervalError.style.display = 'none';
+          }
+
+          // Validate the Days of Backtest field
+          if (isNaN(daysOfBacktestValue) || daysOfBacktestValue < 30 || daysOfBacktestValue > 90 || daysOfBacktestValue % 30 !== 0) {
+              daysOfBacktestError.textContent = 'Days of backtest can be 30, 60, or 90.';
+              daysOfBacktestError.style.display = 'block';
+              hasErrors = true;
+          } else {
+              daysOfBacktestError.textContent = ''; // Clear the error message text
+              daysOfBacktestError.style.display = 'none';
+          }
+
+          // Validate the Start Balance field
+          if (isNaN(startBalanceValue) || startBalanceValue < 100 || startBalanceValue > 1000000) {
+              startBalanceError.textContent = 'Start Balance must be between 100 and 1000000.';
+              startBalanceError.style.display = 'block';
+              hasErrors = true;
+          } else {
+              startBalanceError.textContent = ''; // Clear the error message text
+              startBalanceError.style.display = 'none';
+          }
+
+          // If there are validation errors, prevent the form submission
+          if (hasErrors) {
+              event.preventDefault(); // Prevent form submission
+          }
+      });
+      document.addEventListener("DOMContentLoaded", function () {
+          const submitButton = document.getElementById("submitButton");
+          const myForm = document.getElementById("myForm");
+
+          // Обработчик клика на кнопке
+          submitButton.addEventListener("click", function (event) {
+              event.preventDefault(); // Предотвратите стандартное действие кнопки (например, отправку формы)
+
+              // Отправьте форму
+              myForm.submit();
+          });
+      });
+
+
+      const intervalField = document.querySelector('input[name="interval"]');
+      const intervalError = document.getElementById('interval-error');
+
+
+      // Add an event listener to the input field to validate the value
+      intervalField.addEventListener('input', function () {
+          const intervalValue = parseFloat(this.value);
+          if (isNaN(intervalValue) || intervalValue < 0.01 || intervalValue > 10) {
+              // Show error message
+              intervalError.textContent = 'Interval must be between 0 and 10.';
+              intervalError.style.display = 'block';
+          } else {
+              // Hide error message
+              intervalError.textContent = ''; // Clear the error message text
+              intervalError.style.display = 'none';
+          }
+      });
+
+      const daysOfBacktestField = document.querySelector('input[name="days_of_backtest"]')
+      const daysOfBacktestError = document.getElementById('days_of_backtest-error');
+      daysOfBacktestField.addEventListener('input', function () {
+          const daysOfBacktestValue = parseInt(this.value);
+          if (isNaN(daysOfBacktestValue) || daysOfBacktestValue < 30 || daysOfBacktestValue > 90 || daysOfBacktestValue % 30 !== 0) {
+              // Show error message
+              daysOfBacktestError.textContent = 'Days of backtest can be 30, 60 or 90.';
+              daysOfBacktestError.style.display = 'block';
+          } else {
+              // Hide error message
+              daysOfBacktestError.textContent = ''; // Clear the error message text
+              daysOfBacktestError.style.display = 'none';
+          }
+      });
+      const startBalanceField = document.querySelector('input[name="start_balance"]')
+      const startBalanceError = document.getElementById('start_balance-error');
+      startBalanceField.addEventListener('input', function () {
+          const daysOfBacktestValue = parseInt(this.value);
+          if (isNaN(daysOfBacktestValue) || daysOfBacktestValue < 100 || daysOfBacktestValue > 1000000000) {
+              // Show error message
+              startBalanceError.textContent = 'Start Balance must be between 100 and 1000000.';
+              startBalanceError.style.display = 'block';
+          } else {
+              // Hide error message
+              startBalanceError.textContent = ''; // Clear the error message text
+              startBalanceError.style.display = 'none';
+          }
+      });
+
+
+  </script>
+{% endif %}

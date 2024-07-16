@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="center-content">
+    {% if not selected %}
+      <p>
+        This service leverages the capabilities of our ATS, conducts backtesting, optimization, and trades directly on
+        the
+        exchange of your choice for the selected pair.
+      </p>
+      <p>
+        Select the desired trading instrument for trading:
+      </p>
+      <form method="post" action="{% url 'main_service:stock' %}">
+        {% csrf_token %}
+        <label>
+          <select name="stock">
+            {% for pair in tradingpair %}
+              <option value="{{ pair.id }}">{{ pair }}</option>
+            {% endfor %}
+          </select>
+        </label>
+        <input type="submit" value="Submit">
+      </form>
+    {% endif %}
+    {% if selected %}
+      <p>You selected trading instrument: <strong>{{ selected_pair }}</strong></p>
+      <p>
+        This service leverages the capabilities of our ATS, conducts backtesting, optimization, and trades directly on
+        the
+        exchange of your choice for the selected pair.
+
+        Both "Interactive Brokers" and "MetaTrader" are platforms used in the trading world.
+
+        What they have in common:
+        Both "Interactive Brokers" and "MetaTrader" provide tools and platforms for traders to execute trades in various
+        financial markets. They offer advanced charting tools, technical analysis, and algorithmic trading capabilities,
+        catering to a wide range of traders from beginners to professionals.
+      </p>
+
+      <p>
+        This trading instrument is available for trading on the exchanges listed below. Please choose one of them:
+      </p>
+      <a href="/interactive_brokers/" class="btn btn-main btn-main-white">Interactive Brokers</a>
+      <a href="/metatrader/" class="btn btn-main btn-main-white">MetaTrader</a>
+    {% endif %}
+  </div>
+{% endblock %}
+

@@ -1,0 +1,2938 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-11 17:47+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+#: .\dexima_ats_web_service\settings.py:151
+msgid "English"
+msgstr "Англійська"
+
+#: .\dexima_ats_web_service\settings.py:152
+msgid "Ukrainian"
+msgstr "Українська"
+
+#: .\main_service\forms.py:75
+msgid "A user with that username already exists."
+msgstr "Користувач з таким іменем вже існує."
+
+#: .\main_service\forms.py:78
+msgid "A user with that email already exists."
+msgstr "Користувач з такою адресою вже існує."
+
+#: .\main_service\forms.py:80
+msgid "The two password fields didn't match."
+msgstr "Два поля паролів не збігаються."
+
+#: .\main_service\forms.py:119
+msgid "Password"
+msgstr "Пароль"
+
+#: .\main_service\forms.py:122
+#, fuzzy
+#| msgid "Enter your email"
+msgid "Enter your password."
+msgstr "Введіть свою електронну адресу"
+
+#: .\templates\base.html:92
+msgid "Make sure you have an account on Binance."
+msgstr "Переконайтеся, що у вас є акаунт на Binance."
+
+#: .\templates\base.html:95
+msgid "Make sure you have an account on Bybit."
+msgstr "Переконайтеся, що у вас є обліковий запис на Bybit."
+
+#: .\templates\base.html:98
+msgid "Make sure you have an account on KuCoin."
+msgstr "Переконайтеся, що у вас є обліковий запис на KuCoin."
+
+#: .\templates\crypto_service\binance.html:7
+msgid "Binance cryptocurrency exchange"
+msgstr "Біржа криптовалют Binance"
+
+#: .\templates\crypto_service\binance.html:10
+msgid ""
+"\n"
+"        Binance: Founded in 2017, Binance quickly became one of the largest "
+"and most popular cryptocurrency exchanges in\n"
+"        the world. It offers a wide range of cryptocurrency pairs for "
+"trading, as well as additional services such as\n"
+"        staking, savings accounts, and more.\n"
+"<br>\n"
+msgstr ""
+"\n"
+"Binance: Заснована у 2017 році, Binance швидко стала однією з найбільших і \n"
+"найпопулярніших криптовалютних бірж у світі. Вона пропонує широкий вибір пар "
+"криптовалют для торгівлі, а також додаткові послуги, такі як \n"
+"стейкінг, рахунки для збереження та інше.\n"
+"<br>\n"
+
+#: .\templates\crypto_service\bybit.html:6
+msgid "Bybit cryptocurrency exchange"
+msgstr "Криптовалютна біржа Bybit"
+
+#: .\templates\crypto_service\bybit.html:9
+msgid ""
+"\n"
+"        Bybit: This is a cryptocurrency derivatives exchange that offers the "
+"ability to trade\n"
+"        Contracts for Difference (CFD) for various cryptocurrencies. Bybit "
+"is often associated with high leverage\n"
+"        trading.\n"
+"<br>\n"
+msgstr ""
+"\n"
+"Криптовалютна біржа Bybit: Заснована у 2018 році, компанія спеціалізується "
+"на похідних інструментах, зокрема ф'ючерсах та перпетуальних контрактах на "
+"криптовалютні активи. Bybit надає інноваційні інструменти для трейдерів, "
+"включаючи можливості маржевої торгівлі та різні типи замовлень."
+"<br>\n"
+#: .\templates\crypto_service\crypto_index.html:9
+msgid "Select the desired cryptocurrency for trading:"
+msgstr "Оберіть бажаний торговий інструмент для торгівлі:"
+
+#: .\templates\crypto_service\crypto_index.html:15
+msgid "Search trading pairs"
+msgstr "Пошук торгових пар"
+
+#: .\templates\crypto_service\crypto_index.html:27
+msgid "Pair"
+msgstr "Пара"
+
+#: .\templates\crypto_service\crypto_index.html:28
+msgid "Price"
+msgstr "Ціна"
+
+#: .\templates\crypto_service\crypto_index.html:29
+msgid "Change 24h"
+msgstr "Зміна 24год"
+
+#: .\templates\crypto_service\crypto_index.html:30
+msgid "Volume 24h"
+msgstr "Об'єм 24год"
+
+#: .\templates\crypto_service\crypto_index.html:47
+msgid "No data."
+msgstr "Немає данних."
+
+#: .\templates\crypto_service\crypto_index.html:62
+#, python-format
+msgid ""
+"\n"
+"        <p>You selected trading instrument: <strong>%(selected_pair)s</"
+"strong></p>\n"
+"        <p>\n"
+"          Binance, Bybit, and KuCoin are cryptocurrency exchanges. Here's a "
+"brief description:\n"
+"\n"
+"          What these platforms have in common:\n"
+"\n"
+"          All three are cryptocurrency exchanges, providing platforms for "
+"buying, selling, and trading various\n"
+"          cryptocurrencies.\n"
+"          They offer various tools and features for traders, including "
+"futures, spot trades, and other derivative\n"
+"          products.\n"
+"          All three exchanges have their own native tokens, which provide "
+"various benefits for holders on their\n"
+"          platforms.\n"
+"          Despite the similarities, each exchange has its unique features "
+"and offerings, so traders should do their\n"
+"          research before choosing a platform for trading.\n"
+"        </p>\n"
+"<br>\n"
+msgstr ""
+"\n"
+"<p>Ви обрали торговий інструмент: <strong>%(selected_pair)s</strong></"
+"p><p>Binance, Bybit та KuCoin - це криптовалютні біржі. Ось короткий опис:"
+"Чим спільні ці платформи:Всі три - це криптовалютні біржі, які надають "
+"платформи для купівлі, продажу та торгівлі різними криптовалютами.Вони "
+"пропонують різні інструменти та можливості для трейдерів, включаючи "
+"фьючерси, спот-торгівлю та інші похідні продукти.У всіх трьох бірж є власні "
+"токени, які надають різні переваги для власників на їхніх платформах."
+"Незважаючи на схожість, кожна біржа має свої унікальні особливості та "
+"пропозиції, тому трейдери повинні докладно вивчити платформу перед вибором "
+"для торгівлі.</p>      "
+"<br>\n"
+#: .\templates\crypto_service\crypto_index.html:80
+msgid ""
+"This trading instrument is available for trading on the exchanges listed "
+"below. Please choose one of them:"
+msgstr ""
+"Цей торговий інструмент доступний для торгівлі на перерахованих нижче "
+"біржах. Будь ласка, оберіть одну з них:"
+
+#: .\templates\crypto_service\crypto_index.html:97
+#: .\templates\user\profile.html:141
+msgid "Confirmation"
+msgstr "Підтвердження"
+
+#: .\templates\crypto_service\crypto_index.html:106
+#: .\templates\user\profile.html:150
+msgid "Cancel"
+msgstr "Скасувати"
+
+#: .\templates\crypto_service\crypto_index.html:107
+#: .\templates\registration\register.html:12
+#: .\templates\registration\register.html:53
+msgid "Register"
+msgstr "Зареєструватися"
+
+#: .\templates\crypto_service\ku_coin.html:7
+msgid "KuCoin cryptocurrency exchange"
+msgstr "Криптовалютна біржа KuCoin"
+
+#: .\templates\crypto_service\ku_coin.html:10
+msgid ""
+"\n"
+"        KuCoin: This is another popular cryptocurrency exchange that "
+"provides a platform for trading many different\n"
+"        cryptocurrencies. It is also known for its native token, KCS (KuCoin "
+"Shares).\n"
+"<br>\n"
+msgstr ""
+"\n"
+"KuCoin: Це ще одна популярна криптовалютна біржа, яка надає платформу для "
+"торгівлі різними криптовалютами. Вона також відома своїм власним токеном, "
+"KCS (KuCoin Shares)."
+"<br>\n"
+#: .\templates\footer.html:6 .\templates\main_service\support.html:7
+msgid "Success"
+msgstr "Успішно"
+
+#: .\templates\footer.html:8 .\templates\main_service\support.html:9
+msgid "Failed"
+msgstr "Не вдалося"
+
+#: .\templates\footer.html:33 .\templates\main_service\support.html:18
+msgid "Address:"
+msgstr "Адреса:"
+
+#: .\templates\footer.html:33
+msgid "Kyiv, Ukraine, 02232."
+msgstr "Київ, Україна, 02232."
+
+#: .\templates\footer.html:36
+#, fuzzy
+#| msgid "Email:"
+msgid "E-mail:"
+msgstr "Електронна пошта:"
+
+#: .\templates\footer.html:78 .\templates\main_service\support.html:37
+msgid "Name"
+msgstr "Ім'я"
+
+#: .\templates\footer.html:84 .\templates\main_service\support.html:43
+#: .\templates\user\profile.html:26
+msgid "Email"
+msgstr "Електронна пошта"
+
+#: .\templates\footer.html:91 .\templates\main_service\support.html:50
+msgid "Select a topic"
+msgstr "Обрати топік"
+
+#: .\templates\footer.html:92 .\templates\main_service\support.html:51
+msgid "Connection of trading bot"
+msgstr "Підключення торгового бота"
+
+#: .\templates\footer.html:93 .\templates\main_service\support.html:52
+msgid "Payment issues"
+msgstr "Проблеми з оплатою"
+
+#: .\templates\footer.html:94 .\templates\main_service\support.html:53
+msgid "Other"
+msgstr "Інше"
+
+#: .\templates\footer.html:101 .\templates\main_service\support.html:59
+msgid "Message"
+msgstr "Повідомлення"
+
+#: .\templates\footer.html:105 .\templates\main_service\support.html:70
+msgid "Send Message"
+msgstr "Відправити повідомлення"
+
+#: .\templates\footer.html:117 .\templates\registration\register.html:59
+msgid "Error:"
+msgstr "Помилка:"
+
+#: .\templates\includes\backtest_and_optimization.html:12
+msgid "Base settings for Strategy: "
+msgstr "Базові налаштування для Стратегії: "
+
+#: .\templates\includes\backtest_and_optimization.html:23
+msgid "Backtesting Results on Base Settings:"
+msgstr "Backtest Результати на базових налаштуваннях:"
+
+#: .\templates\includes\backtest_and_optimization.html:44
+msgid "Сustom settings"
+msgstr "Власні налаштування"
+
+#: .\templates\includes\backtest_and_optimization.html:51
+msgid "Choose your own settings and start the Backtest!"
+msgstr "Виберіть власні налаштування та запустіть Backtesting!"
+
+#: .\templates\includes\backtest_and_optimization.html:95
+msgid "Backtesting Results on Custom Settings:"
+msgstr "Backtest Результати на власних налаштуваннях:"
+
+#: .\templates\includes\backtest_and_optimization.html:122
+msgid ""
+"\n"
+"            <p>💡🤖 Meet Your New Trading Assistant: Machine learning isn’t "
+"just the future; it’s the now. Upgrade your\n"
+"              trading experience by leveraging AI to optimize your strategy. "
+"Ready to see what you've been missing?</p>\n"
+"          "
+msgstr ""
+"\n"
+"<p>💡🤖 Познайомтеся з вашим новим помічником у торгівлі: Машинне навчання — "
+"це не просто майбутнє це сьогодення. Покращте свій досвід у торгівлі, "
+"використовуючи штучний інтелект для оптимізації вашої стратегії. Готові "
+"побачити, що ви пропустили?</p>"
+
+#: .\templates\includes\backtest_and_optimization.html:128
+msgid "Backtesting Results on AI Optimizer:"
+msgstr "Backtest Результати підібрані AI Optimizer:"
+
+#: .\templates\includes\backtest_and_optimization.html:152
+msgid "Base Backtest"
+msgstr "Базовий Backtest"
+
+#: .\templates\includes\backtest_and_optimization.html:158
+msgid "Run New Backtest"
+msgstr "Запустити новий Backtest"
+
+#: .\templates\includes\backtest_and_optimization.html:169
+msgid "Backtest"
+msgstr "Backtest"
+
+#: .\templates\includes\backtest_and_optimization.html:176
+msgid "Run New?"
+msgstr "Запустити новий?"
+
+#: .\templates\includes\backtest_and_optimization.html:195
+msgid "Run New AI Optimizer"
+msgstr "Запустити новий AI Optimizer"
+
+#: .\templates\includes\backtest_and_optimization.html:209
+#: .\templates\includes\backtest_and_optimization.html:215
+msgid "You have "
+msgstr "У вас залишилось "
+
+#: .\templates\includes\backtest_and_optimization.html:209
+msgid " free backtest left"
+msgstr " безкоштовних бектестингів"
+
+#: .\templates\includes\backtest_and_optimization.html:215
+msgid " free optimization left"
+msgstr " безкоштовних оптимізацій"
+
+#: .\templates\includes\backtest_and_optimization.html:228
+msgid "Buy more"
+msgstr "Придбати ще"
+
+#: .\templates\includes\backtest_and_optimization.html:238
+msgid "Let`s Trade!"
+msgstr "Почнемо торгувати!"
+
+#: .\templates\includes\lets_make_ml_strategy.html:6
+msgid "Let`s Make your AI profitable strategy!"
+msgstr "Давайте створимо прибуткову стратегію на основі машинного навчання!"
+
+#: .\templates\includes\pagination.html:5
+msgid "first"
+msgstr "перша"
+
+#: .\templates\includes\pagination.html:6
+msgid "previous"
+msgstr "попередня"
+
+#: .\templates\includes\pagination.html:12
+msgid "next"
+msgstr "наступна"
+
+#: .\templates\includes\pagination.html:13
+msgid "last"
+msgstr "остання"
+
+#: .\templates\includes\strategies_base.html:3
+msgid "Choose one of the Strategies"
+msgstr "Оберіть одну із стратегій."
+
+#: .\templates\includes\trading_view_graphic.html:6
+msgid "Follow the markets on TradingView"
+msgstr "Слідкуйте за ринками на TradingView"
+
+#: .\templates\main_service\ai_optimizer.html:9
+msgid ""
+"\n"
+"          <p>Your email successfully verified!</p>\n"
+"        "
+msgstr ""
+"\n"
+"          <p>Ваш email успішно підтверджено!</p>\n"
+"        "
+
+#: .\templates\main_service\ai_optimizer.html:23
+msgid ""
+"To start your trading journey with Dexima ATS, please select your preferred "
+"trading option."
+msgstr ""
+"Щоб розпочати свою торгову подорож з Dexima ATS, будь ласка, оберіть бажаний "
+"варіант торгівлі."
+
+#: .\templates\main_service\ai_optimizer.html:28
+msgid "Crypto"
+msgstr "Крипто"
+
+#: .\templates\main_service\ai_optimizer.html:29
+msgid "Stock"
+msgstr "Акції"
+
+#: .\templates\main_service\ai_optimizer.html:30
+msgid "Forex"
+msgstr "Форекс"
+
+#: .\templates\main_service\ai_optimizer.html:34
+msgid "Commodity"
+msgstr "Сировина"
+
+#: .\templates\main_service\ai_optimizer.html:35
+msgid ""
+"The Tango trading strategy is a development of Dexima Software, based on the "
+"correlation of assets or groups of assets and uses divergences and "
+"convergences to open or close positions. "
+"The key component of the trading strategy is the choice of the indicator. "
+"Tango uses BTC movement as an indicator to detect divergence in the Crypto "
+"market. "
+"The strategy preliminarily creates a pool of assets that almost identically "
+"repeat the movement of the indicator. These assets are selected in a special "
+"way and are regularly updated based on the indicators tracked by our "
+"platform. "
+"To confirm a signal, it is important not to rely solely on one indicator, "
+"and also consider Bollinger lines or EMA. "
+"Tango is a high-frequency strategy designed for an Up/Down trend."
+msgstr ""
+"Торгова стратегія Tango – є розробкою Dexima Software, основана на кореляції "
+"активів або груп активів та використовує дивергенції і конвергенції для "
+"відкриття або закриття позицій. "
+"Ключовим компонентом торгової стратегії э вибір індикатора. Tango "
+"використовує рух BTC як індикатор для виявлення розбіжності на Crypto "
+"ринку. "
+"Стратегія попередньо створює пул активів які майже ідентично повторюють "
+"рух індикатора. Ці активи підбираються особливим чином та регулярно "
+"оновлюються спираючись на показники які відстежує наша платформа. "
+"Для підтвердження сигналу важливо не покладатися виключно на один "
+"індикатор, а також враховувати лінії Болінджера або ЕМА. "
+"Tango це високочастотна стратегія, розроблена під Up/Down trend."
+
+#: .\templates\main_service\ai_optimizer.html:36
+msgid ""
+"The Jumper trading strategy is designed for impulse trading during sharp market movements. "
+"No trader will be able to achieve such a speed of opening and closing trades as the automatic "
+"trading system from Dexima. Trading takes place thanks to predefined rules, as well as “Low Latency” "
+"servers and trading platforms with low latency. Jumper is a low-frequency strategy designed for an Up/Down trend."
+msgstr ""
+"Торгова стратегія Jumper розроблена для імпульсної торгівлі під час різких рухів на ринку. "
+"Жоден трейдер не зможе досягти такої швидкості відкриття та закриття угод як автоматична торгова "
+"система від Dexima. Торгівля відбувається завдяки заздалегідь заданих правил, а також “Low Latency” "
+"серверам та торговим платформам із низькою затримкою. Jumper це низькочастотна стратегія, розроблена під Up/Down trend."
+
+#: .\templates\main_service\ai_optimizer.html:37
+msgid ""
+"The Expogrid strategy from Dexima Software is based on the unique principle of exponentially increasing "
+"or decreasing the intervals between trading orders and investments in orders, a trend detection algorithm, as "
+"well as a built-in mechanism for adapting to changes in price ranges. This means that the size of the steps "
+"between successive orders is not fixed, but increases or decreases according to one of the selected principles "
+"(geometric progression, arithmetic progression, Fibonacci or a coefficient selected in the process of machine "
+"learning). This approach allows you to automate the purchase and sale of assets in accordance with dynamic market "
+"conditions. Expogrid is a high-frequency strategy developed for the Up/Down trend."
+msgstr ""
+"В основі стратегії Expogrid від Dexima Software лежить унікальний принцип експоненціального збільшення або "
+"зменшення інтервалів між торговими ордерами та інвестиціями в ордерах, алгоритм визначення тренду, а також "
+"вбудований механізм адаптації до змін цінових діапазонів. Це означає, що розмір кроків між послідовними ордерами "
+"не є фіксованим, а збільшується чи зменшується відповідно до одного з обраних принципів (геометрична прогресія, "
+"арифметична прогресія, Фібоначчі або коефіцієнт підібраний в процесі машинного навчання). Цей підхід дозволяє "
+"автоматизувати купівлю та продаж активів у відповідності з динамічними ринковими умовами. Expogrid це високочастотна "
+"стратегія, розроблена під Up/Down trend."
+
+#: .\templates\main_service\binance_guide.html:11
+msgid ""
+"After creating your APIs and Secret Keys, save them to yourself and go back "
+"to the page."
+msgstr ""
+"Після створення API та Secret ключів збережіть їх для себе та поверніться на сторінку."
+
+#: .\templates\main_service\binance_guide.html:12
+msgid "Ready! Go back"
+msgstr "Готово! Перейти назад"
+
+#: .\templates\main_service\dashboard_details.html:7
+msgid "Detailed information about your trading bot"
+msgstr "Детальна інформація про вашого торгового бота"
+
+#: .\templates\main_service\dashboard_details.html:11
+msgid "List of trades"
+msgstr "Перелік угод"
+
+#: .\templates\main_service\dashboard_details.html:16
+msgid "List of orders"
+msgstr "Перелік замовлень"
+
+#: .\templates\main_service\index.html:7
+msgid "Your email successfully verified!"
+msgstr "Ваш email успішно підтверджено!"
+
+#: .\templates\main_service\index.html:16
+msgid "Dexima ATS Web Service"
+msgstr "Дексіма АТС Веб-сервіс"
+
+#: .\templates\main_service\index.html:18
+msgid ""
+"\n"
+"          Welcome to Dexima ATS Web Service, your gateway to the world of "
+"automated trading. Our cutting-edge platform\n"
+"          offers a comprehensive suite of features designed to empower your "
+"trading endeavors: <br>\n"
+"          <br>\n"
+"          <div class=\"backtester-description\">Performs testing of the "
+"selected strategy on\n"
+"            historical data according to the specified settings (asset, "
+"balance, data depth, number of transactions,\n"
+"            number of candles, timeframes, data source).\n"
+"          </div>\n"
+"          <br>\n"
+"          Backtesting Based on Historical Data: Harness the power of "
+"historical data analysis to test your trading\n"
+"          strategies rigorously. Gain insights into the potential "
+"performance of your strategies before you commit\n"
+"          real\n"
+"          capital. <br>\n"
+"          <br>\n"
+"          <div class=\"optimizer-description\">Optimizes the selected "
+"strategy by selecting the\n"
+"            best settings using machine learning.\n"
+"          </div>\n"
+"          <br>\n"
+"          Machine Learning Optimization of Strategy Settings: Elevate your "
+"trading prowess by leveraging advanced\n"
+"          machine\n"
+"          learning algorithms. Optimize your strategy settings to maximize "
+"profitability and minimize risk, guided by\n"
+"          data-driven intelligence. <br>\n"
+"          <br>\n"
+"          <div class=\"trading-bot-description\">Uses the selected optimized "
+"trading strategy\n"
+"            and trades on the developer's or client's account. Applies Money "
+"Management and Risk Management settings.\n"
+"          </div>\n"
+"          <br>\n"
+"          Automated Trading with a Trading Bot: Take advantage of our state-"
+"of-the-art trading bot, capable of\n"
+"          executing\n"
+"          your strategies automatically. Seamlessly integrate your optimized "
+"strategies into real-time, and don`t\n"
+"          forget\n"
+"          reoptimize them\n"
+"          to always have the best, latest settings. <br>\n"
+"          <br>\n"
+"          <div class=\"reoptimizer-description\">Performs re-optimization of "
+"the trading\n"
+"            strategy taking into account modern data according to the rules "
+"selected by the user or selected by the\n"
+"            program. Writes new settings into the strategy, which the "
+"Trading Bot perceives and starts executing.\n"
+"          </div>\n"
+"        "
+msgstr ""
+"\n"
+"Ласкаво просимо до веб-сервісу Dexima ATS, вашого входу у світ "
+"автоматизованої торгівлі. Наша передова платформа пропонує широкий набір "
+"функцій, спроектованих для підвищення результативності вашої торгівельної "
+"діяльності:<br><br><div class='backtester-description'>Виконує тестування "
+"обраної стратегії на історичних даних з урахуванням заданих параметрів "
+"(актив, баланс, глибина даних, кількість угод, кількість свічок, таймфрейми, "
+"джерело даних).</div><br>Тестування на основі історичних даних:"
+"Використовуйте потужність аналізу історичних даних для ретельного тестування "
+"ваших торгівельних стратегій. Отримуйте уявлення про потенційну ефективність "
+"вашої стратегії, перш ніж ви вкладаєте реальний капітал.<br><br><div "
+"class='optimizer-description'>Оптимізує обрану стратегію, вибираючи найкращі "
+"налаштування за допомогою машинного навчання.</div><br>Оптимізація стратегії "
+"за допомогою машинного навчання:Підвищуйте свої торгові навички, "
+"використовуючи високорівневі алгоритми машинного навчання. Оптимізуйте "
+"налаштування вашої стратегії для максимізації прибутковості та мінімізації "
+"ризику, керуючись данними та інтелектом, що базуються на даних.<br><br><div "
+"class='trading-bot-description'>Використовує обрану оптимізовану торгівельну "
+"стратегію та проводить угоди на рахунку розробника або клієнта. Застосовує "
+"налаштування управління грошима та управління ризиками.</"
+"div><br>Автоматизована торгівля за допомогою торгового бота:Скористайтеся "
+"нашим сучасним торговим ботом, здатним автоматично виконувати ваші "
+"стратегії. Впроваджуйте свої оптимізовані стратегії у реальний час та "
+"періодично реоптимізовуйте їх для завжди оптимальних налаштувань."
+"<br><br><div class='reoptimizer-description'>Виконує повторну оптимізацію "
+"торгівельної стратегії з урахуванням сучасних даних за правилами, обраними "
+"користувачем або вибраними програмою. Записує нові налаштування в стратегію, "
+"яку розпізнає Торговий Бот та починає виконувати.</div>\n"
+"        "
+
+#: .\templates\main_service\index.html:60
+msgid "AI Optimizer"
+msgstr "AI Optimizer"
+
+#: .\templates\main_service\support.html:19
+msgid "Electrical engineering street 42 <br>Kyiv, Ukraine, 04048."
+msgstr "Електротехнічна вулиця 42 <br>Київ, Україна, 04048."
+
+#: .\templates\main_service\support.html:22
+msgid "Phone:"
+msgstr "Телефон:"
+
+#: .\templates\main_service\support.html:26
+msgid "Email:"
+msgstr "Електронна пошта:"
+
+#: .\templates\registration\logged_out.html:4
+msgid "Logged out!"
+msgstr "Ви вийшли з системи."
+
+#: .\templates\registration\logged_out.html:6
+msgid "Click here to login again."
+msgstr "Натисніть тут, щоб увійти знову."
+
+#: .\templates\registration\login.html:9
+msgid "Login"
+msgstr "Увійти"
+
+#: .\templates\registration\login.html:11
+msgid "Please login to see this page."
+msgstr "Будь ласка, увійдіть, щоб переглянути цю сторінку."
+
+#: .\templates\registration\login.html:24
+msgid "Username or password is incorrect."
+msgstr "Ім'я користувача або пароль невірні."
+
+#: .\templates\registration\register.html:22
+msgid "Choose an icon:"
+msgstr "Виберіть іконку:"
+
+#: .\templates\registration\register.html:70
+msgid "If you already have an account,"
+msgstr "Якщо у вас вже є обліковий запис,"
+
+#: .\templates\registration\register.html:72
+msgid "login"
+msgstr "Увійти"
+
+#: .\templates\registration\register.html:72
+msgid "instead."
+msgstr "замість цього."
+
+#: .\templates\strategies\dca.html:6 .\templates\strategies\f1.html:7
+#: .\templates\strategies\futures_grid_bot.html:5
+#: .\templates\strategies\grid_bot.html:6 .\templates\strategies\rsi.html:6
+msgid "Optimization options"
+msgstr "Варіанти оптимізації"
+
+#: .\templates\strategies\f1.html:9
+#, python-format
+msgid ""
+"\n"
+"      <p><strong>Interval:</strong> Percentage of the trading instrument "
+"price on the basis of which take profits and\n"
+"        stop\n"
+"        losses are calculated in %%.</p>\n"
+"    "
+msgstr ""
+"\n"
+" <p><strong>Interval:</strong> Відсоток від ціни торгового інструменту, на "
+"основі якого обчислюються прибуткові та стоп-втрати у відсотках.</p>"
+
+#: .\templates\strategies\f1.html:14
+msgid "<strong>Start balance:</strong> Your started balance in $."
+msgstr "<strong>Start balance:</strong> Ваш початковий баланс у доларах."
+
+#: .\templates\strategies\f1.html:15
+msgid ""
+"<strong>Days of backtest:</strong> Desired number of days from today for "
+"backtesting."
+msgstr ""
+"<strong>Days of backtest:</strong> Бажана кількість днів від сьогодні для "
+"проведення тестування на історичних даних."
+
+#: .\templates\strategies\f1.html:17
+msgid "What is a Tango Strategy?"
+msgstr "Що таке стратегія Ф1?"
+
+#: .\templates\strategies\f1.html:19
+msgid ""
+"\n"
+"        The Tango strategy is a dynamic market response system tailored to "
+"capitalize on both upward and downward price\n"
+"        movements.\n"
+"<br>\n"
+msgstr ""
+"\n"
+"Стратегія Tango - це динамічна система відповіді на ринок, розроблена з метою "
+"капіталізації на як ростучих, так і спадаючих рухах цін."
+"<br>\n"
+#: .\templates\strategies\f1.html:24
+msgid ""
+"\n"
+"      <p>\n"
+"        Here's how it works:<br>\n"
+"        <br>\n"
+"        <strong>Market Direction Determination:</strong> The strategy first "
+"gauges the market's potential direction. It\n"
+"        does this by\n"
+"        setting two trigger prices, equidistant from the current market "
+"price: one above and one below. The distance\n"
+"        from\n"
+"        the current price is determined as a certain percentage of the "
+"primary price. <br>\n"
+"        <br>\n"
+"        <strong>Position Entry:</strong> The Tango strategy patiently waits "
+"until the market price reaches either of these\n"
+"        trigger points.\n"
+"        When the lower trigger price is hit, a short position is initiated, "
+"predicting a potential decline. Conversely,\n"
+"        when the higher price is reached, the strategy goes long, "
+"anticipating a surge. <br>\n"
+"        <br>\n"
+"        <strong>Profit and Risk Management:</strong> After entering a "
+"position, the strategy implements a dual mechanism\n"
+"        for both\n"
+"        profit-taking and risk management. A take-profit and a stop-loss are "
+"set, each spaced at the same interval as\n"
+"        the\n"
+"        initial trigger points. <br>\n"
+"        <br>\n"
+"        <strong>Re-entry After Profit:</strong> In the event of the take-"
+"profit being hit, the strategy takes this as a\n"
+"        confirmation of its\n"
+"        market prediction and re-enters the position in the same direction. "
+"This cycle repeats until a stop-loss is\n"
+"        triggered. <br>\n"
+"        <br>\n"
+"        <strong>Position Reversal:</strong> If a stop-loss is activated, "
+"indicating a possible misjudgment of the\n"
+"        market's\n"
+"        direction, the\n"
+"        Tango strategy swiftly changes tack. It enters a position in the "
+"opposite direction, adjusting to the new market\n"
+"        sentiment. <br>\n"
+"        <br>\n"
+"        In essence, the Tango strategy is a continuous loop of making informed "
+"predictions, reaping profits, and\n"
+"        efficiently\n"
+"        managing risks. Its beauty lies in its adaptability, always ready to "
+"make the most out of whichever direction\n"
+"        the\n"
+"        market sways.\n"
+"      </p>\n"
+"      <br>\n"
+"    "
+msgstr ""
+"\n"
+"<p>    Ось як це працює:<br>    <br>    <strong>Визначення напрямку ринку:</"
+"strong> Стратегія спочатку оцінює можливий напрямок ринку. Вона робить це, "
+"встановлюючи дві цінові межі, розташовані на однаковій відстані від поточної "
+"ціни ринку: одна вище, а інша нижче. Відстань від поточної ціни визначається "
+"як певний відсоток від основної ціни. <br>    <br>    <strong>Вступ в "
+"позицію:</strong> Стратегія Tango терпляче чекає, поки ціна ринку дійде до "
+"одного з цих рівнів. Коли досягається нижня ціна-межа, ініціюється коротка "
+"позиція з передбаченням можливого зниження. Навпаки, коли досягається вища "
+"ціна-межа, стратегія відкриває довгу позицію, передбачаючи підйом цін. "
+"<br>    <br>    <strong>Управління прибутком і ризиками:</strong> Після "
+"вступу в позицію стратегія реалізує подвійний механізм як для забезпечення "
+"прибутку, так і для управління ризиками. Встановлюється рівень прибутку і "
+"стоп-лосс, кожен з яких розташований на тій самій відстані від початкових "
+"цінових меж. <br>    <br>    <strong>Повторний вступ після прибутку:</"
+"strong> У разі досягнення рівня прибутку стратегія розглядає це як "
+"підтвердження своєї прогнозу ринку і повторно вступає в позицію в тому ж "
+"напрямку. Цей цикл повторюється, поки не спрацьовує стоп-лосс. <br>    "
+"<br>    <strong>Реверс позицій:</strong> Якщо спрацьовує стоп-лосс, що "
+"вказує на можливу неправильну оцінку напрямку ринку, стратегія Tango швидко "
+"змінює тактику. Вона вступає в позицію в протилежному напрямку, адаптуючись "
+"до нового настрою ринку. <br>    <br>    У суті, стратегія Tango - це "
+"безперервний цикл, який полягає в усвідомлених прогнозах, збиранні прибутку "
+"та ефективному управлінні ризиками. Її краса полягає в адаптивності, завжди "
+"готовій використовувати найкращі можливості в будь-якому напрямку, в якому "
+"коливається ринок.</p>    "
+
+#: .\templates\trading\trading_description.html:7
+msgid "Connect an exchange"
+msgstr "Підключіть біржу"
+
+#: .\templates\trading\trading_description.html:8
+msgid ""
+"We will receive access to your trading history, balance, and have permission "
+"to\n"
+"    place orders on your exchange account. <br>\n"
+"    Dexima will not have permission to withdraw or transfer your funds."
+msgstr ""
+"Ми отримаємо доступ до історії вашого торгового обліку, балансу та матимемо "
+"дозвіл\n"
+" на розміщення замовлень на вашому обліковому запису на біржі. <br>\n"
+" Дексіма не матиме дозволу на зняття або переказ вашого капіталу."
+
+#: .\templates\trading\trading_description.html:11
+msgid "Api Guide"
+msgstr "Api Гайд"
+
+#: .\templates\trading\trading_description.html:13
+msgid ""
+"\n"
+"    <li>Select API Management from the user menu in the upper-right corner.</"
+"li>\n"
+"    <li>Enter a name for your API and press Create API.</li>\n"
+"    <li>Your API Key and Secret Key appears.</li>\n"
+"    <li>Copy both the API Key and Secret Key and store in a safe place.</"
+"li>\n"
+"\n"
+msgstr ""
+"\n"
+" <li>Виберіть управління API у користувацькому меню в правому верхньому куті."
+"</li>\n"
+" <li>Введіть назву для вашого API і натисніть Створити API.</li>\n"
+" <li>Ваші API-ключ і Secret-ключ згенеруються.</li>\n"
+" <li>Скопіюйте як API-ключ, так і Secret-ключ і збережіть їх у надійному "
+"місці.</li>\n"
+"\n"
+#: .\templates\trading\trading_description.html:20
+msgid "Photo Guide"
+msgstr "Фотогід"
+
+#: .\templates\trading\trading_description.html:27
+msgid "Enter your API key"
+msgstr "Введіть свій API-ключ"
+
+#: .\templates\trading\trading_description.html:29
+msgid "Enter your Secret key"
+msgstr "Введіть свій Secret-ключ"
+
+#: .\templates\trading\trading_description.html:31
+msgid "Save"
+msgstr "Зберегти"
+
+#: .\templates\trading\trading_description.html:37
+msgid "API and SECRET keys successfully saved."
+msgstr "Ключі API та SECRET успішно збережено."
+
+#: .\templates\trading\trading_description.html:42
+msgid "Bot Successfully started!"
+msgstr "Ботa успішно запущено!"
+
+#: .\templates\trading\trading_description.html:43
+msgid ""
+"You can check detail information about bot statistic in your Trading Bot "
+"Dashboard"
+msgstr ""
+"Ви можете переглянути детальну інформацію про статистику бота у вашій панелі "
+"керування торговими ботами"
+
+#: .\templates\trading\trading_description.html:44
+msgid "Trading Bot Dashboard"
+msgstr "Панель керування торговими ботами"
+
+#: .\templates\user\basket.html:5
+msgid "Your Cart"
+msgstr "Ваш кошик"
+
+#: .\templates\user\basket.html:9
+msgid "Right now your cart is empty."
+msgstr "Зараз ваш кошик порожній."
+
+#: .\templates\user\basket.html:15
+#, python-format
+msgid ""
+"\n"
+"            <h5>\"You have %(backtesting_in_basket)s Backtestings in your "
+"Basket</h5>\n"
+"          "
+msgstr ""
+"\n"
+"<h5>У вашому кошику %(backtesting_in_basket)s Backtestings</"
+"h5>                    "
+
+#: .\templates\user\basket.html:27 .\templates\user\basket.html:51
+#, python-format
+msgid ""
+"\n"
+"            <h5>You have %(optimization_in_basket)s ML Optimization in your "
+"Basket</h5>\n"
+"          "
+msgstr ""
+"\n"
+"<h5>У вашому кошику %(optimization_in_basket)s оптимізацій на основі "
+"Машинного Навчання</h5>"
+
+#: .\templates\user\basket.html:39
+#, python-format
+msgid ""
+"\n"
+"            <h5>You have %(backtesting_in_basket)s Backtestings in your "
+"Basket</h5>\n"
+"          "
+msgstr ""
+"\n"
+"<h5>У вашому кошику %(backtesting_in_basket)s власних бектестенгів</"
+"h5>          "
+
+#: .\templates\user\basket.html:63
+#, python-format
+msgid "Total Amount to pay: %(total_amount_to_pay)s$ "
+msgstr "Загальна сума до оплати: %(total_amount_to_pay)s$ "
+
+#: .\templates\user\basket.html:67
+msgid "Pay"
+msgstr "Оплатити"
+
+#: .\templates\user\dashboard.html:33
+msgid "Bot name"
+msgstr "Ім'я бота"
+
+#: .\templates\user\dashboard.html:34
+msgid "Bot status"
+msgstr "Статус бота"
+
+#: .\templates\user\dashboard.html:35
+msgid "Exchange"
+msgstr "Біржа"
+
+#: .\templates\user\dashboard.html:36
+msgid "Launch date"
+msgstr "Дата запуску"
+
+#: .\templates\user\dashboard.html:37
+msgid "Running time"
+msgstr "Час роботи"
+
+#: .\templates\user\dashboard.html:38
+msgid "Investment amount"
+msgstr "Сума інвестицій"
+
+#: .\templates\user\dashboard.html:39
+msgid "Trading pair"
+msgstr "Торгова пара"
+
+#: .\templates\user\dashboard.html:40
+msgid "Entry price"
+msgstr "Вхідна ціна"
+
+#: .\templates\user\dashboard.html:41
+msgid "Profit"
+msgstr "Прибуток"
+
+#: .\templates\user\dashboard.html:42
+msgid "APY"
+msgstr "РВП"
+
+#: .\templates\user\dashboard.html:68
+msgid "Details"
+msgstr "Деталі"
+
+#: .\templates\user\dashboard.html:76
+msgid "Stop bot"
+msgstr "Зупинити бота"
+
+#: .\templates\user\dashboard.html:84
+msgid "Start bot"
+msgstr "Запустити бота"
+
+#: .\templates\user\dashboard.html:93
+msgid "No data available"
+msgstr "Дані відсутні"
+
+#: .\templates\user\dashboard.html:99
+msgid "You have 0 started Trading Bots"
+msgstr "У вас 0 запущених торгових ботів"
+
+#: .\templates\user\deposit.html:9
+msgid ""
+"\n"
+"          <p><strong>Custom Backtesting Service</strong> <br>\n"
+"            <br>\n"
+"            Unlock the power of tailored trading strategies with our Custom "
+"Backtesting Service. We offer you the\n"
+"            opportunity to fine-tune and test your investment strategies, "
+"providing you with valuable insights before\n"
+"            making real financial decisions. <br>\n"
+"            <br>\n"
+"            <strong>What is Backtesting?</strong> <br>\n"
+"            <br>\n"
+"            Backtesting is a crucial step in the world of trading and "
+"investment. It involves applying your trading\n"
+"            strategy to historical market data to evaluate how it would have "
+"performed in the past. By backtesting your\n"
+"            strategies, you gain a comprehensive understanding of their "
+"strengths and weaknesses without risking your\n"
+"            capital. <br>\n"
+"            <br>\n"
+"            <strong>Tailored to Your Needs</strong> <br>\n"
+"            <br>\n"
+"            With our Custom Backtesting Service, you're in control. You can "
+"select from a range of customizable\n"
+"            parameters, including trading indicators, risk levels, time "
+"frames, and more. We cater to both novice\n"
+"            traders\n"
+"            looking to refine their strategies and experienced investors "
+"seeking to optimize their portfolios. <br>\n"
+"            <br>\n"
+"            <strong> Key Features </strong> <br>\n"
+"            <br>\n"
+"            Strategy Customization: Adjust your strategy parameters to align "
+"with your unique investment goals. <br>\n"
+"\n"
+"            Historical Data: Access a vast database of historical market "
+"data to simulate real-world scenarios. <br>\n"
+"\n"
+"            Risk Management: Implement risk management rules to safeguard "
+"your investments. <br>\n"
+"\n"
+"            Performance Analysis: Evaluate the performance of your "
+"strategies with detailed reports and metrics. <br>\n"
+"            <br>\n"
+"            <strong>How It Works</strong> <br>\n"
+"            <br>\n"
+"            Select Your Strategy: Choose from a variety of trading "
+"strategies or create your own. <br>\n"
+"\n"
+"            Customize Parameters: Fine-tune your strategy by specifying "
+"entry and exit criteria, timeframes, and risk\n"
+"            tolerance. <br>\n"
+"\n"
+"            Run Backtests: Our platform will simulate your strategy over "
+"historical data to provide performance\n"
+"            insights.\n"
+"            <br>\n"
+"\n"
+"            Analyze Results: Review comprehensive reports and performance "
+"metrics to refine your strategy further. <br>\n"
+"            <br>\n"
+"            <strong>Why Choose Us</strong> <br>\n"
+"            <br>\n"
+"            Expertise: Benefit from our team's expertise in backtesting and "
+"financial analysis. <br>\n"
+"\n"
+"            Data Accuracy: Access reliable and accurate historical market "
+"data. <br>\n"
+"\n"
+"            User-Friendly: Our platform is designed with ease of use in "
+"mind, making it accessible to traders of all\n"
+"            levels. <br>\n"
+"            <br>\n"
+"            <strong>Make Informed Decisions</strong> <br>\n"
+"            <br>\n"
+"            With our Custom Backtesting Service, you can make informed "
+"investment decisions based on historical\n"
+"            performance data. Whether you're a seasoned trader or just "
+"starting out, our platform empowers you to\n"
+"            optimize\n"
+"            your trading strategies and maximize your potential returns. "
+"<br>\n"
+"            <br>\n"
+"            Start your custom backtesting journey today and gain the "
+"confidence to succeed in the world of trading and\n"
+"            investments.</p>\n"
+"          <h3>How many backtestings you need?</h3>\n"
+"          <p>1 backtesting = 1 $</p>\n"
+"<br>\n"
+msgstr ""
+"\n"
+"<p><strong>Спеціальний сервіс кастомного бектестінгу</strong> "
+"<br><br>Розблокуйте потужність індивідуальних торгових стратегій за "
+"допомогою нашого Спеціального сервісу кастомний бектестінг. Ми надаємо вам "
+"можливість налаштовувати та тестувати ваші інвестиційні стратегії, надаючи "
+"вам цінні уявлення, перш ніж ви приймете реальні фінансові рішення. "
+"<br><br><strong>Що таке Бектестінг?</strong> <br><br>Бектестінг- це важливий "
+"етап у світі торгівлі та інвестицій. Це включає в себе застосування вашої "
+"торгової стратегії до історичних ринкових даних для оцінки її продуктивності "
+"у минулому. Завдяки зворотному тестуванню стратегій ви отримуєте всеосяжне "
+"розуміння їх переваг і недоліків без ризику для вашого капіталу. "
+"<br><br><strong>Налаштовано під ваші потреби</strong> <br><br>З нашим "
+"Спеціальним сервісом кастомного бектестінгу ви контролюєте ситуацію. Ви "
+"можете вибирати з ряду настроюваних параметрів, включаючи торгові "
+"індикатори, рівні ризику, часові рамки та інше. Ми спрямовані на "
+"обслуговування як початківців-трейдерів, які бажають удосконалити свої "
+"стратегії, так і досвідчених інвесторів, які прагнуть оптимізувати свої "
+"портфелі. <br><br><strong>Основні функції</strong> <br><br>Налаштування "
+"стратегії: Налаштовуйте параметри вашої стратегії для досягнення вашої "
+"унікальної інвестиційної мети. <br><br>Історичні дані: Маєте доступ до "
+"величезної бази даних історичних ринкових даних для моделювання реальних "
+"сценаріїв. <br><br>Управління ризиком: Впроваджуйте правила управління "
+"ризиком для захисту ваших інвестицій. <br><br>Аналіз продуктивності: "
+"Оцінюйте продуктивність своїх стратегій за допомогою детальних звітів та "
+"показників. <br><br><strong>Як це працює</strong> <br><br>Виберіть свою "
+"стратегію: Виберіть з різних торгових стратегій або створіть свою власну. "
+"<br><br>Налаштуйте параметри: Доточуйте вашу стратегію, вказуючи критерії "
+"входу і виходу, часові рамки та ризик. <br><br>Запустіть бектестінг: Наша "
+"платформа моделюватиме вашу стратегію за допомогою історичних даних, надаючи "
+"вам уявлення про продуктивність. <br><br>Аналіз результатів: Переглядайте "
+"комплексні звіти та показники продуктивності, щоб доточити свою стратегію "
+"далі. <br><br><strong>Чому обирають нас</strong> <br><br>Експертиза: "
+"Користуйтеся експертною компетенцією нашої команди в кастомного бекстестінгу "
+"та фінансовому аналізі. <br><br>Точність даних: Маєте доступ до надійних і "
+"точних історичних ринкових даних. <br><br>Користувачезручність: Наша "
+"платформа розроблена з огляду на зручність використання, що робить її "
+"доступною для трейдерів на будь-якому рівні. <br><br><strong>Приймайте "
+"обґрунтовані рішення</strong> <br><br>За допомогою нашого Спеціального "
+"сервісу кастомного бекстестінгу ви можете приймати обґрунтовані інвестиційні "
+"рішення на основі історичних даних про продуктивність. Незалежно від того, "
+"чи ви досвідчений трейдер чи тільки починаєте, наша платформа допомагає вам "
+"оптимізувати ваші торгові стратегії та максимізувати потенційний прибуток. "
+"<br><br>Почніть свій індивідуальний шлях кастомного бекстестінгу сьогодні та "
+"набудьте впевненості для успіху у світі торгівлі та інвестицій.</"
+"p><h3>Скільки бектестенгів вам потрібно?</h3><p>1 бектестиінг = 1 $</p>"
+"<br>\n"
+#: .\templates\user\deposit.html:77 .\templates\user\deposit.html:156
+msgid "Quantity:"
+msgstr "Кількість:"
+
+#: .\templates\user\deposit.html:81 .\templates\user\deposit.html:160
+msgid "Add to Cart"
+msgstr "Додати до кошика"
+
+#: .\templates\user\deposit.html:88 .\templates\user\deposit.html:167
+msgid "Go to Cart and pay"
+msgstr "Перейдти до кошика та оплатити"
+
+#: .\templates\user\deposit.html:99
+msgid ""
+"\n"
+"          <p>\n"
+"            <strong>Machine Learning-Powered Strategy Optimization</strong> "
+"<br>\n"
+"            <br>\n"
+"            Unlock the full potential of your trading strategies with our "
+"cutting-edge Machine Learning-Powered Strategy\n"
+"            Optimization service. Harness the power of artificial "
+"intelligence to refine and enhance your trading\n"
+"            techniques, ultimately maximizing your investment returns. <br>\n"
+"            <br>\n"
+"            <strong>Why Choose Strategy Optimization?</strong> <br>\n"
+"            <br>\n"
+"            In the dynamic world of financial markets, a well-optimized "
+"trading strategy can make all the difference.\n"
+"            Our\n"
+"            service leverages state-of-the-art machine learning algorithms "
+"to fine-tune your strategies based on\n"
+"            historical market data, adapting to changing market conditions "
+"in real-time. <br>\n"
+"            <br>\n"
+"            <strong>Key Benefits:</strong> <br>\n"
+"            <br>\n"
+"            Enhanced Performance: Achieve superior trading results by "
+"optimizing your strategies for maximum\n"
+"            profitability.\n"
+"            <br>\n"
+"            Risk Mitigation: Minimize potential losses through intelligent "
+"risk assessment and mitigation strategies.\n"
+"            <br>\n"
+"            Data-Driven Insights: Leverage data-driven insights to make "
+"informed trading decisions.\n"
+"            <br>\n"
+"            Adaptive Trading: Stay ahead of market trends with strategies "
+"that adapt to changing conditions. <br>\n"
+"            <br>\n"
+"            <strong>How It Works:</strong> <br>\n"
+"            <br>\n"
+"            Select Your Strategies: Choose the trading strategies you want "
+"to optimize.\n"
+"            <br>\n"
+"            Data Analysis: We analyze historical market data to identify "
+"patterns and trends.\n"
+"            <br>\n"
+"            Machine Learning Optimization: Our AI algorithms optimize your "
+"strategies for optimal performance.\n"
+"            <br>\n"
+"            Real-time Monitoring: Track the performance of your optimized "
+"strategies in real-time. <br>\n"
+"            <br>\n"
+"            <strong>Customized Solutions:</strong> <br>\n"
+"            <br>\n"
+"            Our service is tailored to meet your unique needs. Whether "
+"you're an experienced trader seeking to fine-tune\n"
+"            your existing strategies or a newcomer looking to embark on your "
+"trading journey, we've got you covered.\n"
+"            <br>\n"
+"            <br>\n"
+"            <strong>Experience the Future of Trading:</strong> <br>\n"
+"            <br>\n"
+"            Experience the power of machine learning and artificial "
+"intelligence in optimizing your trading strategies.\n"
+"            Stay ahead of the competition, minimize risks, and maximize your "
+"trading success with our Strategy\n"
+"            Optimization service.\n"
+"            <br>\n"
+"            Take the next step toward achieving your financial goals. "
+"Explore the possibilities of Strategy Optimization\n"
+"            today.\n"
+"          </p>\n"
+"          <h3>How many AI Optimizations you need?</h3>\n"
+"          <p>1 AI Optimization = 5 $</p>\n"
+"        "
+msgstr ""
+"\n"
+"          <p>\n"
+"<strong>Оптимізація стратегій на основі машинного навчання</strong> "
+"<br><br>Розблокуйте повний потенціал ваших торгових стратегій завдяки нашій "
+"передовій послузі Оптимізації стратегій на основі машинного навчання. "
+"Використовуйте силу штучного інтелекту для вдосконалення та покращення "
+"вашого методу торгівлі, в кінцевому підсумку максимізуючи ваши інвестиційні "
+"прибутки. <br><br><strong>Чому обирати оптимізацію стратегій?</strong> "
+"<br><br>У динамічному світі фінансових ринків добре оптимізована торгова "
+"стратегія може зробити велику різницю. Наша послуга використовує передові "
+"алгоритми машинного навчання для налаштування ваших стратегій на основі "
+"історичних ринкових даних, адаптуючись до змінних умов ринку в реальному "
+"часі. <br><br><strong>Основні переваги:</strong> <br><br>Покращена "
+"продуктивність: Досягніть відмінних результатів в торгівлі, оптимізуючи ваші "
+"стратегії для максимальної прибутковості. <br><br>Зменшення ризику: "
+"Мінімізуйте можливі втрати завдяки розумному оцінюванню ризику та стратегіям "
+"мінімізації. <br><br>Інсайти на основі даних: Використовуйте інсайти на "
+"основі даних для прийняття обґрунтованих торгівельних рішень. "
+"<br><br>Адаптивна торгівля: Виходьте вперед перед трендами ринку зі "
+"стратегіями, які адаптуються до зміни умов. <br><br><strong>Як це працює:</"
+"strong> <br><br>Виберіть свої стратегії: Виберіть торгові стратегії, які ви "
+"бажаєте оптимізувати. <br><br>Аналіз даних: Ми аналізуємо історичні ринкові "
+"дані для виявлення патернів і тенденцій. <br><br>Оптимізація машинного "
+"навчання: Наші алгоритми штучного інтелекту оптимізують ваші стратегії для "
+"оптимальної продуктивності. <br><br>Моніторинг в реальному часі: Слідкуйте "
+"за продуктивністю своїх оптимізованих стратегій в реальному часі. "
+"<br><br><strong>Індивідуальні рішення:</strong> <br><br>Наша послуга "
+"налаштовується під ваші унікальні потреби. Незалежно від того, чи ви "
+"досвідчений трейдер, який прагне вдосконалити свої існуючі стратегії, чи "
+"новачок, який готовий розпочати свій шлях у торгівлі, ми вам допоможемо. "
+"<br><br><strong>Досвід майбутнього в торгівлі:</strong> <br><br>Відчуйте "
+"потужність машинного навчання та штучного інтелекту при оптимізації ваших "
+"торгівельних стратегій. Виходьте вперед від конкурентів, мінімізуйте ризики "
+"та максимізуйте свій успіх у торгівлі завдяки нашій послузі Оптимізації "
+"стратегій. <br><br>Зробіть наступний крок на шляху до досягнення своїх "
+"фінансових цілей. Досліджуйте можливості оптимізації стратегій вже сьогодні."
+"</p><h3>Скільки вам потрібно AI Optimizations?</h3><p>1 AI Optimization = 5 "
+"$</p>        "
+
+#: .\templates\user\payment_history.html:5 .\templates\user\profile.html:128
+msgid "Payment history"
+msgstr "Історія платежів"
+
+#: .\templates\user\profile.html:7
+msgid ""
+"\n"
+"        <p style=\"color: green\">Verification email has been sent to your "
+"email.\n"
+"          If not in the all emails section, check your spam folder.</p>\n"
+"<br>\n"
+msgstr ""
+"\n"
+"          <p>Лист з підтвердженням надіслано на вашу електронну пошту.\n"
+"            Якщо вас немає в розділі 'Всі листи', перевірте папку 'Спам'.</"
+"p>\n"
+"<br>\n"
+#: .\templates\user\profile.html:13
+msgid "Welcome to your profile!"
+msgstr "Ласкаво просимо до вашого профілю!"
+
+#: .\templates\user\profile.html:17
+msgid "Personal Data"
+msgstr "Персональні дані"
+
+#: .\templates\user\profile.html:25
+msgid "Username"
+msgstr "Ім'я користувача"
+
+#: .\templates\user\profile.html:27
+msgid "First Name"
+msgstr "Ім'я"
+
+#: .\templates\user\profile.html:28
+msgid "Last Name"
+msgstr "Прізвище"
+
+#: .\templates\user\profile.html:29
+msgid "Gender"
+msgstr "Стать"
+
+#: .\templates\user\profile.html:30
+msgid "Icon"
+msgstr "Іконка"
+
+#: .\templates\user\profile.html:31
+msgid "Phone"
+msgstr "Телефон:"
+
+#: .\templates\user\profile.html:39
+msgid "Enter your email"
+msgstr "Введіть свою електронну адресу"
+
+#: .\templates\user\profile.html:43
+msgid "Save Email"
+msgstr "Електронна пошта"
+
+#: .\templates\user\profile.html:70
+msgid "Verification"
+msgstr "Верифікація"
+
+#: .\templates\user\profile.html:79
+msgid "Verified"
+msgstr "Перевірено"
+
+#: .\templates\user\profile.html:87
+msgid "Verify email"
+msgstr "Підтвердити електронну пошту"
+
+#: .\templates\user\profile.html:98
+msgid "Verify phone"
+msgstr "Підтвердити телефон"
+
+#: .\templates\user\profile.html:111
+msgid "Available instruments"
+msgstr "Доступні інструменти:"
+
+#: .\templates\user\profile.html:115
+#, python-format
+msgid ""
+"%(num_of_backtesting)s custom\n"
+"        backtesting"
+msgstr "%(num_of_backtesting)s власних бектестів"
+
+#: .\templates\user\profile.html:118
+#, fuzzy, python-format
+#| msgid "%(num_of_optimization)s AI Optimizations"
+msgid ""
+"%(num_of_optimization)s AI\n"
+"        Optimizations"
+msgstr "%(num_of_optimization)s AI Optimizations"
+
+#: .\templates\user\profile.html:123
+msgid "Buy More"
+msgstr "Купити ще"
+
+#: .\templates\user\profile.html:147
+msgid "Are you sure you want to log out?"
+msgstr "Ви впевнені, що хочете вийти з системи?"
+
+#: .\templates\user\profile.html:152
+msgid "Log Out"
+msgstr "Вийти з системи"
+
+#: .\venv\Lib\site-packages\click\_termui_impl.py:518
+#, python-brace-format
+msgid "{editor}: Editing failed"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\_termui_impl.py:522
+#, python-brace-format
+msgid "{editor}: Editing failed: {e}"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\core.py:1120
+msgid "Aborted!"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\core.py:1309
+#: .\venv\Lib\site-packages\click\decorators.py:559
+msgid "Show this message and exit."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\core.py:1340
+#: .\venv\Lib\site-packages\click\core.py:1370
+#, python-brace-format
+msgid "(Deprecated) {text}"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\core.py:1387
+msgid "Options"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\core.py:1413
+#, python-brace-format
+msgid "Got unexpected extra argument ({args})"
+msgid_plural "Got unexpected extra arguments ({args})"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\click\core.py:1429
+msgid "DeprecationWarning: The command {name!r} is deprecated."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\core.py:1636
+msgid "Commands"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\core.py:1668
+msgid "Missing command."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\core.py:1746
+msgid "No such command {name!r}."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\core.py:2310
+msgid "Value must be an iterable."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\core.py:2331
+#, python-brace-format
+msgid "Takes {nargs} values but 1 was given."
+msgid_plural "Takes {nargs} values but {len} were given."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\click\core.py:2778
+#, python-brace-format
+msgid "env var: {var}"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\core.py:2808
+msgid "(dynamic)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\core.py:2821
+#, python-brace-format
+msgid "default: {default}"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\core.py:2834
+msgid "required"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\decorators.py:465
+#, python-format
+msgid "%(prog)s, version %(version)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\decorators.py:528
+msgid "Show the version and exit."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\exceptions.py:44
+#: .\venv\Lib\site-packages\click\exceptions.py:80
+#, python-brace-format
+msgid "Error: {message}"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\exceptions.py:72
+#, python-brace-format
+msgid "Try '{command} {option}' for help."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\exceptions.py:121
+#, python-brace-format
+msgid "Invalid value: {message}"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\exceptions.py:123
+#, python-brace-format
+msgid "Invalid value for {param_hint}: {message}"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\exceptions.py:179
+msgid "Missing argument"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\exceptions.py:181
+msgid "Missing option"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\exceptions.py:183
+msgid "Missing parameter"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\exceptions.py:185
+#, python-brace-format
+msgid "Missing {param_type}"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\exceptions.py:192
+#, python-brace-format
+msgid "Missing parameter: {param_name}"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\exceptions.py:212
+#, python-brace-format
+msgid "No such option: {name}"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\exceptions.py:224
+#, python-brace-format
+msgid "Did you mean {possibility}?"
+msgid_plural "(Possible options: {possibilities})"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\click\exceptions.py:262
+msgid "unknown error"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\exceptions.py:269
+msgid "Could not open file {filename!r}: {message}"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\parser.py:231
+msgid "Argument {name!r} takes {nargs} values."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\parser.py:413
+msgid "Option {name!r} does not take a value."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\parser.py:474
+msgid "Option {name!r} requires an argument."
+msgid_plural "Option {name!r} requires {nargs} arguments."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\click\shell_completion.py:319
+msgid "Shell completion is not supported for Bash versions older than 4.4."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\shell_completion.py:326
+msgid "Couldn't detect Bash version, shell completion is not supported."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\termui.py:158
+msgid "Repeat for confirmation"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\termui.py:174
+msgid "Error: The value you entered was invalid."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\termui.py:176
+#, python-brace-format
+msgid "Error: {e.message}"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\termui.py:187
+msgid "Error: The two entered values do not match."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\termui.py:243
+msgid "Error: invalid input"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\termui.py:773
+msgid "Press any key to continue..."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\types.py:266
+#, python-brace-format
+msgid ""
+"Choose from:\n"
+"\t{choices}"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\types.py:298
+msgid "{value!r} is not {choice}."
+msgid_plural "{value!r} is not one of {choices}."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\click\types.py:392
+msgid "{value!r} does not match the format {format}."
+msgid_plural "{value!r} does not match the formats {formats}."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\click\types.py:414
+msgid "{value!r} is not a valid {number_type}."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\types.py:470
+#, python-brace-format
+msgid "{value} is not in the range {range}."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\types.py:611
+msgid "{value!r} is not a valid boolean."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\types.py:635
+msgid "{value!r} is not a valid UUID."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\types.py:822
+msgid "file"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\types.py:824
+msgid "directory"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\types.py:826
+msgid "path"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\types.py:877
+msgid "{name} {filename!r} does not exist."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\types.py:886
+msgid "{name} {filename!r} is a file."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\types.py:894
+#, python-brace-format
+msgid "{name} '{filename}' is a directory."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\types.py:903
+msgid "{name} {filename!r} is not readable."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\types.py:912
+msgid "{name} {filename!r} is not writable."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\types.py:921
+msgid "{name} {filename!r} is not executable."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\types.py:988
+#, python-brace-format
+msgid "{len_type} values are required, but {len_value} was given."
+msgid_plural "{len_type} values are required, but {len_value} were given."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\contrib\messages\apps.py:15
+msgid "Messages"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\contrib\sitemaps\apps.py:8
+msgid "Site Maps"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\contrib\staticfiles\apps.py:9
+msgid "Static Files"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\contrib\syndication\apps.py:7
+msgid "Syndication"
+msgstr ""
+
+#. Translators: String used to replace omitted page numbers in elided page
+#. range generated by paginators, e.g. [1, 2, '…', 5, 6, 7, '…', 9, 10].
+#: .\venv\Lib\site-packages\django\core\paginator.py:30
+msgid "…"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\paginator.py:50
+msgid "That page number is not an integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\paginator.py:52
+msgid "That page number is less than 1"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\paginator.py:54
+msgid "That page contains no results"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:22
+msgid "Enter a valid value."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:104
+#: .\venv\Lib\site-packages\django\forms\fields.py:752
+msgid "Enter a valid URL."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:165
+msgid "Enter a valid integer."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:176
+msgid "Enter a valid email address."
+msgstr ""
+
+#. Translators: "letters" means latin letters: a-z and A-Z.
+#: .\venv\Lib\site-packages\django\core\validators.py:259
+msgid ""
+"Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:267
+msgid ""
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:279
+#: .\venv\Lib\site-packages\django\core\validators.py:287
+#: .\venv\Lib\site-packages\django\core\validators.py:316
+msgid "Enter a valid IPv4 address."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:296
+#: .\venv\Lib\site-packages\django\core\validators.py:317
+msgid "Enter a valid IPv6 address."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:308
+#: .\venv\Lib\site-packages\django\core\validators.py:315
+msgid "Enter a valid IPv4 or IPv6 address."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:351
+msgid "Enter only digits separated by commas."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:357
+#, python-format
+msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:392
+#, python-format
+msgid "Ensure this value is less than or equal to %(limit_value)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:401
+#, python-format
+msgid "Ensure this value is greater than or equal to %(limit_value)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:410
+#, python-format
+msgid "Ensure this value is a multiple of step size %(limit_value)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:420
+#, python-format
+msgid ""
+"Ensure this value has at least %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at least %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:438
+#, python-format
+msgid ""
+"Ensure this value has at most %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at most %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:461
+#: .\venv\Lib\site-packages\django\forms\fields.py:347
+#: .\venv\Lib\site-packages\django\forms\fields.py:386
+msgid "Enter a number."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:463
+#, python-format
+msgid "Ensure that there are no more than %(max)s digit in total."
+msgid_plural "Ensure that there are no more than %(max)s digits in total."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:468
+#, python-format
+msgid "Ensure that there are no more than %(max)s decimal place."
+msgid_plural "Ensure that there are no more than %(max)s decimal places."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:473
+#, python-format
+msgid ""
+"Ensure that there are no more than %(max)s digit before the decimal point."
+msgid_plural ""
+"Ensure that there are no more than %(max)s digits before the decimal point."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:544
+#, python-format
+msgid ""
+"File extension “%(extension)s” is not allowed. Allowed extensions are: "
+"%(allowed_extensions)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:605
+msgid "Null characters are not allowed."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\base.py:1423
+#: .\venv\Lib\site-packages\django\forms\models.py:893
+msgid "and"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\base.py:1425
+#, python-format
+msgid "%(model_name)s with this %(field_labels)s already exists."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\constraints.py:17
+#, python-format
+msgid "Constraint “%(name)s” is violated."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:128
+#, python-format
+msgid "Value %(value)r is not a valid choice."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:129
+msgid "This field cannot be null."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:130
+msgid "This field cannot be blank."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:131
+#, python-format
+msgid "%(model_name)s with this %(field_label)s already exists."
+msgstr ""
+
+#. Translators: The 'lookup_type' is one of 'date', 'year' or
+#. 'month'. Eg: "Title must be unique for pub_date year"
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:135
+#, python-format
+msgid ""
+"%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:173
+#, python-format
+msgid "Field of type: %(field_type)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1094
+#, python-format
+msgid "“%(value)s” value must be either True or False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1095
+#, python-format
+msgid "“%(value)s” value must be either True, False, or None."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1097
+msgid "Boolean (Either True or False)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1147
+#, python-format
+msgid "String (up to %(max_length)s)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1149
+msgid "String (unlimited)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1253
+msgid "Comma-separated integers"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1354
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid date format. It must be in YYYY-MM-DD "
+"format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1358
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1493
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD) but it is an invalid "
+"date."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1362
+msgid "Date (without time)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1489
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1497
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1502
+msgid "Date (with time)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1626
+#, python-format
+msgid "“%(value)s” value must be a decimal number."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1628
+msgid "Decimal number"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1789
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
+"uuuuuu] format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1793
+msgid "Duration"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1845
+msgid "Email address"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1870
+msgid "File path"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1948
+#, python-format
+msgid "“%(value)s” value must be a float."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1950
+msgid "Floating point number"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1990
+#, python-format
+msgid "“%(value)s” value must be an integer."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1992
+msgid "Integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2088
+msgid "Big (8 byte) integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2105
+msgid "Small integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2113
+msgid "IPv4 address"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2144
+msgid "IP address"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2237
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2238
+#, python-format
+msgid "“%(value)s” value must be either None, True or False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2240
+msgid "Boolean (Either True, False or None)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2291
+msgid "Positive big integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2306
+msgid "Positive integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2321
+msgid "Positive small integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2337
+#, python-format
+msgid "Slug (up to %(max_length)s)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2373
+msgid "Text"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2448
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
+"format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2452
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
+"invalid time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2456
+msgid "Time"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2564
+msgid "URL"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2588
+msgid "Raw binary data"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2653
+#, python-format
+msgid "“%(value)s” is not a valid UUID."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2655
+msgid "Universally unique identifier"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\files.py:232
+msgid "File"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\files.py:393
+msgid "Image"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\json.py:26
+msgid "A JSON object"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\json.py:28
+msgid "Value must be valid JSON."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:919
+#, python-format
+msgid "%(model)s instance with %(field)s %(value)r does not exist."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:921
+msgid "Foreign Key (type determined by related field)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1212
+msgid "One-to-one relationship"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1269
+#, python-format
+msgid "%(from)s-%(to)s relationship"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1271
+#, python-format
+msgid "%(from)s-%(to)s relationships"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1319
+msgid "Many-to-many relationship"
+msgstr ""
+
+#. Translators: If found as last label character, these punctuation
+#. characters will prevent the default label_suffix to be appended to the label
+#: .\venv\Lib\site-packages\django\forms\boundfield.py:184
+msgid ":?.!"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:91
+msgid "This field is required."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:298
+msgid "Enter a whole number."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:467
+#: .\venv\Lib\site-packages\django\forms\fields.py:1241
+msgid "Enter a valid date."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:490
+#: .\venv\Lib\site-packages\django\forms\fields.py:1242
+msgid "Enter a valid time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:517
+msgid "Enter a valid date/time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:551
+msgid "Enter a valid duration."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:552
+#, python-brace-format
+msgid "The number of days must be between {min_days} and {max_days}."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:621
+msgid "No file was submitted. Check the encoding type on the form."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:622
+msgid "No file was submitted."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:623
+msgid "The submitted file is empty."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:625
+#, python-format
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid_plural ""
+"Ensure this filename has at most %(max)d characters (it has %(length)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:630
+msgid "Please either submit a file or check the clear checkbox, not both."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:694
+msgid ""
+"Upload a valid image. The file you uploaded was either not an image or a "
+"corrupted image."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:857
+#: .\venv\Lib\site-packages\django\forms\fields.py:949
+#: .\venv\Lib\site-packages\django\forms\models.py:1566
+#, python-format
+msgid "Select a valid choice. %(value)s is not one of the available choices."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:951
+#: .\venv\Lib\site-packages\django\forms\fields.py:1070
+#: .\venv\Lib\site-packages\django\forms\models.py:1564
+msgid "Enter a list of values."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:1071
+msgid "Enter a complete value."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:1310
+msgid "Enter a valid UUID."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:1340
+msgid "Enter a valid JSON."
+msgstr ""
+
+#. Translators: This is the default suffix added to form field labels
+#: .\venv\Lib\site-packages\django\forms\forms.py:98
+msgid ":"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\forms.py:244
+#: .\venv\Lib\site-packages\django\forms\forms.py:328
+#, python-format
+msgid "(Hidden field %(name)s) %(error)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:63
+#, python-format
+msgid ""
+"ManagementForm data is missing or has been tampered with. Missing fields: "
+"%(field_names)s. You may need to file a bug report if the issue persists."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:67
+#, python-format
+msgid "Please submit at most %(num)d form."
+msgid_plural "Please submit at most %(num)d forms."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:72
+#, python-format
+msgid "Please submit at least %(num)d form."
+msgid_plural "Please submit at least %(num)d forms."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:484
+#: .\venv\Lib\site-packages\django\forms\formsets.py:491
+msgid "Order"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:499
+msgid "Delete"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:886
+#, python-format
+msgid "Please correct the duplicate data for %(field)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:891
+#, python-format
+msgid "Please correct the duplicate data for %(field)s, which must be unique."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:898
+#, python-format
+msgid ""
+"Please correct the duplicate data for %(field_name)s which must be unique "
+"for the %(lookup)s in %(date_field)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:907
+msgid "Please correct the duplicate values below."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:1338
+msgid "The inline value did not match the parent instance."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:1429
+msgid "Select a valid choice. That choice is not one of the available choices."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:1568
+#, python-format
+msgid "“%(pk)s” is not a valid value."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\utils.py:226
+#, python-format
+msgid ""
+"%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; it "
+"may be ambiguous or it may not exist."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:463
+msgid "Clear"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:464
+msgid "Currently"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:465
+msgid "Change"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:794
+msgid "Unknown"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:795
+msgid "Yes"
+msgstr "Так"
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:796
+msgid "No"
+msgstr ""
+
+#. Translators: Please do not add spaces around commas.
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:861
+msgid "yes,no,maybe"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:891
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:908
+#, python-format
+msgid "%(size)d byte"
+msgid_plural "%(size)d bytes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:910
+#, python-format
+msgid "%s KB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:912
+#, python-format
+msgid "%s MB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:914
+#, python-format
+msgid "%s GB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:916
+#, python-format
+msgid "%s TB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:918
+#, python-format
+msgid "%s PB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:73
+msgid "p.m."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:74
+msgid "a.m."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:79
+msgid "PM"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:80
+msgid "AM"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:152
+msgid "midnight"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:154
+msgid "noon"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:7
+msgid "Monday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:8
+msgid "Tuesday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:9
+msgid "Wednesday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:10
+msgid "Thursday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:11
+msgid "Friday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:12
+msgid "Saturday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:13
+msgid "Sunday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:16
+msgid "Mon"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:17
+msgid "Tue"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:18
+msgid "Wed"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:19
+msgid "Thu"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:20
+msgid "Fri"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:21
+msgid "Sat"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:22
+msgid "Sun"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:25
+msgid "January"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:26
+msgid "February"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:27
+msgid "March"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:28
+msgid "April"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:29
+msgid "May"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:30
+msgid "June"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:31
+msgid "July"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:32
+msgid "August"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:33
+msgid "September"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:34
+msgid "October"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:35
+msgid "November"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:36
+msgid "December"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:39
+msgid "jan"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:40
+msgid "feb"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:41
+msgid "mar"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:42
+msgid "apr"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:43
+msgid "may"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:44
+msgid "jun"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:45
+msgid "jul"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:46
+msgid "aug"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:47
+msgid "sep"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:48
+msgid "oct"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:49
+msgid "nov"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:50
+msgid "dec"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:53
+msgctxt "abbrev. month"
+msgid "Jan."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:54
+msgctxt "abbrev. month"
+msgid "Feb."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:55
+msgctxt "abbrev. month"
+msgid "March"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:56
+msgctxt "abbrev. month"
+msgid "April"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:57
+msgctxt "abbrev. month"
+msgid "May"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:58
+msgctxt "abbrev. month"
+msgid "June"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:59
+msgctxt "abbrev. month"
+msgid "July"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:60
+msgctxt "abbrev. month"
+msgid "Aug."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:61
+msgctxt "abbrev. month"
+msgid "Sept."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:62
+msgctxt "abbrev. month"
+msgid "Oct."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:63
+msgctxt "abbrev. month"
+msgid "Nov."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:64
+msgctxt "abbrev. month"
+msgid "Dec."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:67
+msgctxt "alt. month"
+msgid "January"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:68
+msgctxt "alt. month"
+msgid "February"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:69
+msgctxt "alt. month"
+msgid "March"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:70
+msgctxt "alt. month"
+msgid "April"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:71
+msgctxt "alt. month"
+msgid "May"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:72
+msgctxt "alt. month"
+msgid "June"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:73
+msgctxt "alt. month"
+msgid "July"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:74
+msgctxt "alt. month"
+msgid "August"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:75
+msgctxt "alt. month"
+msgid "September"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:76
+msgctxt "alt. month"
+msgid "October"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:77
+msgctxt "alt. month"
+msgid "November"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:78
+msgctxt "alt. month"
+msgid "December"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\ipv6.py:8
+msgid "This is not a valid IPv6 address."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\text.py:78
+#, python-format
+msgctxt "String to return when truncating text"
+msgid "%(truncated_text)s…"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\text.py:254
+msgid "or"
+msgstr ""
+
+#. Translators: This string is used as a separator between list elements
+#: .\venv\Lib\site-packages\django\utils\text.py:273
+#: .\venv\Lib\site-packages\django\utils\timesince.py:135
+msgid ", "
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:8
+#, python-format
+msgid "%(num)d year"
+msgid_plural "%(num)d years"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:9
+#, python-format
+msgid "%(num)d month"
+msgid_plural "%(num)d months"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:10
+#, python-format
+msgid "%(num)d week"
+msgid_plural "%(num)d weeks"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:11
+#, python-format
+msgid "%(num)d day"
+msgid_plural "%(num)d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:12
+#, python-format
+msgid "%(num)d hour"
+msgid_plural "%(num)d hours"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:13
+#, python-format
+msgid "%(num)d minute"
+msgid_plural "%(num)d minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:111
+msgid "Forbidden"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:112
+msgid "CSRF verification failed. Request aborted."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:116
+msgid ""
+"You are seeing this message because this HTTPS site requires a “Referer "
+"header” to be sent by your web browser, but none was sent. This header is "
+"required for security reasons, to ensure that your browser is not being "
+"hijacked by third parties."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:122
+msgid ""
+"If you have configured your browser to disable “Referer” headers, please re-"
+"enable them, at least for this site, or for HTTPS connections, or for “same-"
+"origin” requests."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:127
+msgid ""
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the “Referrer-Policy: no-referrer” header, please remove them. The "
+"CSRF protection requires the “Referer” header to do strict referer checking. "
+"If you’re concerned about privacy, use alternatives like <a rel=\"noreferrer"
+"\" …> for links to third-party sites."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:136
+msgid ""
+"You are seeing this message because this site requires a CSRF cookie when "
+"submitting forms. This cookie is required for security reasons, to ensure "
+"that your browser is not being hijacked by third parties."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:142
+msgid ""
+"If you have configured your browser to disable cookies, please re-enable "
+"them, at least for this site, or for “same-origin” requests."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:148
+msgid "More information is available with DEBUG=True."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:44
+msgid "No year specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:64
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:115
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:214
+msgid "Date out of range"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:94
+msgid "No month specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:147
+msgid "No day specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:194
+msgid "No week specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:349
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:380
+#, python-format
+msgid "No %(verbose_name_plural)s available"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:652
+#, python-format
+msgid ""
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:692
+#, python-format
+msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\detail.py:56
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\list.py:70
+msgid "Page is not “last”, nor can it be converted to an int."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\list.py:77
+#, python-format
+msgid "Invalid page (%(page_number)s): %(message)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\list.py:169
+#, python-format
+msgid "Empty list and “%(class_name)s.allow_empty” is False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\static.py:38
+msgid "Directory indexes are not allowed here."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\static.py:40
+#, python-format
+msgid "“%(path)s” does not exist"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\static.py:79
+#, python-format
+msgid "Index of %(directory)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:7
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:220
+msgid "The install worked successfully! Congratulations!"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:206
+#, python-format
+msgid ""
+"View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
+"target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:221
+#, python-format
+msgid ""
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" rel=\"noopener"
+"\">DEBUG=True</a> is in your settings file and you have not configured any "
+"URLs."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:229
+msgid "Django Documentation"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:230
+msgid "Topics, references, &amp; how-to’s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:238
+msgid "Tutorial: A Polling App"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:239
+msgid "Get started with Django"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:247
+msgid "Django Community"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:248
+msgid "Connect, get help, or contribute"
+msgstr ""
+
+#: .\venv\Lib\site-packages\test\integ\test_sendgrid.py:333
+#: .\venv\Lib\site-packages\test\integ\test_sendgrid.py:340
+#: .\venv\Lib\site-packages\test\integ\test_sendgrid.py:347
+msgid "global"
+msgstr ""
+
+#~ msgid "Support"
+#~ msgstr "Підтримка"
+
+#~ msgid "Logout"
+#~ msgstr "Вийти"
+
+#~ msgid "Your Сustom settings"
+#~ msgstr "Ваші користувацькі налаштування"
+
+#~ msgid "Backtesting Results on your custom settings:"
+#~ msgstr ""
+#~ "Результати тестування на історичних даних за вашими користувацькими "
+#~ "налаштуваннями:"
+
+#~ msgid "Save Settings"
+#~ msgstr "Зберегти налаштування"
+
+#~ msgid "Wait for the end of the Backtest..."
+#~ msgstr "Зачекайте завершення тестування на історичних даних..."
+
+#~ msgid "Want to use this ML optimized strategy on your real account?"
+#~ msgstr ""
+#~ "Бажаєте використовувати цю оптимізовану стратегію на вашому реальному "
+#~ "рахунку?"
+
+#~ msgid "To view our content, please register or log in."
+#~ msgstr ""
+#~ "Для перегляду нашого вмісту, будь ласка, зареєструйтесь або увійдіть"
+
+#~ msgid "Your username and password didn't match. Please try again."
+#~ msgstr "Ваш логін і пароль не вірні. Будь ласка, спробуйте ще раз."
+
+#~ msgid "Welcome to your basket!"
+#~ msgstr "Ласкаво просимо до вашого кошика!"
+
+#~ msgid ""
+#~ "\n"
+#~ "        <p>\n"
+#~ "        This comprehensive service harnesses the formidable capabilities "
+#~ "of our <strong>ATS</strong> to provide you with\n"
+#~ "        a holistic\n"
+#~ "        trading experience:<br>\n"
+#~ "        <br>\n"
+#~ "        <strong>Rigorous Backtesting:</strong> Utilize historical data "
+#~ "analysis to thoroughly assess the performance of\n"
+#~ "        your chosen\n"
+#~ "        trading pair. Understand how your strategy would have fared in "
+#~ "various market conditions, ensuring it's robust\n"
+#~ "        and reliable.<br>\n"
+#~ "        <br>\n"
+#~ "        <strong>Precision Optimization:</strong> Employ cutting-edge "
+#~ "machine learning algorithms to fine-tune every\n"
+#~ "        aspect of your\n"
+#~ "        trading strategy. This data-driven approach maximizes "
+#~ "profitability and minimizes risk, giving you a competitive\n"
+#~ "        edge in the market.<br>\n"
+#~ "        <br>\n"
+#~ "        <strong>Seamless Execution:</strong> With Dexima ATS, you can "
+#~ "execute your optimized strategies directly on the\n"
+#~ "        exchange of your\n"
+#~ "        choice. Take advantage of real-time trading opportunities and "
+#~ "maintain complete control over your portfolio.<br>\n"
+#~ "        <br>\n"
+#~ "        <strong>Customization:</strong> Tailor your trading experience to "
+#~ "your preferences and risk tolerance. Dexima\n"
+#~ "        ATS offers\n"
+#~ "        flexibility in selecting the trading pair that aligns with your "
+#~ "investment goals and strategies.<br>\n"
+#~ "        <br>\n"
+#~ "        <strong>Continuous Monitoring:</strong> Benefit from our system's "
+#~ "24/7 monitoring capabilities, ensuring your\n"
+#~ "        strategies are\n"
+#~ "        always aligned with market dynamics and ready to capitalize on "
+#~ "emerging trends.\n"
+#~ "      "
+#~ msgstr ""
+#~ "\n"
+#~ "        <p>\n"
+#~ " Цей всеосяжний сервіс використовує потужні можливості нашої <strong>AТС</"
+#~ "strong>, щоб надати вам всебічний досвід торгівлі:<br><br>       "
+#~ "<strong>Ретельний Бектестінг:</strong> Використовуйте аналіз історичних "
+#~ "даних для докладної оцінки продуктивності вашої обраної торгівельної "
+#~ "пари. Розумійте, як б ваша стратегія справлялася в різних ринкових "
+#~ "умовах, переконуючись, що вона є стійкою та надійною.<br><br>        "
+#~ "<strong>Точна Оптимізація:</strong> Використовуйте передові алгоритми "
+#~ "машинного навчання, щоб налаштувати кожний аспект вашої торгівельної "
+#~ "стратегії. Цей підхід, заснований на даних, максимізує прибутковість та "
+#~ "мінімізує ризик, надаючи вам конкурентну перевагу на ринку.<br><br>       "
+#~ "<strong>Безперешкодне Виконання:</strong> З Дексіма АТС ви можете "
+#~ "безперешкодно виконувати свої оптимізовані стратегії на обміні, який ви "
+#~ "обрали. Використовуйте можливості торгівлі в реальному часі та зберігайте "
+#~ "повний контроль над своїм портфелем.<br><br>       <strong>Налаштування:</"
+#~ "strong> Налаштуйте ваш досвід торгівлі під ваші вподобання та рівень "
+#~ "ризику. Дексіма АТС пропонує гнучкість у виборі торгівельної пари, яка "
+#~ "відповідає вашим інвестиційним цілям і стратегіям.<br><br>       "
+#~ "<strong>Постійний Моніторинг:</strong> Споживайте перевагу від "
+#~ "можливостей системи 24/7 моніторингу Дексіма АТС, яка забезпечує те, що "
+#~ "ваші стратегії завжди відповідають динаміці ринку і готові капіталізувати "
+#~ "на нових тенденціях.      "
+
+#~ msgid "Pair:"
+#~ msgstr "Пара:"
+
+#~ msgid "Search"
+#~ msgstr "Пошук"
+
+#~ msgid "Click here to see all pairs"
+#~ msgstr "Натисніть сюди, щоб побачити усі пари"
+
+#~ msgid "Submit"
+#~ msgstr "Відправити"

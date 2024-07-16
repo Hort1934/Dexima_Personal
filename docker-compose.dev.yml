@@ -1,0 +1,101 @@
+version: '3'
+
+services:
+  redis:
+    image: redis:latest
+    container_name: redis
+    depends_on:
+      - main_service
+    networks:
+      - backend-network
+
+  main_service:
+    container_name: backend-app
+    build:
+      context: ./main
+    env_file:
+      - ./main/.env
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:80"
+    networks:
+      - backend-network
+    volumes:
+      - ./main:/app/
+    ports:
+      - "8000:80"
+
+#  celery_worker:
+#    container_name: celery-worker
+#    build:
+#      context: ./main
+#    command: celery -A dexima_ats_web_service worker -l INFO
+#    networks:
+#      - backend-network
+#    depends_on:
+#      - redis
+#    volumes:
+#      - ./main:/app/
+#
+#  celery_beat:
+#    container_name: celery-beat
+#    build:
+#      context: ./main
+#    command: celery -A dexima_ats_web_service beat -l INFO
+#    networks:
+#      - backend-network
+#    depends_on:
+#      - redis
+#      - celery_worker
+#    volumes:
+#      - ./main:/app/
+  
+  grid_service:
+    container_name: backend-grid-service
+    build:
+      context: ./grid/backtester_and_optimizer
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:80"
+    depends_on:
+      - main_service
+    networks:
+      - backend-network
+    volumes:
+      - ./grid/backtester_and_optimizer:/app/
+  
+  grid_bot:
+    container_name: backend-grid-bot
+    build:
+      context: ./grid/bot
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:80"
+    depends_on:
+      - main_service
+    networks:
+      - backend-network
+    volumes:
+      - ./grid/bot:/app/
+
+  jumper_service:
+    container_name: backend-jumper-service
+    build:
+      context: ./jumper/backtester_and_optimizer
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:80"
+    depends_on:
+      - main_service
+    networks:
+      - backend-network
+    volumes:
+      - ./jumper/backtester_and_optimizer:/app/
+  
+  jumper_bot:
+    container_name: backend-jumper-bot
+    build:
+      context: ./jumper/bot
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:80"
+    depends_on:
+      - main_service
+    networks:
+      - backend-network
+    volumes:
+      - ./jumper/bot:/app/
+
+networks:
+  backend-network:
+    name: backend-network

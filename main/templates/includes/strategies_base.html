@@ -1,0 +1,37 @@
+{% load static %}
+{% load i18n %}
+<div class="index">
+  <input type="hidden" name="chosen_strategy" value="{{ chosen_strategy }}">
+  <h6>
+    <br>
+    {% trans "CHOOSE STRATEGY" %} <br>
+    <br>
+  </h6>
+</div>
+{% if not strategy_selected %}
+  <form method="post" action="{% url 'main_service:ai_optimizer' %}">
+    {% csrf_token %}
+    <div class="strategy-container">
+      {% for strategy, details in strategies.items %}
+        <form method="post" action="{% url 'main_service:ai_optimizer' %}">
+          {% csrf_token %}
+          <div class="strategy-block">
+            <button type="submit" class="btn btn-main btn-main-white"
+                    name={{ strategy|replace_and_upper }}>{{ strategy|replace_and_upper }}</button>
+            {#            <button type="submit" class="btn btn-main btn-main-white" name={{ strategy }}><img#}
+            {#                src="{% static 'images/strategies/'|add:strategy|add:'.png' %}" alt="{{ strategy }}"></button>#}
+          </div>
+
+        </form>
+      {% endfor %}
+
+    </div>
+  </form>
+{% else %}
+  <div class="index">
+          <input type="hidden" name="chosen_strategy" value="{{ chosen_strategy }}">
+          <h6 style="color: #43D510">
+            {{ strategy_selected }}
+          </h6>
+        </div>
+{% endif %}

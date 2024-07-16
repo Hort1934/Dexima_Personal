@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% block content %}
+
+
+<div class="container-login">
+  <br>
+  <h1 class="center-content login-name">{% trans "Login" %}</h1>
+  {% if next %}
+  <p>{% trans "Please login to see this page." %}</p>
+  {% endif %}
+  <div class="container-form-login">
+    <form method="post" action="{% url 'login' %}" class="login-form">
+      {% csrf_token %}
+      {{ form.username|as_crispy_field }}
+      <div class="password-input-container">
+        {{ form.password|as_crispy_field }}
+        <div class="toggle-password" id="show_password">
+          <i class="fa fa-eye"></i>
+        </div>
+      </div>
+      {% if form.errors %}
+      <p class="login-error">{% trans "Username or password is incorrect." %}</p>
+      {% endif %}
+      <div class="center-content">
+        <input type="submit" value="Login" class="login-button"/>
+      </div>
+        <br>
+        <div class="center-content">
+            <a href="{% url 'register' %}" class="register-button">CREATE NEW<br>ACCOUNT</a>
+        </div>
+      <input type="hidden" name="next" value="{{ next }}"/>
+    </form>
+
+    <p><a href="{% url 'password_reset' %}">Forgotten your password?</a></p>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $('#show_password').click(function () {
+      var passwordField1 = $('#id_password');
+      var passwordFieldType1 = passwordField1.attr('type');
+      if (passwordFieldType1 === 'password') {
+        passwordField1.attr('type', 'text');
+        $(this).html('<i class="fa fa-eye-slash"></i>');
+      } else {
+        passwordField1.attr('type', 'password');
+        $(this).html('<i class="fa  fa-eye"></i>');
+      }
+    });
+
+  });
+</script>
+<style>
+  .toggle-password {
+    position: absolute;
+    top: 47%;
+    left: -10%;
+    cursor: pointer;
+  }
+
+  /* Стили для центрирования формы */
+  .container-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 30vh; /* 100% высоты видимой области */
+    margin-bottom: 200px;
+  }
+
+  .container-form-login {
+    color: black;
+  }
+
+  .login-name {
+    color: unset;
+  }
+
+  /* Стили для формы */
+  .login-form {
+    width: 400px; /* Ширина формы */
+    padding: 50px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .password-input-container {
+    position: relative;
+  }
+
+  /* Стили для кнопки */
+  .login-button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+    .register-button {
+    text-decoration: none !important;
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 1px 2px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .register-button:hover {
+    color: white;
+  }
+
+  /* Стили для ошибок */
+  .login-error {
+    color: red;
+  }
+</style>
+{% endblock %}

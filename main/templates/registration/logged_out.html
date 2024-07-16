@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+<p>{% trans "Logged out!"%}</p>
+
+<a href="{% url 'login'%}" style="color: black;">{% trans "Click here to login again."%}</a>
+{% endblock %}

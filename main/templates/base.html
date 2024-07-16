@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+{% load static %}
+{% load i18n %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dexima Web Service</title>
+  <link rel="stylesheet" href="{% static 'css/choices.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+{#  <link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/rouse-sans" type="text/css"/>#}
+  <link rel="icon" href="/static/images/favicon.svg">
+  <link rel="stylesheet" href="{% static 'css/mobileStopButton.css' %}">
+</head>
+
+<body>
+<!-- Your page content goes here -->
+<div class="wrapper">
+  <header class="header-style"> {% include "header.html" %}</header>
+  <main>
+    <div class="container mt-5">
+        <!-- Alert message -->
+        {% if user_message %}
+            <div style="text-align: center"
+                 class="alert {% if 'expired' in user_message %}alert-danger{% elif 'registration' in user_message %}alert-success{% else %}alert-warning{% endif %}"
+                 role="alert">
+                {{ user_message }}
+            </div>
+        {% endif %}
+      <div class="row">
+
+        <div class="col-md-12">
+
+
+          {% block content %}
+          {% endblock %}
+
+        </div>
+      </div>
+    </div>
+  </main>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+{#  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>#}
+  {#  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>#}
+
+</div>
+{% include "footer.html" %}
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>$(document).ready(function () {
+
+    const userTheme = localStorage.getItem('theme');
+    if (userTheme) {
+        $('body').addClass(userTheme); // Apply the stored theme
+    } else {
+        $('body').addClass('light-theme'); // Default theme (white) if no preference is set
+    }
+
+    $('#theme-toggle').click(function () {
+        // Toggle between dark and light themes
+        $('body').toggleClass('dark-theme light-theme');
+
+        // Store the user's theme preference in local storage
+        const currentTheme = $('body').hasClass('dark-theme') ? 'dark-theme' : 'light-theme';
+        localStorage.setItem('theme', currentTheme);
+
+        // Handle button color change here
+        if ($('body').hasClass('dark-theme')) {
+            $('.btn.btn-main').removeClass('btn-main-white');
+        } else {
+            $('.btn.btn-main').addClass('btn-main-white');
+        }
+    });
+});
+
+const sunImg = document.querySelector('#theme-toggle')
+
+sunImg.addEventListener('click', function (e) {
+    let themFromLocalStorage = localStorage.getItem('theme')
+    let themForSrc = themFromLocalStorage === 'dark-theme' ? "moon" : "sun"
+    // this.src = `/static/images/${themForSrc}.png`
+})
+
+
+function confirmExchange(exchange) {
+    const modal = $('#exchangeModal');
+    const modalTitle = modal.find('.modal-title');
+    const modalBody = modal.find('.modal-body');
+    const modalLink = document.getElementById('exchangeModalLink');
+
+    let modalText = '';
+    let registrationLink = ''; // Создаем переменную для хранения ссылки на регистрацию
+
+
+    if (exchange === 'binance') {
+        modalText = '{% trans "Make sure you have an account on Binance." %}';
+        modalLink.href = 'https://accounts.binance.com/ru-UA/register?registerChannel=&return_to=aHR0cHM6Ly93d3cuYmluYW5jZS5jb20vcnUtVUEvbXkvZGFzaGJvYXJk';
+    } else if (exchange === 'bybit') {
+        modalText = '{% trans "Make sure you have an account on Bybit." %}';
+        modalLink.href = 'https://www.bybit.com/en-US/register';
+    } else if (exchange === 'ku_coin') {
+        modalText = '{% trans "Make sure you have an account on KuCoin." %}';
+        modalLink.href = 'https://www.kucoin.com/ru/ucenter/signup';
+    }
+
+    modalTitle.text('Confirmation');
+    modalBody.text(modalText);
+
+    // Добавляем ссылку на регистрацию в атрибут href
+    const registerButton = modal.find('.exchangeModalLink');
+    registerButton.attr('href', registrationLink);
+
+    modal.on('hidden.bs.modal', function () {
+        // После закрытия модального окна, выполните перенаправление
+        window.location.href = '/' + exchange + '/';
+    });
+
+    modal.modal('show');
+}
+
+</script>
+
+</body>
+
+</html>

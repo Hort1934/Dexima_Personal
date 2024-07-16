@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+
+  {% if start %}
+    <h1 style="text-align: center"> {% trans "Optimization options" %}</h1>
+    <br>
+    {% blocktrans %}
+      <p><strong>Interval:</strong> Percentage of the trading instrument price on the basis of which take profits and
+        stop
+        losses are calculated in %.</p>
+    {% endblocktrans %}
+    <p>{% trans "<strong>Start balance:</strong> Your started balance in $." %}</p>
+    <p>{% trans "<strong>Days of backtest:</strong> Desired number of days from today for backtesting." %}</p>
+  {% elif not start %}
+    <h1 style="text-align: center"> {% trans "What is a Tango Strategy?" %}</h1>
+    <p>
+      {% blocktrans %}
+        The Tango strategy is a dynamic market response system tailored to capitalize on both upward and downward price
+        movements.
+      {% endblocktrans %}
+    </p>
+    {% blocktrans %}
+      <p>
+        Here's how it works:<br>
+        <br>
+        <strong>Market Direction Determination:</strong> The strategy first gauges the market's potential direction. It
+        does this by
+        setting two trigger prices, equidistant from the current market price: one above and one below. The distance
+        from
+        the current price is determined as a certain percentage of the primary price. <br>
+        <br>
+        <strong>Position Entry:</strong> The Tango strategy patiently waits until the market price reaches either of these
+        trigger points.
+        When the lower trigger price is hit, a short position is initiated, predicting a potential decline. Conversely,
+        when the higher price is reached, the strategy goes long, anticipating a surge. <br>
+        <br>
+        <strong>Profit and Risk Management:</strong> After entering a position, the strategy implements a dual mechanism
+        for both
+        profit-taking and risk management. A take-profit and a stop-loss are set, each spaced at the same interval as
+        the
+        initial trigger points. <br>
+        <br>
+        <strong>Re-entry After Profit:</strong> In the event of the take-profit being hit, the strategy takes this as a
+        confirmation of its
+        market prediction and re-enters the position in the same direction. This cycle repeats until a stop-loss is
+        triggered. <br>
+        <br>
+        <strong>Position Reversal:</strong> If a stop-loss is activated, indicating a possible misjudgment of the
+        market's
+        direction, the
+        Tango strategy swiftly changes tack. It enters a position in the opposite direction, adjusting to the new market
+        sentiment. <br>
+        <br>
+        In essence, the Tango strategy is a continuous loop of making informed predictions, reaping profits, and
+        efficiently
+        managing risks. Its beauty lies in its adaptability, always ready to make the most out of whichever direction
+        the
+        market sways.
+      </p>
+      <br>
+    {% endblocktrans %}
+
+    {% include "includes/lets_make_ml_strategy.html" %}
+  {% endif %}
+  {% include "includes/backtest_and_optimization.html" %}
+{% endblock %}
